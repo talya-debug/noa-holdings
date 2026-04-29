@@ -1,0 +1,67 @@
+{
+  "file": "HASOLELIM -בינוי קומה 10 (1).pdf",
+  "metadata": {
+    "page_size": {
+      "width": 3370.0,
+      "height": 2384.0
+    },
+    "rotation": 270,
+    "mediabox": [
+      0.0,
+      0.0,
+      2384.0,
+      3370.0
+    ],
+    "plan_type": "electrical-lighting",
+    "plan_type_confidence": "detected",
+    "scale": "1:50",
+    "title": "Wh ‏תכנית‎"
+  },
+  "statistics": {
+    "total_paths": 207366,
+    "paths_by_color": {
+      "grey": 135789,
+      "black": 42178,
+      "blue": 584,
+      "orange": 305,
+      "rgb(0.60,0.11,0.12)": 160,
+      "red": 26168,
+      "rgb(1.00,1.00,0.32)": 32,
+      "rgb(0.29,0.38,0.71)": 232,
+      "rgb(0.82,0.61,0.78)": 18,
+      "green": 24,
+      "rgb(0.97,0.95,0.51)": 4,
+      "rgb(0.01,0.53,0.07)": 8,
+      "yellow": 20,
+      "rgb(0.65,0.43,0.87)": 28,
+      "white": 1588,
+      "rgb(0.16,0.19,0.54)": 21,
+      "rgb(0.39,0.39,0.40)": 202,
+      "none": 5
+    },
+    "ocr_regions_found": [
+      "title_block",
+      "legend_tables_top",
+      "legend_tables_mid",
+      "legend_symbols",
+      "plan_right",
+      "plan_left"
+    ],
+    "total_ocr_chars": 9311
+  },
+  "legend": null,
+  "symbols": {
+    "black": {
+      "clusters": 236,
+      "small_filled": 708
+    },
+    "red": {
+      "clusters": 16,
+      "small_filled": 20
+    },
+    "green": {
+      "clusters": 4,
+      "small_filled": 24
+    }
+  }
+}

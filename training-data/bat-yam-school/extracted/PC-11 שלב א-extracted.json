@@ -1,0 +1,3977 @@
+{
+  "file": "PC-11 שלב א.pdf",
+  "metadata": {
+    "page_size": {
+      "width": 4876.0,
+      "height": 2013.0
+    },
+    "rotation": 0,
+    "mediabox": [
+      0.0,
+      0.0,
+      4876.0,
+      2013.0
+    ],
+    "plan_type": "architecture",
+    "plan_type_confidence": "detected",
+    "scale": "1:50",
+    "title": "לבדו באחראיות המקצועית והחוקית לתכנית. 5"
+  },
+  "geometry": {
+    "black": {
+      "count": 247252,
+      "total_length_pts": 457757.7,
+      "details": [
+        {
+          "bbox": [
+            4686.0,
+            1765.3,
+            4692.0,
+            1775.2
+          ],
+          "length_pts": 25.3,
+          "width": 0.72,
+          "filled": false,
+          "items": 10
+        },
+        {
+          "bbox": [
+            4694.5,
+            1765.3,
+            4700.5,
+            1775.2
+          ],
+          "length_pts": 20.1,
+          "width": 0.72,
+          "filled": false,
+          "items": 9
+        },
+        {
+          "bbox": [
+            4703.0,
+            1770.2,
+            4708.1,
+            1770.2
+          ],
+          "length_pts": 5.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4710.7,
+            1765.3,
+            4714.1,
+            1775.2
+          ],
+          "length_pts": 14.2,
+          "width": 0.72,
+          "filled": false,
+          "items": 2
+        },
+        {
+          "bbox": [
+            4716.6,
+            1765.3,
+            4720.1,
+            1775.2
+          ],
+          "length_pts": 14.3,
+          "width": 0.72,
+          "filled": false,
+          "items": 2
+        },
+        {
+          "bbox": [
+            4512.6,
+            1039.0,
+            4512.7,
+            1039.3
+          ],
+          "length_pts": 0.4,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4513.1,
+            1040.4,
+            4513.4,
+            1041.0
+          ],
+          "length_pts": 0.7,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4513.6,
+            1041.8,
+            4514.0,
+            1042.8
+          ],
+          "length_pts": 1.1,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4513.9,
+            1043.2,
+            4514.8,
+            1044.5
+          ],
+          "length_pts": 1.6,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4514.4,
+            1044.6,
+            4515.4,
+            1046.2
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4514.9,
+            1046.0,
+            4516.0,
+            1048.0
+          ],
+          "length_pts": 2.2,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4515.4,
+            1047.4,
+            4516.7,
+            1049.6
+          ],
+          "length_pts": 2.6,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4515.8,
+            1048.8,
+            4517.3,
+            1051.3
+          ],
+          "length_pts": 2.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4516.3,
+            1050.2,
+            4518.0,
+            1053.1
+          ],
+          "length_pts": 3.3,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4516.8,
+            1051.6,
+            4518.6,
+            1054.8
+          ],
+          "length_pts": 3.7,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4517.3,
+            1053.0,
+            4519.3,
+            1056.5
+          ],
+          "length_pts": 4.0,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4517.8,
+            1054.3,
+            4519.9,
+            1058.3
+          ],
+          "length_pts": 4.5,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4518.1,
+            1055.8,
+            4520.6,
+            1060.0
+          ],
+          "length_pts": 4.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4518.6,
+            1057.2,
+            4521.2,
+            1061.6
+          ],
+          "length_pts": 5.2,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4519.1,
+            1058.5,
+            4521.8,
+            1063.4
+          ],
+          "length_pts": 5.6,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4519.6,
+            1060.0,
+            4522.6,
+            1065.1
+          ],
+          "length_pts": 6.0,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4520.0,
+            1061.4,
+            4523.2,
+            1066.8
+          ],
+          "length_pts": 6.2,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4520.5,
+            1062.7,
+            4523.9,
+            1068.6
+          ],
+          "length_pts": 6.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4521.0,
+            1064.2,
+            4524.5,
+            1070.3
+          ],
+          "length_pts": 7.0,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4521.5,
+            1065.5,
+            4525.2,
+            1072.0
+          ],
+          "length_pts": 7.5,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4522.0,
+            1066.9,
+            4525.8,
+            1073.8
+          ],
+          "length_pts": 7.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4522.3,
+            1068.4,
+            4526.4,
+            1075.4
+          ],
+          "length_pts": 8.2,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4522.8,
+            1069.7,
+            4527.1,
+            1077.1
+          ],
+          "length_pts": 8.6,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4523.3,
+            1071.1,
+            4527.7,
+            1078.9
+          ],
+          "length_pts": 9.0,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4523.8,
+            1072.6,
+            4528.4,
+            1080.6
+          ],
+          "length_pts": 9.3,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4524.2,
+            1073.9,
+            4529.0,
+            1082.3
+          ],
+          "length_pts": 9.7,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4524.7,
+            1075.3,
+            4529.8,
+            1084.1
+          ],
+          "length_pts": 10.1,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4525.2,
+            1076.6,
+            4530.4,
+            1085.8
+          ],
+          "length_pts": 10.5,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4525.7,
+            1078.1,
+            4531.0,
+            1087.4
+          ],
+          "length_pts": 10.7,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4526.2,
+            1079.5,
+            4531.7,
+            1089.2
+          ],
+          "length_pts": 11.2,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4526.5,
+            1080.8,
+            4532.3,
+            1090.9
+          ],
+          "length_pts": 11.6,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4527.0,
+            1082.3,
+            4533.0,
+            1092.6
+          ],
+          "length_pts": 11.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4527.5,
+            1083.7,
+            4533.6,
+            1094.4
+          ],
+          "length_pts": 12.3,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4528.0,
+            1085.0,
+            4534.3,
+            1096.1
+          ],
+          "length_pts": 12.7,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4528.4,
+            1086.5,
+            4534.9,
+            1097.8
+          ],
+          "length_pts": 13.0,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4523.8,
+            1108.3,
+            4523.9,
+            1108.4
+          ],
+          "length_pts": 0.2,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4528.9,
+            1087.9,
+            4535.6,
+            1099.6
+          ],
+          "length_pts": 13.4,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4524.2,
+            1107.8,
+            4525.6,
+            1110.1
+          ],
+          "length_pts": 2.6,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4529.4,
+            1089.2,
+            4536.2,
+            1101.2
+          ],
+          "length_pts": 13.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4524.7,
+            1107.7,
+            4527.1,
+            1111.9
+          ],
+          "length_pts": 4.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4529.9,
+            1090.7,
+            4536.8,
+            1102.9
+          ],
+          "length_pts": 14.1,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4525.2,
+            1108.6,
+            4528.1,
+            1113.6
+          ],
+          "length_pts": 5.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4530.4,
+            1092.0,
+            4537.6,
+            1104.7
+          ],
+          "length_pts": 14.6,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4525.7,
+            1109.4,
+            4529.0,
+            1115.3
+          ],
+          "length_pts": 6.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4530.7,
+            1093.4,
+            4538.2,
+            1106.4
+          ],
+          "length_pts": 14.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4526.2,
+            1113.1,
+            4528.3,
+            1117.1
+          ],
+          "length_pts": 4.5,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4531.2,
+            1094.9,
+            4538.9,
+            1108.1
+          ],
+          "length_pts": 15.3,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4528.8,
+            1110.2,
+            4530.0,
+            1112.4
+          ],
+          "length_pts": 2.5,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4526.6,
+            1114.8,
+            4528.8,
+            1118.8
+          ],
+          "length_pts": 4.5,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4531.7,
+            1096.2,
+            4539.5,
+            1109.9
+          ],
+          "length_pts": 15.7,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4529.8,
+            1111.1,
+            4531.0,
+            1113.2
+          ],
+          "length_pts": 2.5,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4527.0,
+            1116.6,
+            4529.3,
+            1120.4
+          ],
+          "length_pts": 4.5,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4535.9,
+            1097.6,
+            4540.2,
+            1105.1
+          ],
+          "length_pts": 8.6,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4530.7,
+            1111.9,
+            4531.9,
+            1114.1
+          ],
+          "length_pts": 2.5,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4532.2,
+            1106.5,
+            4535.0,
+            1111.6
+          ],
+          "length_pts": 5.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4527.5,
+            1118.3,
+            4529.8,
+            1122.2
+          ],
+          "length_pts": 4.6,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4537.7,
+            1099.1,
+            4540.8,
+            1104.6
+          ],
+          "length_pts": 6.3,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4531.7,
+            1113.2,
+            4532.6,
+            1114.9
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4532.9,
+            1108.3,
+            4535.5,
+            1112.8
+          ],
+          "length_pts": 5.2,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4528.0,
+            1120.0,
+            4530.2,
+            1123.9
+          ],
+          "length_pts": 4.6,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4538.3,
+            1100.4,
+            4541.4,
+            1106.0
+          ],
+          "length_pts": 6.4,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4532.6,
+            1115.0,
+            4533.1,
+            1115.8
+          ],
+          "length_pts": 0.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4533.8,
+            1110.0,
+            4536.0,
+            1113.6
+          ],
+          "length_pts": 4.2,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4529.4,
+            1121.8,
+            4530.7,
+            1124.0
+          ],
+          "length_pts": 2.6,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4538.6,
+            1101.8,
+            4542.1,
+            1107.8
+          ],
+          "length_pts": 6.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4533.6,
+            1116.6,
+            4533.6,
+            1116.7
+          ],
+          "length_pts": 0.1,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4534.8,
+            1111.7,
+            4536.5,
+            1114.4
+          ],
+          "length_pts": 3.2,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4531.1,
+            1123.4,
+            4531.2,
+            1123.6
+          ],
+          "length_pts": 0.2,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4539.1,
+            1103.2,
+            4542.7,
+            1109.5
+          ],
+          "length_pts": 7.3,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4534.1,
+            1117.4,
+            4534.6,
+            1118.4
+          ],
+          "length_pts": 1.1,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4535.8,
+            1113.5,
+            4537.0,
+            1115.3
+          ],
+          "length_pts": 2.2,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4534.6,
+            1118.3,
+            4535.5,
+            1120.2
+          ],
+          "length_pts": 2.1,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4539.6,
+            1104.6,
+            4543.4,
+            1111.2
+          ],
+          "length_pts": 7.6,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4536.8,
+            1115.2,
+            4537.3,
+            1116.2
+          ],
+          "length_pts": 1.2,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4534.9,
+            1119.1,
+            4536.5,
+            1121.9
+          ],
+          "length_pts": 3.2,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4540.1,
+            1106.0,
+            4544.0,
+            1113.0
+          ],
+          "length_pts": 8.0,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4537.8,
+            1116.8,
+            4537.8,
+            1117.1
+          ],
+          "length_pts": 0.2,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4535.4,
+            1120.0,
+            4537.4,
+            1123.6
+          ],
+          "length_pts": 4.1,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4540.6,
+            1107.4,
+            4544.8,
+            1114.7
+          ],
+          "length_pts": 8.4,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4535.9,
+            1120.8,
+            4538.5,
+            1125.4
+          ],
+          "length_pts": 5.3,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4541.0,
+            1108.8,
+            4545.4,
+            1116.4
+          ],
+          "length_pts": 8.7,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4536.4,
+            1121.3,
+            4539.7,
+            1127.0
+          ],
+          "length_pts": 6.7,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4541.5,
+            1110.2,
+            4546.1,
+            1118.2
+          ],
+          "length_pts": 9.1,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4536.8,
+            1120.8,
+            4541.4,
+            1128.7
+          ],
+          "length_pts": 9.1,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4542.0,
+            1111.6,
+            4546.7,
+            1119.8
+          ],
+          "length_pts": 9.5,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4537.3,
+            1113.0,
+            4547.3,
+            1130.5
+          ],
+          "length_pts": 20.2,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4537.8,
+            1114.4,
+            4548.0,
+            1132.2
+          ],
+          "length_pts": 20.5,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4538.4,
+            1115.8,
+            4548.6,
+            1133.6
+          ],
+          "length_pts": 20.6,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4539.5,
+            1117.2,
+            4549.3,
+            1134.2
+          ],
+          "length_pts": 19.7,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4540.7,
+            1118.5,
+            4549.9,
+            1134.8
+          ],
+          "length_pts": 18.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4541.8,
+            1120.0,
+            4550.6,
+            1135.4
+          ],
+          "length_pts": 17.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4542.8,
+            1121.4,
+            4551.2,
+            1136.0
+          ],
+          "length_pts": 16.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4543.9,
+            1122.7,
+            4551.8,
+            1136.6
+          ],
+          "length_pts": 16.0,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4545.1,
+            1124.2,
+            4552.6,
+            1137.2
+          ],
+          "length_pts": 15.0,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            4546.2,
+            1125.6,
+            4553.2,
+            1137.8
+          ],
+          "length_pts": 14.1,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        }
+      ]
+    },
+    "blue": {
+      "count": 141,
+      "total_length_pts": 2210.5,
+      "details": [
+        {
+          "bbox": [
+            3759.4,
+            1431.2,
+            3760.4,
+            1432.3
+          ],
+          "length_pts": 1.5,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1428.2,
+            3763.4,
+            1432.3
+          ],
+          "length_pts": 5.8,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1425.2,
+            3766.4,
+            1432.3
+          ],
+          "length_pts": 10.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1422.2,
+            3769.4,
+            1432.3
+          ],
+          "length_pts": 14.3,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1419.2,
+            3772.4,
+            1432.3
+          ],
+          "length_pts": 18.5,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1416.1,
+            3775.4,
+            1432.3
+          ],
+          "length_pts": 22.8,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1413.1,
+            3778.6,
+            1432.3
+          ],
+          "length_pts": 27.2,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1410.1,
+            3781.6,
+            1432.3
+          ],
+          "length_pts": 31.4,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1407.1,
+            3770.6,
+            1418.5
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3773.2,
+            1420.9,
+            3784.6,
+            1432.3
+          ],
+          "length_pts": 16.1,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1404.1,
+            3770.6,
+            1415.5
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3776.2,
+            1420.9,
+            3787.6,
+            1432.3
+          ],
+          "length_pts": 16.1,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1401.1,
+            3770.6,
+            1412.5
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3779.2,
+            1420.9,
+            3790.6,
+            1432.3
+          ],
+          "length_pts": 16.1,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1398.1,
+            3770.6,
+            1409.5
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3782.2,
+            1420.9,
+            3793.6,
+            1432.3
+          ],
+          "length_pts": 16.1,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1395.1,
+            3770.6,
+            1406.5
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3785.2,
+            1420.9,
+            3796.6,
+            1432.3
+          ],
+          "length_pts": 16.1,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1392.1,
+            3770.6,
+            1403.5
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3788.2,
+            1420.9,
+            3799.6,
+            1432.3
+          ],
+          "length_pts": 16.1,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1389.1,
+            3770.6,
+            1400.4
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3791.2,
+            1420.9,
+            3802.6,
+            1432.3
+          ],
+          "length_pts": 16.1,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1386.1,
+            3770.6,
+            1397.4
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3794.3,
+            1420.9,
+            3805.6,
+            1432.3
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1383.1,
+            3770.6,
+            1394.4
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3797.3,
+            1420.9,
+            3808.6,
+            1432.3
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1380.1,
+            3770.6,
+            1391.4
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3800.3,
+            1420.9,
+            3811.6,
+            1432.3
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1377.1,
+            3770.6,
+            1388.4
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3803.3,
+            1420.9,
+            3814.6,
+            1432.3
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1374.1,
+            3770.6,
+            1385.4
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3806.3,
+            1420.9,
+            3817.6,
+            1432.3
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1371.1,
+            3770.6,
+            1382.4
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3809.3,
+            1420.9,
+            3820.6,
+            1432.3
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1368.1,
+            3770.6,
+            1379.4
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3812.3,
+            1420.9,
+            3823.6,
+            1432.3
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1365.1,
+            3770.6,
+            1376.4
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3815.3,
+            1420.9,
+            3826.6,
+            1432.3
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1362.0,
+            3770.6,
+            1373.4
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3818.3,
+            1420.9,
+            3829.6,
+            1432.3
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1359.0,
+            3770.6,
+            1370.4
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3821.3,
+            1420.9,
+            3832.7,
+            1432.3
+          ],
+          "length_pts": 16.1,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1356.0,
+            3770.6,
+            1367.4
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3824.3,
+            1420.9,
+            3835.7,
+            1432.3
+          ],
+          "length_pts": 16.1,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1353.0,
+            3770.6,
+            1364.4
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3827.3,
+            1420.9,
+            3838.7,
+            1432.3
+          ],
+          "length_pts": 16.1,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1350.0,
+            3770.6,
+            1361.4
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3830.3,
+            1420.9,
+            3841.7,
+            1432.3
+          ],
+          "length_pts": 16.1,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1347.0,
+            3770.6,
+            1358.4
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3833.3,
+            1420.9,
+            3844.7,
+            1432.3
+          ],
+          "length_pts": 16.1,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1344.0,
+            3770.6,
+            1355.4
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3836.3,
+            1420.9,
+            3847.7,
+            1432.3
+          ],
+          "length_pts": 16.1,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1341.0,
+            3770.6,
+            1352.4
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3839.3,
+            1420.9,
+            3850.7,
+            1432.3
+          ],
+          "length_pts": 16.1,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1338.0,
+            3770.6,
+            1349.4
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3842.3,
+            1420.9,
+            3853.7,
+            1432.3
+          ],
+          "length_pts": 16.1,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1335.0,
+            3770.6,
+            1346.3
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3845.3,
+            1420.9,
+            3856.7,
+            1432.3
+          ],
+          "length_pts": 16.1,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1332.0,
+            3770.6,
+            1343.3
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3848.4,
+            1420.9,
+            3859.7,
+            1432.3
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1329.0,
+            3770.6,
+            1340.3
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3851.4,
+            1420.9,
+            3862.7,
+            1432.3
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1326.0,
+            3770.6,
+            1337.3
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3854.4,
+            1420.9,
+            3865.7,
+            1432.3
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1323.0,
+            3770.6,
+            1334.3
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3857.4,
+            1420.9,
+            3868.7,
+            1432.3
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1320.0,
+            3770.6,
+            1331.3
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3860.4,
+            1420.9,
+            3871.7,
+            1432.3
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1317.0,
+            3770.6,
+            1328.3
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3863.4,
+            1420.9,
+            3874.7,
+            1432.3
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1314.0,
+            3770.6,
+            1325.3
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3866.4,
+            1420.9,
+            3877.7,
+            1432.3
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1311.0,
+            3770.6,
+            1322.3
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3869.4,
+            1420.9,
+            3880.7,
+            1432.3
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1307.9,
+            3770.6,
+            1319.3
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3872.4,
+            1420.9,
+            3883.7,
+            1432.3
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1304.9,
+            3770.6,
+            1316.3
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3875.4,
+            1420.9,
+            3886.8,
+            1432.3
+          ],
+          "length_pts": 16.1,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3759.4,
+            1301.9,
+            3770.6,
+            1313.3
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3878.4,
+            1420.9,
+            3889.8,
+            1432.3
+          ],
+          "length_pts": 16.1,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3762.4,
+            1301.9,
+            3773.6,
+            1313.3
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3878.4,
+            1417.9,
+            3889.8,
+            1429.3
+          ],
+          "length_pts": 16.1,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3765.4,
+            1301.9,
+            3776.8,
+            1313.3
+          ],
+          "length_pts": 16.1,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3878.4,
+            1414.9,
+            3889.8,
+            1426.3
+          ],
+          "length_pts": 16.1,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3768.4,
+            1301.9,
+            3779.8,
+            1313.3
+          ],
+          "length_pts": 16.1,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3878.4,
+            1411.9,
+            3889.8,
+            1423.3
+          ],
+          "length_pts": 16.1,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3771.4,
+            1301.9,
+            3782.8,
+            1313.3
+          ],
+          "length_pts": 16.1,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3878.4,
+            1408.9,
+            3889.8,
+            1420.3
+          ],
+          "length_pts": 16.1,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3774.4,
+            1301.9,
+            3785.8,
+            1313.3
+          ],
+          "length_pts": 16.1,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3878.4,
+            1405.9,
+            3889.8,
+            1417.3
+          ],
+          "length_pts": 16.1,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3777.4,
+            1301.9,
+            3788.8,
+            1313.3
+          ],
+          "length_pts": 16.1,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3878.4,
+            1402.9,
+            3889.8,
+            1414.3
+          ],
+          "length_pts": 16.1,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3780.4,
+            1301.9,
+            3791.8,
+            1313.3
+          ],
+          "length_pts": 16.1,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3878.4,
+            1399.9,
+            3889.8,
+            1411.3
+          ],
+          "length_pts": 16.1,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3783.4,
+            1301.9,
+            3793.3,
+            1311.8
+          ],
+          "length_pts": 14.1,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3878.4,
+            1396.9,
+            3889.8,
+            1408.3
+          ],
+          "length_pts": 16.1,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3786.4,
+            1301.9,
+            3793.3,
+            1308.8
+          ],
+          "length_pts": 9.8,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3878.4,
+            1393.9,
+            3889.8,
+            1405.2
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3789.5,
+            1301.9,
+            3793.3,
+            1305.8
+          ],
+          "length_pts": 5.5,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3878.4,
+            1390.9,
+            3889.8,
+            1402.2
+          ],
+          "length_pts": 16.0,
+          "width": 0.72,
+          "filled": false,
+          "items": 1
+        }
+      ]
+    },
+    "red": {
+      "count": 3802,
+      "total_length_pts": 64971.7,
+      "details": [
+        {
+          "bbox": [
+            3139.9,
+            1346.6,
+            3152.6,
+            1346.6
+          ],
+          "length_pts": 38.2,
+          "width": 0.24,
+          "filled": false,
+          "items": 4
+        },
+        {
+          "bbox": [
+            3139.9,
+            1347.0,
+            3152.6,
+            1347.0
+          ],
+          "length_pts": 38.2,
+          "width": 0.24,
+          "filled": false,
+          "items": 4
+        },
+        {
+          "bbox": [
+            3139.9,
+            1347.5,
+            3152.6,
+            1347.5
+          ],
+          "length_pts": 38.2,
+          "width": 0.24,
+          "filled": false,
+          "items": 4
+        },
+        {
+          "bbox": [
+            3139.9,
+            1348.0,
+            3152.6,
+            1348.0
+          ],
+          "length_pts": 38.2,
+          "width": 0.24,
+          "filled": false,
+          "items": 4
+        },
+        {
+          "bbox": [
+            3139.8,
+            1350.6,
+            3152.6,
+            1350.6
+          ],
+          "length_pts": 38.5,
+          "width": 0.24,
+          "filled": false,
+          "items": 4
+        },
+        {
+          "bbox": [
+            3139.8,
+            1350.8,
+            3152.6,
+            1350.8
+          ],
+          "length_pts": 38.5,
+          "width": 0.24,
+          "filled": false,
+          "items": 4
+        },
+        {
+          "bbox": [
+            3139.8,
+            1351.3,
+            3152.6,
+            1351.3
+          ],
+          "length_pts": 38.5,
+          "width": 0.24,
+          "filled": false,
+          "items": 4
+        },
+        {
+          "bbox": [
+            3139.8,
+            1351.7,
+            3152.6,
+            1351.7
+          ],
+          "length_pts": 38.5,
+          "width": 0.24,
+          "filled": false,
+          "items": 4
+        },
+        {
+          "bbox": [
+            3139.8,
+            1352.2,
+            3152.6,
+            1352.2
+          ],
+          "length_pts": 38.5,
+          "width": 0.24,
+          "filled": false,
+          "items": 4
+        },
+        {
+          "bbox": [
+            3139.8,
+            1352.4,
+            3152.6,
+            1352.4
+          ],
+          "length_pts": 12.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 2
+        },
+        {
+          "bbox": [
+            3139.9,
+            1350.6,
+            3139.9,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 2
+        },
+        {
+          "bbox": [
+            3139.9,
+            1346.3,
+            3139.9,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3139.9,
+            1350.6,
+            3139.9,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3139.9,
+            1346.3,
+            3139.9,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3139.9,
+            1350.6,
+            3139.9,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3139.9,
+            1346.3,
+            3139.9,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3139.9,
+            1350.6,
+            3139.9,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3139.9,
+            1346.3,
+            3139.9,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.0,
+            1350.6,
+            3140.0,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.0,
+            1346.3,
+            3140.0,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.0,
+            1350.6,
+            3140.0,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.0,
+            1346.3,
+            3140.0,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.0,
+            1350.6,
+            3140.0,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.0,
+            1346.3,
+            3140.0,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.0,
+            1350.6,
+            3140.0,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.0,
+            1346.3,
+            3140.0,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.0,
+            1350.6,
+            3140.0,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.0,
+            1346.3,
+            3140.0,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.0,
+            1350.6,
+            3140.0,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.0,
+            1346.3,
+            3140.0,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.0,
+            1350.6,
+            3140.0,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.0,
+            1346.3,
+            3140.0,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.0,
+            1350.6,
+            3140.0,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.0,
+            1346.3,
+            3140.0,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.2,
+            1350.6,
+            3140.2,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.2,
+            1346.3,
+            3140.2,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.2,
+            1350.6,
+            3140.2,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.2,
+            1346.3,
+            3140.2,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.2,
+            1350.6,
+            3140.2,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.2,
+            1346.3,
+            3140.2,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.2,
+            1350.6,
+            3140.2,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.2,
+            1346.3,
+            3140.2,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.2,
+            1350.6,
+            3140.2,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.2,
+            1346.3,
+            3140.2,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.2,
+            1350.6,
+            3140.2,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.2,
+            1346.3,
+            3140.2,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.2,
+            1350.6,
+            3140.2,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.2,
+            1346.3,
+            3140.2,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.2,
+            1350.6,
+            3140.2,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.2,
+            1346.3,
+            3140.2,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.3,
+            1350.6,
+            3140.3,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.3,
+            1346.3,
+            3140.3,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.3,
+            1350.6,
+            3140.3,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.3,
+            1346.3,
+            3140.3,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.3,
+            1350.6,
+            3140.3,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.3,
+            1346.3,
+            3140.3,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.3,
+            1350.6,
+            3140.3,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.3,
+            1346.3,
+            3140.3,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.3,
+            1350.6,
+            3140.3,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.3,
+            1346.3,
+            3140.3,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.3,
+            1350.6,
+            3140.3,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.3,
+            1346.3,
+            3140.3,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.3,
+            1350.6,
+            3140.3,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.3,
+            1346.3,
+            3140.3,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.4,
+            1350.6,
+            3140.4,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.4,
+            1346.3,
+            3140.4,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.4,
+            1350.6,
+            3140.4,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.4,
+            1346.3,
+            3140.4,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.4,
+            1350.6,
+            3140.4,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.4,
+            1346.3,
+            3140.4,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.4,
+            1350.6,
+            3140.4,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.4,
+            1346.3,
+            3140.4,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.4,
+            1350.6,
+            3140.4,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.4,
+            1346.3,
+            3140.4,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.4,
+            1350.6,
+            3140.4,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.4,
+            1346.3,
+            3140.4,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.4,
+            1350.6,
+            3140.4,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.4,
+            1346.3,
+            3140.4,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.4,
+            1350.6,
+            3140.4,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.4,
+            1346.3,
+            3140.4,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.5,
+            1350.6,
+            3140.5,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.5,
+            1346.3,
+            3140.5,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.5,
+            1350.6,
+            3140.5,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.5,
+            1346.3,
+            3140.5,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.5,
+            1350.6,
+            3140.5,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.5,
+            1346.3,
+            3140.5,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.5,
+            1350.6,
+            3140.5,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.5,
+            1346.3,
+            3140.5,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.5,
+            1350.6,
+            3140.5,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.5,
+            1346.3,
+            3140.5,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.5,
+            1350.6,
+            3140.5,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.5,
+            1346.3,
+            3140.5,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.5,
+            1350.6,
+            3140.5,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.5,
+            1346.3,
+            3140.5,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.5,
+            1350.6,
+            3140.5,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.5,
+            1346.3,
+            3140.5,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.6,
+            1350.6,
+            3140.6,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.6,
+            1346.3,
+            3140.6,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.6,
+            1350.6,
+            3140.6,
+            1352.4
+          ],
+          "length_pts": 1.8,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        },
+        {
+          "bbox": [
+            3140.6,
+            1346.3,
+            3140.6,
+            1348.2
+          ],
+          "length_pts": 1.9,
+          "width": 0.24,
+          "filled": false,
+          "items": 1
+        }
+      ]
+    }
+  },
+  "symbols": {
+    "black": {
+      "small_filled_paths": 161,
+      "clusters": 54,
+      "sample_positions": [
+        {
+          "x": 2694.4,
+          "y": 1557.1,
+          "paths": 3
+        },
+        {
+          "x": 2719.4,
+          "y": 1557.1,
+          "paths": 2
+        },
+        {
+          "x": 2740.3,
+          "y": 1557.1,
+          "paths": 2
+        },
+        {
+          "x": 2761.2,
+          "y": 1557.1,
+          "paths": 2
+        },
+        {
+          "x": 2782.1,
+          "y": 1557.1,
+          "paths": 2
+        },
+        {
+          "x": 2803.0,
+          "y": 1557.1,
+          "paths": 2
+        },
+        {
+          "x": 2823.8,
+          "y": 1557.1,
+          "paths": 2
+        },
+        {
+          "x": 2844.9,
+          "y": 1557.1,
+          "paths": 2
+        },
+        {
+          "x": 2881.5,
+          "y": 1557.1,
+          "paths": 3
+        },
+        {
+          "x": 2906.5,
+          "y": 1557.1,
+          "paths": 2
+        },
+        {
+          "x": 2927.4,
+          "y": 1557.1,
+          "paths": 2
+        },
+        {
+          "x": 2948.3,
+          "y": 1557.1,
+          "paths": 2
+        },
+        {
+          "x": 2969.2,
+          "y": 1557.1,
+          "paths": 2
+        },
+        {
+          "x": 2990.0,
+          "y": 1557.1,
+          "paths": 2
+        },
+        {
+          "x": 3010.9,
+          "y": 1557.1,
+          "paths": 2
+        },
+        {
+          "x": 3031.9,
+          "y": 1557.1,
+          "paths": 2
+        },
+        {
+          "x": 3070.3,
+          "y": 1557.1,
+          "paths": 3
+        },
+        {
+          "x": 3233.2,
+          "y": 1557.1,
+          "paths": 3
+        },
+        {
+          "x": 3275.6,
+          "y": 1557.1,
+          "paths": 3
+        },
+        {
+          "x": 3300.6,
+          "y": 1557.1,
+          "paths": 2
+        },
+        {
+          "x": 3321.5,
+          "y": 1557.1,
+          "paths": 2
+        },
+        {
+          "x": 3342.4,
+          "y": 1557.1,
+          "paths": 2
+        },
+        {
+          "x": 3363.2,
+          "y": 1557.1,
+          "paths": 2
+        },
+        {
+          "x": 3384.1,
+          "y": 1557.1,
+          "paths": 2
+        },
+        {
+          "x": 3405.0,
+          "y": 1557.1,
+          "paths": 2
+        },
+        {
+          "x": 3426.0,
+          "y": 1557.1,
+          "paths": 2
+        },
+        {
+          "x": 3462.7,
+          "y": 1557.1,
+          "paths": 3
+        },
+        {
+          "x": 3487.7,
+          "y": 1557.1,
+          "paths": 2
+        },
+        {
+          "x": 3508.6,
+          "y": 1557.1,
+          "paths": 2
+        },
+        {
+          "x": 3529.4,
+          "y": 1557.1,
+          "paths": 2
+        },
+        {
+          "x": 3550.3,
+          "y": 1557.1,
+          "paths": 2
+        },
+        {
+          "x": 3571.2,
+          "y": 1557.1,
+          "paths": 2
+        },
+        {
+          "x": 3592.1,
+          "y": 1557.1,
+          "paths": 2
+        },
+        {
+          "x": 3613.1,
+          "y": 1557.1,
+          "paths": 2
+        },
+        {
+          "x": 3146.3,
+          "y": 1344.6,
+          "paths": 30
+        },
+        {
+          "x": 2594.7,
+          "y": 1247.9,
+          "paths": 4
+        },
+        {
+          "x": 2568.1,
+          "y": 1255.3,
+          "paths": 2
+        },
+        {
+          "x": 3642.7,
+          "y": 1070.0,
+          "paths": 3
+        },
+        {
+          "x": 2695.3,
+          "y": 933.4,
+          "paths": 3
+        },
+        {
+          "x": 1800.2,
+          "y": 533.8,
+          "paths": 4
+        },
+        {
+          "x": 1826.8,
+          "y": 526.5,
+          "paths": 2
+        },
+        {
+          "x": 629.4,
+          "y": 531.4,
+          "paths": 3
+        },
+        {
+          "x": 2211.1,
+          "y": 1548.0,
+          "paths": 3
+        },
+        {
+          "x": 2041.9,
+          "y": 1545.6,
+          "paths": 4
+        },
+        {
+          "x": 1825.6,
+          "y": 1548.0,
+          "paths": 3
+        },
+        {
+          "x": 2015.3,
+          "y": 1552.9,
+          "paths": 2
+        },
+        {
+          "x": 2568.3,
+          "y": 1548.0,
+          "paths": 3
+        },
+        {
+          "x": 2665.6,
+          "y": 1401.7,
+          "paths": 3
+        },
+        {
+          "x": 2019.3,
+          "y": 1363.8,
+          "paths": 3
+        },
+        {
+          "x": 1026.2,
+          "y": 1463.0,
+          "paths": 3
+        }
+      ]
+    }
+  },
+  "ocr_regions": {
+    "title_block": {
+      "text": "- המבצע אחראי לבדיקת המידות והתאמתן במקום. 2\n- בכל מקרה של ספק, טעות או אי התאמה יש לפנות למתכנן. 2\n‎PR -‏ לבצע מידות ע\"פ מדידה מהשרטוט. 2\n- חומרי גמר ואביזרי פרזול יורכבו לאחר אישור המתכנן. ‎ee‏\n‏- אין לעשות כל שימוש בתכנית זו או ברעיונות הגלומים בה ללא אישור 2\nבכתב מהמתכנן 2\n- מהנדס ו/או ‎MW WR PUT‏ רשום מעל ‎DW‏ האדריכל בתכנית זו נוא 0\nלבדו באחראיות המקצועית והחוקית לתכנית. 5\nפרויקט: 2\n‎MPa‏ סופור ‎Ae‏ -24 יחתות :\n‎BT OD +‏ 7\n‎fo)\" inet = 73 ola =‏ |\n|\n|\n‎Rw‏\n‎TOP nA nan‏ = סמלים ™\n‎may‏ רקוה\nלעירן לאישור למכרז לביצוע\n30.09.2024\nעיריית בתים ‎PC-11‏ 4\nאדריכל אחרא! מבקר:\nסלסביל עומרי וה מרמור\n‎DA-95011-01 95/011 1:50‏\n+\n‎fe) DATUM Eng Ltd‏\nילאפ\n‎Se / Engineering Services And Consulting‏\n-\n2 אסם0ם | 16930 ‎Tel: 04-6419957 | Fax: 04-6411646 | Kfar Kana‏\n‎E.Mail: Datum@datum-eng.com‏",
+      "char_count": 792,
+      "rect": [
+        4144.6,
+        1409.1,
+        4876.0,
+        2013.0
+      ]
+    },
+    "legend_tables_top": {
+      "text": "מק א.\n| ] ג'ת 60/60 משטח לד\n8 ג'ת עגול שקוע בתקרה ‎DIT‏ סיתום לד\nתוצרת ‎DU THORN‏ נורת ‎1000LM—4000K LED‏\n6 גית ‎DIT‏ לארא לד תוצרת ‎THORN‏ עם ‎m1]‏\n‏לד ‎18W‏ גימור בצבע לפי בחירת האדריכל\n‎NI‏ עגול שקוע בתקרה ‎G-SUVRUC DIT‏\nשיווק לירד שטיינץ בגודל ‎ANW‏ לפי בחירת האדריכל\n‎20W-2300Lm-4000°K/3000°K // |g)‏\n‎47W-4800Lm-4000°K/3000°K \\ | /‏ קוטר 60\nר-==== פרופיל תאוקה שקוע\nגית לד ‎24w‏ להארת לוח ‎AMD‏ תוצרת\nגעש מק\"ט 5150046\nה ג'ת דגם הייפאק ‎T2‏ שיווק לירד שטיניץ\nכולל נורת לד 26%\n‎DIT) | | |‏ 5000\n.>\n‎Yj;‏ תקרת שבבי ‎60*120\\60*60—TROLDTEKT DIT PU‏\n/| פרופילים ע\"ג פרופיל מסוג 724\n// / תקרה אקוסטית חצי שקועה\n‎Focus E DIT / /‏ 120/60\nתקרה אקרסנית חצי עקועה ‎eee‏ 1 0\n‎ee 120/60 Troldtekt DAT‏\nאריחי מינרלי 60/60, חצי שקוע ‎ce See ee‏\n‎DIT‏ אדפס(יהודה תקרות אקוסטיות) ל\n= לוחות גבס מוחלק לט ו סה וש\n‎Mv -‏ החפלס מתייחם ל-0.00 של הקומה ה טא 0\n- ציון וסימרן סוגי התקרות בהתאם לרשימת חומרי הגמר ‎A Se‏ תמל\n- באם לא מצוין אחרת, סינר הגבס במפלס אחיד עם התקרה ‎ts! RUSS‏ המםיש יפל\nהסמוכה שאו 1",
+      "char_count": 987,
+      "rect": [
+        3657.0,
+        0.0,
+        4876.0,
+        704.5
+      ]
+    },
+    "legend_tables_mid": {
+      "text": "Preece (2 ‏הייה [אול ול‎ WO RSENS BN SS ESSERE |\na ‏וי‎ Ree NEE 0 0 ‏ונוה‎\n\nיי יה ויוי\n‎N N Se RR |‏ ו",
+      "char_count": 102,
+      "rect": [
+        3657.0,
+        704.5,
+        4876.0,
+        1409.1
+      ]
+    },
+    "legend_symbols": {
+      "text": "‎oe (ont beneacecenceeneneeoens‏ אסא אאא | ההההההךלהההחה\nל א ‎in‏ 6 .-_ תא נג\nוה | !| _ 5 ד\nוהי השס = ‎ie! | S‏\n| 0% ה אוה ‎wo‏\n‏- הזוס\n\n‏ב= | ב=\n\n‏הוה\n\n‏רו\n\n‏תכנית תקרה אקוסטית-קומת קרקע\nקנ\"מ 1.50",
+      "char_count": 197,
+      "rect": [
+        3657.0,
+        1409.1,
+        4144.6,
+        2013.0
+      ]
+    },
+    "plan_right": {
+      "text": "ה ..\nםח )כםם= = כםם= ה ה כ( ה ‎Bd g Las ol a‏ = :\n: חפט |[ ‎pee‏ תד הדו\n- ם. ! = |\n‎a 0‏ - 8 -\n7 רו ב 2 || - דה !\n‎ieee ae pele cess SS Fe | ol . - | a nS FS (Sg -‏\nלתו ה ₪ הש וש ה ה ₪ ה ה ₪ ה שש עלצה ה מהרסת גו נה רת 0\n‎sco 777 | 55 | Gop eo] .‏ 5 50 7 | 0\nו 6 מ\"ר נקודת התחלָה 4 3 |קודת התחלה נקודת התחלה |",
+      "char_count": 308,
+      "rect": [
+        1950.4,
+        0.0,
+        3657.0,
+        2013.0
+      ]
+    },
+    "plan_left": {
+      "text": "1 ‏בה‎\n‏ה תקדת הת‎  & 4\n-1 ‏הא ה‎ 4\n— | | . . =. = | | 7 Ne\n0 || | 8 - ₪ N 2 2 - VU 2 -\n——> | 8 SSS ₪ ‏אה‎ SS - Ee =e 8\n‏ה ו 5 145 8 סה‎ —————\n=. ‏וה == נקודת התחלה‎ ₪ cee YW 7 _WeGZ 55 ‏מ\"‎\n‎! - >? waa i -- 85 a eer | - BB 50 | | 45.",
+      "char_count": 234,
+      "rect": [
+        487.6,
+        0.0,
+        1950.4,
+        2013.0
+      ]
+    }
+  },
+  "statistics": {
+    "total_paths": 251195,
+    "paths_by_color": {
+      "black": 247252,
+      "blue": 141,
+      "red": 3802
+    },
+    "ocr_regions_found": [
+      "title_block",
+      "legend_tables_top",
+      "legend_tables_mid",
+      "legend_symbols",
+      "plan_right",
+      "plan_left"
+    ],
+    "total_ocr_chars": 2620
+  }
+}
