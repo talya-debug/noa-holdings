@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { Save, CheckCircle, Package, Users, Wrench } from 'lucide-react'
+import { Save, CheckCircle, Package, Users, Wrench, Layers } from 'lucide-react'
 import { formatCurrency } from '../data/mockData'
 import { getBOQQuote, updateBOQQuote, approveBOQQuote } from '../data/store'
 
@@ -8,7 +8,8 @@ import { getBOQQuote, updateBOQQuote, approveBOQQuote } from '../data/store'
 const ITEM_TYPES = [
   { value: 'procurement', label: 'רכש', icon: Package, color: 'var(--info)' },
   { value: 'labor', label: 'כוח אדם', icon: Wrench, color: 'var(--warning)' },
-  { value: 'subcontractor', label: 'קבלן משנה', icon: Users, color: 'var(--success)' },
+  { value: 'subcontractor', label: 'קב"מ', icon: Users, color: 'var(--success)' },
+  { value: 'combined', label: 'כולל', icon: Layers, color: 'var(--gold)' },
 ]
 
 export default function BOQBuilder() {

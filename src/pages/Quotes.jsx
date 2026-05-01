@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Plus, FileText, X, ArrowLeft, FolderKanban, Trash2, Upload } from 'lucide-react'
+import { Plus, FileText, X, ArrowLeft, FolderKanban, Trash2, Upload, Copy } from 'lucide-react'
 import { calcQuoteTotals, formatCurrency, formatDate, getStatusLabel, getStatusBadgeClass } from '../data/mockData'
-import { getQuotes, addQuote, deleteQuote, getProjects, getBOQQuotes, deleteBOQQuote } from '../data/store'
+import { getQuotes, addQuote, deleteQuote, duplicateQuote, getProjects, getBOQQuotes, deleteBOQQuote } from '../data/store'
 
 export default function Quotes() {
   const [quotes, setQuotes] = useState(getQuotes())
@@ -85,14 +85,24 @@ export default function Quotes() {
                   {q.items && (
                     <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{q.items.length} פריטים</div>
                   )}
-                  {q.status !== 'approved' && (
+                  <div style={{ display: 'flex', gap: '4px' }}>
                     <button onClick={e => {
                       e.preventDefault(); e.stopPropagation()
-                      if (confirm(`למחוק את הצעה ${q.number}?`)) { deleteQuote(q.id); setQuotes(getQuotes()) }
-                    }} style={{ background: 'none', border: 'none', color: 'var(--danger)', cursor: 'pointer', padding: '4px' }}>
-                      <Trash2 size={14} />
+                      const dup = duplicateQuote(q.id)
+                      if (dup) { setQuotes(getQuotes()); navigate(`/quote/${dup.id}`) }
+                    }} style={{ background: 'none', border: 'none', color: 'var(--info)', cursor: 'pointer', padding: '4px' }}
+                      title="שכפל הצעה">
+                      <Copy size={14} />
                     </button>
-                  )}
+                    {q.status !== 'approved' && (
+                      <button onClick={e => {
+                        e.preventDefault(); e.stopPropagation()
+                        if (confirm(`למחוק את הצעה ${q.number}?`)) { deleteQuote(q.id); setQuotes(getQuotes()) }
+                      }} style={{ background: 'none', border: 'none', color: 'var(--danger)', cursor: 'pointer', padding: '4px' }}>
+                        <Trash2 size={14} />
+                      </button>
+                    )}
+                  </div>
                 </div>
 
                 {linkedProject && (

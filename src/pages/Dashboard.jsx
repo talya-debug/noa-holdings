@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { FolderKanban, DollarSign, AlertTriangle, RotateCcw, Plus, FileText, ChevronLeft, Users, Clock, Package } from 'lucide-react'
-import { getProjects, getQuotes, getMilestones, resetAllData, getBOQQuotes, getPartialInvoices, getSubcontractors, getPurchases, getWorkLogs } from '../data/store'
+import { getProjects, getQuotes, getMilestones, resetAllData, getBOQQuotes, getPartialInvoices, getSubcontractors, getPurchases, getWorkLogs, getChangeOrders } from '../data/store'
 import { calcQuoteTotals, formatCurrency, formatDate, getStatusLabel, getStatusBadgeClass } from '../data/mockData'
 
 // חישוב סכום מכירה לפרויקט
@@ -129,8 +129,21 @@ export default function Dashboard() {
     + subcontractors.reduce((s, sub) => s + (sub.paid || 0), 0)
     + workLogs.reduce((s, l) => s + (l.laborCost || 0), 0)
 
+  // תוספות ממתינות
+  const allChangeOrders = projects.flatMap(p => getChangeOrders(p.id))
+  const pendingChanges = allChangeOrders.filter(co => co.status === 'sent')
+
   // התראות
   const alerts = getAllAlerts(projects, subcontractors, purchases, workLogs, milestones)
+
+  // התראה על תוספות ממתינות
+  if (pendingChanges.length > 0) {
+    alerts.unshift({
+      type: 'info', icon: FileText,
+      text: `${pendingChanges.length} תוספות ממתינות לאישור לקוח`,
+      detail: pendingChanges.map(co => co.number).join(', '),
+    })
+  }
 
   // הצעות אחרונות (רגילות + BOQ)
   const allQuotes = [
@@ -143,7 +156,7 @@ export default function Dashboard() {
       {/* כותרת + כפתורים */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '28px', flexWrap: 'wrap', gap: '12px' }}>
         <div>
-          <h1 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '4px' }}>שלום, קבלן!</h1>
+          <h1 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '4px' }}>שלום יעקב</h1>
           <p style={{ color: 'var(--text-muted)', fontSize: '14px' }}>
             {new Date().toLocaleDateString('he-IL', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
           </p>
@@ -162,7 +175,7 @@ export default function Dashboard() {
 
       {/* סטטיסטיקות */}
       <div style={{
-        display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+        display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(200px, 100%), 1fr))',
         gap: '14px', marginBottom: '28px'
       }}>
         {[
@@ -211,7 +224,7 @@ export default function Dashboard() {
         </div>
       )}
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(380px, 1fr))', gap: '24px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(380px, 100%), 1fr))', gap: '24px' }}>
         {/* הצעות אחרונות */}
         <div className="card">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>

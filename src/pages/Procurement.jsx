@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { useState } from 'react'
-import { Package, Check, Clock, ChevronDown, ChevronLeft, Plus, Truck } from 'lucide-react'
+import { Package, Check, Clock, ChevronDown, ChevronLeft, Plus, Truck, FileDown } from 'lucide-react'
 import { formatCurrency, formatDate } from '../data/mockData'
 import { getPurchases, updatePurchase, getProject } from '../data/store'
 
@@ -60,6 +60,72 @@ export default function Procurement() {
     refresh()
     setAddingOrder(null)
     setOrderForm({ supplier: '', quantity: '', unitCost: '', date: new Date().toISOString().split('T')[0] })
+  }
+
+  // הפקת הזמנת רכש PDF
+  const handleExportPO = (purchase, order) => {
+    const totalWithVat = Math.round(order.total * 1.18)
+    const vat = totalWithVat - order.total
+    const win = window.open('', '_blank')
+    win.document.write(`<!DOCTYPE html>
+<html dir="rtl" lang="he"><head><meta charset="UTF-8">
+<title>הזמנת רכש — ${purchase.name}</title>
+<style>
+@page{size:A4;margin:0}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Arial,'Heebo',sans-serif;color:#222;font-size:11px;line-height:1.4;direction:rtl;padding:20mm 16mm;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.hdr{border-bottom:2px solid #D4A843;padding-bottom:12px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:flex-end}
+.logo{font-size:28px;font-weight:900;color:#D4A843;font-family:Arial}
+.logo span{display:block;font-size:9px;font-weight:400;color:#999;letter-spacing:2px}
+.title{font-size:14px;font-weight:700;color:#D4A843}
+.info{margin-bottom:16px;font-size:11px;color:#555}
+.info b{color:#333}
+table{width:100%;border-collapse:collapse;margin:16px 0}
+th{background:#f5f0e3;color:#8a7530;padding:8px 10px;font-size:10px;border-bottom:2px solid #D4A843;text-align:right}
+td{padding:8px 10px;border-bottom:1px solid #eee}
+.tot td{background:#fdf8ec;font-weight:700;color:#D4A843;border-top:2px solid #D4A843}
+.sum{margin:16px 0;padding:12px;background:#f7f7f7;border-radius:6px}
+.sum div{display:flex;justify-content:space-between;margin-bottom:4px;font-size:11px}
+.sum .total{font-size:14px;font-weight:700;color:#D4A843;border-top:1px solid #ddd;padding-top:8px;margin-top:8px}
+.notes{margin:16px 0;padding:12px;background:#faf7f0;border-right:3px solid #D4A843;font-size:11px}
+.sig{margin-top:30px;display:flex;justify-content:space-between}
+.sig div{width:40%;text-align:center}
+.sig .line{border-bottom:1px solid #bbb;height:30px;margin-bottom:4px}
+.sig .name{font-size:9px;color:#888}
+.ft{text-align:center;color:#ccc;font-size:8px;margin-top:20px;border-top:1px solid #eee;padding-top:8px}
+</style></head><body>
+<div class="hdr">
+  <div><div class="logo">נעה<span>NOA HOLDINGS</span></div></div>
+  <div style="text-align:left"><div class="title">הזמנת רכש</div>${formatDate(order.date)}</div>
+</div>
+<div class="info">
+  <div><b>לכבוד:</b> ${order.supplier}</div>
+  <div><b>פרויקט:</b> ${project?.name || ''}</div>
+  <div><b>כתובת:</b> ${project?.address || ''}</div>
+</div>
+<table>
+  <thead><tr><th>פריט</th><th>יחידה</th><th>כמות</th><th>מחיר ליחידה</th><th>סה"כ</th></tr></thead>
+  <tbody>
+    <tr><td style="font-weight:500">${purchase.name}</td><td>${purchase.category}</td><td>${order.quantity}</td><td>${order.unitCost.toLocaleString()} ₪</td><td style="font-weight:600;color:#D4A843">${order.total.toLocaleString()} ₪</td></tr>
+  </tbody>
+</table>
+<div class="sum">
+  <div><span>סה"כ לפני מע"מ</span><span>${order.total.toLocaleString()} ₪</span></div>
+  <div><span>מע"מ 18%</span><span>${vat.toLocaleString()} ₪</span></div>
+  <div class="total"><span>סה"כ לתשלום</span><span>${totalWithVat.toLocaleString()} ₪</span></div>
+</div>
+<div class="notes">
+  <b>תאריך אספקה נדרש:</b> ${formatDate(order.date)}<br>
+  <b>הערות:</b> נא לתאם אספקה מראש. הפריקה באחריות הספק.
+</div>
+<div class="sig">
+  <div><div class="line"></div><div class="name">חתימת מזמין</div></div>
+  <div><div class="line"></div><div class="name">חתימת ספק</div></div>
+</div>
+<div class="ft">נעה אחזקות | הזמנת רכש | ${formatDate(order.date)}</div>
+<script>window.onload=()=>window.print()</script>
+</body></html>`)
+    win.document.close()
   }
 
   const handleOrderStatus = (purchaseId, orderId, status) => {
@@ -174,6 +240,7 @@ export default function Procurement() {
                         <th>מחיר ליח׳</th>
                         <th>סה"כ</th>
                         <th>סטטוס</th>
+                        <th style={{ width: '40px' }}></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -190,6 +257,13 @@ export default function Procurement() {
                               <option value="ordered">הוזמן</option>
                               <option value="delivered">סופק</option>
                             </select>
+                          </td>
+                          <td>
+                            <button onClick={() => handleExportPO(p, o)}
+                              style={{ background: 'none', border: 'none', color: 'var(--gold)', cursor: 'pointer', padding: '4px' }}
+                              title="הפק הזמנת רכש">
+                              <FileDown size={14} />
+                            </button>
                           </td>
                         </tr>
                       ))}

@@ -132,8 +132,8 @@ export default function BOQBilling() {
   }
 
   const handlePayment = (invoiceId) => {
-    const amount = Number(paymentAmount)
-    if (!amount || amount <= 0) return
+    const amount = Math.abs(Number(paymentAmount))
+    if (!amount) return
     updatePartialInvoice(invoiceId, { status: 'paid', paidAmount: amount, paidDate: new Date().toISOString().split('T')[0] })
     setInvoices(getPartialInvoices(pid))
     setShowPayment(null)

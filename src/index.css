@@ -295,4 +295,47 @@ label {
   .form-row {
     grid-template-columns: 1fr;
   }
+
+  h1 {
+    font-size: 20px !important;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  .modal {
+    padding: 20px;
+    margin: 10px;
+    max-height: 90vh;
+  }
+
+  .btn {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+
+  .table-container {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  table {
+    font-size: 12px;
+  }
+
+  th, td {
+    padding: 8px 10px;
+  }
+
+  .desktop-only {
+    display: none !important;
+  }
+
+  .mobile-only {
+    display: inline !important;
+  }
+}
+
+.mobile-only {
+  display: none !important;
 }

@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom'
-import { ShoppingCart, Users, ClipboardList, BarChart3, ExternalLink, MapPin, CreditCard, ListChecks, Eye } from 'lucide-react'
+import { ShoppingCart, Users, ClipboardList, BarChart3, ExternalLink, MapPin, CreditCard, ListChecks, Eye, FilePlus } from 'lucide-react'
 import { formatCurrency, formatDate, getStatusLabel, getStatusBadgeClass, calcQuoteTotals } from '../data/mockData'
 import { getProject, getQuote, getMilestones, getBOQQuote } from '../data/store'
 
@@ -29,6 +29,7 @@ export default function ProjectDetail() {
     isBOQ
       ? { to: `/project/${id}/boq-billing`, icon: CreditCard, color: '#a78bfa', bg: 'rgba(167,139,250,0.1)', title: 'חשבון חלקי', desc: 'גבייה לפי ביצוע בפועל (כתב כמויות)' }
       : { to: `/project/${id}/billing`, icon: CreditCard, color: '#a78bfa', bg: 'rgba(167,139,250,0.1)', title: 'גבייה ותשלומים', desc: 'אבני דרך, חשבוניות וגבייה' },
+    { to: `/project/${id}/changes`, icon: FilePlus, color: '#f59e0b', bg: 'rgba(245,158,11,0.1)', title: 'תוספות ושינויים', desc: 'שינויים, תוספות ואישורי לקוח' },
     { to: `/project/${id}/overview`, icon: BarChart3, color: 'var(--danger)', bg: 'var(--danger-bg)', title: 'סקירה כספית', desc: 'רווח/הפסד ומעקב תקציב' },
   ]
 

@@ -1,163 +1,286 @@
 import { Link } from 'react-router-dom'
-import { BookOpen, ArrowLeft, CheckCircle } from 'lucide-react'
+import { useState } from 'react'
+import { BookOpen, ArrowLeft, CheckCircle, FileText, FileSpreadsheet, ChevronDown, ChevronLeft } from 'lucide-react'
 
-// דף הדרכה - פשוט, יפה, ברור
+// דף הדרכה — שני מסלולים: הצעת מחיר / כתב כמויות
 export default function Tutorial() {
-  const steps = [
+  const [openTrack, setOpenTrack] = useState(null) // 'quote' | 'boq' | null
+
+  const quoteSteps = [
     {
-      number: '1',
-      title: 'מחירון',
-      subtitle: 'עץ המבנה של החברה',
+      title: 'בניית המחירון',
       color: '#D4A843',
       link: '/price-list',
       linkText: 'פתח את המחירון',
       items: [
-        'המחירון הוא הבסיס של הכל - כל הקטגוריות, החומרים, העבודות וקבלני המשנה שלך',
-        'כל פריט מוגדר עם: שם, יחידת מידה, סוג (חומר / עבודה / קבלן משנה) ומחיר עלות',
-        'הקטגוריות מייצגות את תחומי העבודה שלך: שלד, חשמל, אינסטלציה, ריצוף וכו\'',
-        'אפשר להוסיף, לערוך ולמחוק פריטים בכל עת',
+        'המחירון הוא הבסיס — כל החומרים, העבודות וקבלני המשנה שלך',
+        'כל פריט מוגדר עם: שם, יחידה, סוג (חומר / עבודה / קבלן משנה) ומחיר עלות',
+        'את המחירון בונים פעם אחת — ואז משתמשים בו לכל ההצעות',
+        'אפשר לערוך ולהוסיף בכל עת',
       ],
     },
     {
-      number: '2',
-      title: 'הצעת מחיר',
-      subtitle: 'מה מציעים ללקוח',
+      title: 'יצירת הצעת מחיר',
       color: '#60a5fa',
       link: '/quotes',
       linkText: 'צור הצעת מחיר',
       items: [
-        'פותחים הצעת מחיר חדשה - שם לקוח, כתובת ותאריך',
-        'בוחרים פריטים מתוך המחירון ומגדירים כמות + מחיר ללקוח',
+        'פותחים הצעה חדשה — שם לקוח וכתובת',
+        'בוחרים פריטים מהמחירון ← קובעים כמות ← קובעים מחיר ללקוח',
+        'אפשר גם לייבא כתב כמויות מאקסל ישירות לתוך ההצעה',
         'המערכת מחשבת אוטומטית: עלות, מכירה, רווח ואחוז רווח',
-        'אבני דרך לתשלום נוצרות אוטומטית לפי הקטגוריות שנבחרו',
-        'מפיקים PDF מקצועי ללקוח - עם פתיח, סיכום קטגורי, תנאים ודיסקליימרים',
+        'אבני דרך לגבייה נוצרות אוטומטית',
+        'מפיקים PDF מקצועי ללקוח בלחיצה אחת',
       ],
     },
     {
-      number: '3',
-      title: 'אישור → פרויקט',
-      subtitle: 'הלקוח אישר? הפרויקט נפתח אוטומטית',
+      title: 'אישור ← פרויקט',
       color: '#4ade80',
       items: [
-        'לוחצים "אשר הצעה" → נוצר פרויקט חדש עם כל הנתונים',
-        'כל פריט מההצעה הופך למשימה בפרויקט',
-        'כל פריט חומר הופך לרכש שצריך להזמין',
-        'אבני דרך הגבייה נוצרות עם הסכומים',
-        'הכל אוטומטי - לא צריך להקליד כלום מחדש!',
+        'הלקוח אישר? לוחצים "אשר הצעה" ← פרויקט נוצר אוטומטית',
+        'כל פריט הופך ל: משימה + פריט רכש (אם חומר) + קבלן משנה (אם קב"מ)',
+        'אבני דרך הגבייה מוכנות עם הסכומים',
+        'לא צריך להקליד כלום מחדש!',
       ],
     },
     {
-      number: '4',
-      title: 'ניהול הפרויקט',
-      subtitle: 'כל הכלים במקום אחד',
+      title: 'ניהול שוטף',
       color: '#f59e0b',
       items: [
-        'משימות - מעקב התקדמות לכל סוגי העבודה, שינוי סטטוסים',
-        'רכש - מעקב הזמנות מספקים, כמויות ומחירים בפועל',
-        'יומני עבודה - מנהל העבודה ממלא מהטלפון. עלות יומית לפי קטגוריה',
-        'גבייה - מעקב אבני דרך, סטטוס תשלומים, התראות',
+        'משימות — מעקב התקדמות, שינוי סטטוס',
+        'רכש — הזמנות מספקים, מעקב אספקה וכמויות',
+        'קבלני משנה — הסכמים, תשלומים ויתרות',
+        'יומני עבודה — שולחים לינק למנהל עבודה, הוא ממלא מהטלפון',
+        'גבייה — מקדמים אבני דרך ורושמים תשלומים',
       ],
     },
     {
-      number: '5',
       title: 'תכנון מול ביצוע',
-      subtitle: 'הכסף הגדול - לדעת בזמן אמת אם אתה מרוויח',
       color: '#f87171',
       items: [
-        'סקירה כספית מראה לכל קטגוריה: כמה תכננת לשלם ← כמה שילמת בפועל',
-        'חומרים: תקציב מההצעה מול הזמנות בפועל',
-        'עבודה: ימי עבודה מתוכננים מול דיווחים ביומנים',
-        'קבלני משנה: סכום הסכם מול תשלומים בפועל',
-        'אם עברת תקציב בקטגוריה כלשהי - תראה אדום מיד!',
+        'סקירה כספית — כמה תכננת לשלם מול כמה שילמת בפועל',
+        'לכל קטגוריה בנפרד: חומרים, עבודה, קבלני משנה',
+        'חריגת תקציב? תראה אדום מיד',
+        'התראות אוטומטיות: חובות, איחורים, חוזים חסרים',
       ],
     },
   ]
+
+  const boqSteps = [
+    {
+      title: 'העלאת כתב כמויות',
+      color: '#D4A843',
+      link: '/boq/new',
+      linkText: 'העלה כתב כמויות',
+      items: [
+        'מקבלים כתב כמויות מהמזמין? מעלים את האקסל למערכת',
+        'עמודות נדרשות: סעיף, קטגוריה, מהות, יחידה, כמות, סוג',
+        'המערכת קוראת את הקובץ ומציגה תצוגה מקדימה',
+        'אפשר להוריד תבנית לדוגמה אם צריך',
+      ],
+    },
+    {
+      title: 'סיווג ותמחור',
+      color: '#60a5fa',
+      items: [
+        'כל שורה צריכה סיווג: רכש / כוח אדם / קבלן משנה',
+        'הסיווג קובע לאן הפריט הולך: מעקב רכש, יומן עבודה, או ניהול קבלנים',
+        'ממלאים מחיר עלות ומחיר ללקוח לכל שורה',
+        'רואים מיד: עלות כוללת, מכירה, רווח ואחוז רווח',
+      ],
+    },
+    {
+      title: 'אישור ← פרויקט',
+      color: '#4ade80',
+      items: [
+        'הכל מסווג ומתומחר? לוחצים "אשר"',
+        'נוצר פרויקט מסוג "חשבון חלקי" — לא אבני דרך',
+        'כל רכש הופך לפריט מעקב, כל קב"מ נכנס לניהול קבלנים',
+        'הגבייה תהיה דרך חשבון חלקי — לפי אחוזי ביצוע',
+      ],
+    },
+    {
+      title: 'חשבון חלקי',
+      color: '#a78bfa',
+      items: [
+        'יוצרים חשבון חלקי חדש ← ממלאים כמות שבוצעה לכל סעיף',
+        'המערכת מחשבת: ביצוע קודם, ביצוע נוכחי, ביצוע מצטבר',
+        'הגדרות: ניכוי ביטוח, עיכבון, מעבדה, הנחה, מע"מ, תנאי תשלום',
+        'ייצוא לאקסל — שולחים למזמין חשבון מסודר',
+        'רישום תשלום ומעקב גבייה',
+      ],
+    },
+    {
+      title: 'ניהול + סקירה כספית',
+      color: '#f87171',
+      items: [
+        'אותו ניהול שוטף: משימות, רכש, קבלנים, יומני עבודה',
+        'סקירה כספית מראה תכנון מול ביצוע פר קטגוריה',
+        'התראות, לוח זמנים, מסמכים — הכל זמין',
+      ],
+    },
+  ]
+
+  const renderSteps = (steps) => (
+    <div style={{ marginTop: '16px' }}>
+      {steps.map((step, idx) => (
+        <div key={idx} style={{
+          padding: '20px 24px', marginBottom: '12px',
+          background: 'var(--dark)', borderRadius: '10px',
+          borderRight: `3px solid ${step.color}`, position: 'relative',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
+            <div style={{
+              width: 30, height: 30, borderRadius: '50%', background: step.color,
+              color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontWeight: 800, fontSize: '14px', flexShrink: 0,
+            }}>{idx + 1}</div>
+            <h3 style={{ fontSize: '16px', fontWeight: 700, color: step.color, margin: 0 }}>{step.title}</h3>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', paddingRight: '42px' }}>
+            {step.items.map((item, i) => (
+              <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', fontSize: '13px' }}>
+                <CheckCircle size={14} color={step.color} style={{ flexShrink: 0, marginTop: '3px' }} />
+                <span style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>{item}</span>
+              </div>
+            ))}
+          </div>
+
+          {step.link && (
+            <Link to={step.link} style={{
+              display: 'inline-flex', alignItems: 'center', gap: '6px',
+              marginTop: '12px', marginRight: '42px', padding: '6px 14px', borderRadius: '8px',
+              background: step.color + '18', color: step.color,
+              textDecoration: 'none', fontWeight: 600, fontSize: '12px',
+            }}>
+              {step.linkText} <ArrowLeft size={12} />
+            </Link>
+          )}
+        </div>
+      ))}
+    </div>
+  )
 
   return (
     <div className="animate-in">
       {/* כותרת */}
       <div style={{
-        textAlign: 'center', padding: '40px 20px', marginBottom: '32px',
+        textAlign: 'center', padding: '36px 20px', marginBottom: '28px',
         background: 'linear-gradient(135deg, rgba(212,168,67,0.12), rgba(212,168,67,0.04))',
         borderRadius: 'var(--radius-lg)', border: '1px solid var(--gold-border)',
       }}>
-        <BookOpen size={40} color="var(--gold)" style={{ marginBottom: '12px' }} />
-        <h1 style={{ fontSize: '28px', fontWeight: 700, color: 'var(--gold)', marginBottom: '8px' }}>
+        <BookOpen size={36} color="var(--gold)" style={{ marginBottom: '10px' }} />
+        <h1 style={{ fontSize: '24px', fontWeight: 700, color: 'var(--gold)', marginBottom: '8px' }}>
           איך עובדים עם המערכת?
         </h1>
-        <p style={{ color: 'var(--text-muted)', fontSize: '15px', maxWidth: '500px', margin: '0 auto' }}>
-          5 שלבים פשוטים - מהמחירון ועד מעקב רווח בזמן אמת
+        <p style={{ color: 'var(--text-muted)', fontSize: '14px', maxWidth: '500px', margin: '0 auto' }}>
+          יש שני מסלולים — בחר את זה שמתאים לאופן העבודה שלך
         </p>
       </div>
 
-      {/* שלבים */}
-      {steps.map((step, idx) => (
-        <div key={idx} className="card" style={{
-          marginBottom: '16px', position: 'relative', overflow: 'hidden',
-          borderRight: `4px solid ${step.color}`,
+      {/* שני מסלולים */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(300px, 100%), 1fr))', gap: '16px', marginBottom: '24px' }}>
+        {/* מסלול A: הצעת מחיר */}
+        <div className="card" style={{
+          cursor: 'pointer', border: openTrack === 'quote' ? '2px solid var(--gold)' : '1px solid var(--dark-border)',
+          padding: 0, overflow: 'hidden',
         }}>
-          {/* מספר שלב */}
-          <div style={{
-            position: 'absolute', top: '16px', left: '16px', width: '36px', height: '36px',
-            borderRadius: '50%', background: step.color, color: '#fff',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontWeight: 800, fontSize: '16px',
-          }}>
-            {step.number}
-          </div>
-
-          <div style={{ paddingLeft: '60px' }}>
-            <h2 style={{ fontSize: '20px', fontWeight: 700, marginBottom: '2px', color: step.color }}>
-              {step.title}
-            </h2>
-            <p style={{ fontSize: '14px', color: 'var(--text-muted)', marginBottom: '16px' }}>
-              {step.subtitle}
-            </p>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              {step.items.map((item, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', fontSize: '14px' }}>
-                  <CheckCircle size={16} color={step.color} style={{ flexShrink: 0, marginTop: '3px' }} />
-                  <span style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>{item}</span>
-                </div>
-              ))}
-            </div>
-
-            {step.link && (
-              <Link to={step.link} style={{
-                display: 'inline-flex', alignItems: 'center', gap: '6px',
-                marginTop: '16px', padding: '8px 16px', borderRadius: '8px',
-                background: step.color + '18', color: step.color,
-                textDecoration: 'none', fontWeight: 600, fontSize: '13px',
-              }}>
-                {step.linkText} <ArrowLeft size={14} />
-              </Link>
-            )}
-          </div>
-
-          {/* חץ מחבר */}
-          {idx < steps.length - 1 && (
+          <div onClick={() => setOpenTrack(openTrack === 'quote' ? null : 'quote')}
+            style={{ padding: '24px', display: 'flex', alignItems: 'center', gap: '16px' }}>
             <div style={{
-              position: 'absolute', bottom: '-16px', right: '50%', transform: 'translateX(50%)',
-              width: '2px', height: '16px', background: 'var(--dark-border)', zIndex: 1,
-            }} />
+              width: 52, height: 52, borderRadius: '14px',
+              background: 'linear-gradient(135deg, var(--gold-bg), rgba(212,168,67,0.2))',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+            }}>
+              <FileText size={26} color="var(--gold)" />
+            </div>
+            <div style={{ flex: 1 }}>
+              <h2 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--gold)', marginBottom: '4px' }}>
+                מסלול א׳ — הצעת מחיר
+              </h2>
+              <p style={{ fontSize: '13px', color: 'var(--text-muted)', margin: 0 }}>
+                בונים הצעה מהמחירון ← הלקוח מאשר ← פרויקט עם אבני דרך
+              </p>
+            </div>
+            {openTrack === 'quote' ? <ChevronDown size={20} color="var(--gold)" /> : <ChevronLeft size={20} color="var(--text-muted)" />}
+          </div>
+          {openTrack === 'quote' && (
+            <div style={{ padding: '0 24px 24px' }}>
+              {renderSteps(quoteSteps)}
+            </div>
           )}
         </div>
-      ))}
+
+        {/* מסלול B: כתב כמויות */}
+        <div className="card" style={{
+          cursor: 'pointer', border: openTrack === 'boq' ? '2px solid #60a5fa' : '1px solid var(--dark-border)',
+          padding: 0, overflow: 'hidden',
+        }}>
+          <div onClick={() => setOpenTrack(openTrack === 'boq' ? null : 'boq')}
+            style={{ padding: '24px', display: 'flex', alignItems: 'center', gap: '16px' }}>
+            <div style={{
+              width: 52, height: 52, borderRadius: '14px',
+              background: 'var(--info-bg)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+            }}>
+              <FileSpreadsheet size={26} color="var(--info)" />
+            </div>
+            <div style={{ flex: 1 }}>
+              <h2 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--info)', marginBottom: '4px' }}>
+                מסלול ב׳ — כתב כמויות
+              </h2>
+              <p style={{ fontSize: '13px', color: 'var(--text-muted)', margin: 0 }}>
+                מעלים אקסל ← מסווגים ומתמחרים ← פרויקט עם חשבון חלקי
+              </p>
+            </div>
+            {openTrack === 'boq' ? <ChevronDown size={20} color="var(--info)" /> : <ChevronLeft size={20} color="var(--text-muted)" />}
+          </div>
+          {openTrack === 'boq' && (
+            <div style={{ padding: '0 24px 24px' }}>
+              {renderSteps(boqSteps)}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* טיפים מהירים */}
+      <div className="card" style={{ marginBottom: '24px' }}>
+        <h2 style={{ fontSize: '16px', fontWeight: 600, color: 'var(--gold)', marginBottom: '16px' }}>
+          טיפים מהירים
+        </h2>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))', gap: '12px' }}>
+          {[
+            { title: 'יומן עבודה', desc: 'שלח לינק למנהל העבודה דרך וואטסאפ — הוא ממלא מהטלפון, והנתונים נכנסים אוטומטית', color: 'var(--warning)' },
+            { title: 'איפוס דמו', desc: 'כפתור "איפוס דמו" בדשבורד מחזיר את כל הנתונים להתחלה — אפשר לשחק בלי חשש', color: 'var(--info)' },
+            { title: 'PDF להצעה', desc: 'בעורך ההצעה יש כפתור "PDF ללקוח" — מפיק מסמך מקצועי עם סיכום, תנאים ומקום לחתימה', color: 'var(--success)' },
+            { title: 'התראות', desc: 'המערכת מתריעה אוטומטית: חריגות תקציב, קבלנים בלי חוזה, פרויקטים באיחור', color: 'var(--danger)' },
+          ].map((tip, i) => (
+            <div key={i} style={{
+              padding: '14px', background: 'var(--dark)', borderRadius: '10px',
+              borderRight: `3px solid ${tip.color}`,
+            }}>
+              <div style={{ fontSize: '14px', fontWeight: 600, color: tip.color, marginBottom: '6px' }}>{tip.title}</div>
+              <div style={{ fontSize: '12px', color: 'var(--text-muted)', lineHeight: 1.6 }}>{tip.desc}</div>
+            </div>
+          ))}
+        </div>
+      </div>
 
       {/* קריאה לפעולה */}
-      <div style={{
-        textAlign: 'center', padding: '32px', marginTop: '8px',
-      }}>
+      <div style={{ textAlign: 'center', padding: '24px' }}>
         <p style={{ color: 'var(--text-muted)', marginBottom: '16px', fontSize: '15px' }}>
-          מוכנים? מתחילים מהמחירון ובונים את הצעת המחיר הראשונה
+          מוכנים להתחיל?
         </p>
         <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
           <Link to="/price-list" className="btn btn-primary" style={{ textDecoration: 'none' }}>
             למחירון
           </Link>
           <Link to="/quotes" className="btn btn-secondary" style={{ textDecoration: 'none' }}>
-            להצעות מחיר
+            הצעת מחיר חדשה
+          </Link>
+          <Link to="/boq/new" className="btn btn-secondary" style={{ textDecoration: 'none' }}>
+            העלאת כתב כמויות
           </Link>
         </div>
       </div>

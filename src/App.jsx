@@ -21,12 +21,16 @@ import PlanAnalyzer from './pages/PlanAnalyzer'
 import ProjectDocuments from './pages/ProjectDocuments'
 import ProjectAlerts from './pages/ProjectAlerts'
 import ProjectTimeline from './pages/ProjectTimeline'
+import ChangeOrders from './pages/ChangeOrders'
+import ChangeOrderForm from './pages/ChangeOrderForm'
+import ChangeOrderApproval from './pages/ChangeOrderApproval'
 
 function App() {
   return (
     <Routes>
-      {/* טופס יומן עבודה חיצוני */}
+      {/* דפים חיצוניים — בלי סיידבר */}
       <Route path="/log/:projectId" element={<WorkLogForm />} />
+      <Route path="/approve/:projectId/:changeId" element={<ChangeOrderApproval />} />
 
       <Route element={<Layout />}>
         <Route path="/" element={<Dashboard />} />
@@ -47,6 +51,9 @@ function App() {
         <Route path="/project/:id/boq-billing" element={<BOQBilling />} />
         <Route path="/project/:id/overview" element={<ProjectOverview />} />
         <Route path="/project/:id/documents" element={<ProjectDocuments />} />
+        <Route path="/project/:id/changes" element={<ChangeOrders />} />
+        <Route path="/change/:projectId/new" element={<ChangeOrderForm />} />
+        <Route path="/change/:projectId/:changeId" element={<ChangeOrderForm />} />
         <Route path="/project/:id/alerts" element={<ProjectAlerts />} />
         <Route path="/project/:id/timeline" element={<ProjectTimeline />} />
       </Route>

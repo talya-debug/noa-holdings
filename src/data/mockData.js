@@ -603,10 +603,10 @@ export function formatDate(dateStr) {
 }
 // תוויות סוג פריט
 export function getTypeLabel(type) {
-  return { material: 'חומר', labor: 'עבודה', subcontractor: 'קבלן משנה' }[type] || type
+  return { material: 'חומר', labor: 'עבודה', subcontractor: 'קבלן משנה', combined: 'כולל' }[type] || type
 }
 export function getTypeBadgeClass(type) {
-  return { material: 'badge-info', labor: 'badge-warning', subcontractor: 'badge-success' }[type] || 'badge-info'
+  return { material: 'badge-info', labor: 'badge-warning', subcontractor: 'badge-success', combined: 'badge-gold' }[type] || 'badge-info'
 }
 
 export function getStatusLabel(status) {

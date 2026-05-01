@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { Plus, Package, Wrench, Users, X, Edit3, Trash2, Save } from 'lucide-react'
+import { Plus, Package, Wrench, Users, X, Edit3, Trash2, Save, Download } from 'lucide-react'
 import { categoryIcons, formatCurrency, getTypeLabel, getTypeBadgeClass } from '../data/mockData'
 import { getPriceList, addPriceItem, updatePriceItem, deletePriceItem } from '../data/store'
+import * as XLSX from 'xlsx'
 
 export default function PriceList() {
   const [priceList, setPriceList] = useState(getPriceList())
@@ -45,16 +46,37 @@ export default function PriceList() {
     refresh()
   }
 
+  const handleExportExcel = () => {
+    const typeLabels = { material: 'חומר', labor: 'עבודה', subcontractor: 'קבלן משנה', combined: 'כולל' }
+    const data = priceList.map(item => ({
+      'קטגוריה': item.category,
+      'שם': item.name,
+      'יחידה': item.unit,
+      'סוג': typeLabels[item.type] || item.type,
+      'מחיר עלות': item.costPrice,
+    }))
+    const ws = XLSX.utils.json_to_sheet(data)
+    ws['!cols'] = [{ wch: 15 }, { wch: 25 }, { wch: 8 }, { wch: 12 }, { wch: 12 }]
+    const wb = XLSX.utils.book_new()
+    XLSX.utils.book_append_sheet(wb, ws, 'מחירון')
+    XLSX.writeFile(wb, 'מחירון.xlsx')
+  }
+
   return (
     <div className="animate-in">
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px', flexWrap: 'wrap', gap: '8px' }}>
         <div>
           <h1 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '4px' }}>מחירון מאסטר</h1>
           <p style={{ color: 'var(--text-muted)', fontSize: '14px' }}>{priceList.length} פריטים ב-{categories.length} קטגוריות</p>
         </div>
-        <button className="btn btn-primary" onClick={() => setShowModal(true)}>
-          <Plus size={18} />פריט חדש
-        </button>
+        <div style={{ display: 'flex', gap: '8px' }}>
+          <button className="btn btn-secondary" onClick={handleExportExcel}>
+            <Download size={16} />ייצוא לאקסל
+          </button>
+          <button className="btn btn-primary" onClick={() => setShowModal(true)}>
+            <Plus size={18} />פריט חדש
+          </button>
+        </div>
       </div>
 
       {categories.map(cat => (

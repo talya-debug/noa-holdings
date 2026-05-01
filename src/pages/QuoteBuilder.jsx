@@ -165,8 +165,7 @@ export default function QuoteBuilder() {
       })
     })
 
-    saveQuote({ items: newItems })
-    autoUpdateMilestones(newItems)
+    saveItemsWithMilestones(newItems)
     setImportPreview(null)
     setAddMode('manual')
   }
@@ -249,7 +248,7 @@ table.t .tot td{background:#fdf8ec;font-weight:700;color:#D4A843;border-top:2px 
 </style></head><body>
 
 <div class="hdr">
-  <div><div class="logo">PB<span>ProBuild</span></div></div>
+  <div><div class="logo">נעה<span>NOA HOLDINGS</span></div></div>
   <div class="hdr-l"><div class="dn">הצעת מחיר ${quote.number}</div>${formatDate(quote.date)}<br>תוקף: 30 יום</div>
 </div>
 
@@ -289,11 +288,11 @@ ${milestones.map((ms, i) => `<tr><td>${i + 1}</td><td>${ms.name}</td><td>${ms.pe
 </div>
 
 <div class="sigs">
-<div class="sig"><div class="line"></div><div class="name">ProBuild</div></div>
+<div class="sig"><div class="line"></div><div class="name">נעה אחזקות בע"מ</div></div>
 <div class="sig"><div class="line"></div><div class="name">${quote.clientName}</div></div>
 </div>
 
-<div class="ft">ProBuild | ${quote.number} | ${formatDate(quote.date)}</div>
+<div class="ft">נעה אחזקות בע"מ | ${quote.number} | ${formatDate(quote.date)}</div>
 
 <script>window.onload=()=>window.print()</script>
 </body></html>`)
@@ -313,16 +312,16 @@ ${milestones.map((ms, i) => `<tr><td>${i + 1}</td><td>${ms.name}</td><td>${ms.pe
             {quote.clientName} • {quote.address} • {formatDate(quote.date)}
           </p>
         </div>
-        <div style={{ display: 'flex', gap: '8px' }}>
-          <button className="btn btn-secondary" onClick={handleExportPDF}>
-            <FileDown size={16} />הפק PDF ללקוח
+        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+          <button className="btn btn-secondary btn-sm" onClick={handleExportPDF}>
+            <FileDown size={16} />PDF ללקוח
           </button>
-          <button className="btn btn-secondary" onClick={() => alert('נשמר!')}>
+          <button className="btn btn-secondary btn-sm" onClick={() => alert('נשמר!')}>
             <Save size={16} />שמור
           </button>
           {quote.status !== 'approved' && (
-            <button className="btn btn-primary" onClick={handleApprove}>
-              <CheckCircle size={16} />אשר הצעה → צור פרויקט
+            <button className="btn btn-primary btn-sm" onClick={handleApprove}>
+              <CheckCircle size={16} />אשר → צור פרויקט
             </button>
           )}
         </div>
@@ -331,7 +330,7 @@ ${milestones.map((ms, i) => `<tr><td>${i + 1}</td><td>${ms.name}</td><td>${ms.pe
       {/* סרגל סיכום - סדר: מכירה, עלות, רווח */}
       <div className="card" style={{
         position: 'sticky', top: '0', zIndex: 10,
-        display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '12px',
+        display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(130px, 45%), 1fr))', gap: '12px',
         marginBottom: '24px', background: 'var(--dark-card)', border: '1px solid var(--gold-border)',
       }}>
         {[
@@ -592,7 +591,7 @@ ${milestones.map((ms, i) => `<tr><td>${i + 1}</td><td>${ms.name}</td><td>${ms.pe
             }}>
               סה"כ: {totalPercentage}% {totalPercentage !== 100 && '(חייב 100%)'}
             </span>
-            <button className="btn btn-secondary btn-sm" onClick={() => autoUpdateMilestones(quote.items || [])}>
+            <button className="btn btn-secondary btn-sm" onClick={() => saveItemsWithMilestones(quote.items || [])}>
               חישוב אוטומטי
             </button>
             <button className="btn btn-secondary btn-sm" onClick={addMilestone}>

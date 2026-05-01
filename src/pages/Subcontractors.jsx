@@ -1,8 +1,8 @@
 import { useParams } from 'react-router-dom'
 import { useState } from 'react'
-import { Users, FileText, AlertTriangle, Plus, CreditCard } from 'lucide-react'
+import { Users, FileText, AlertTriangle, Plus, CreditCard, Trash2 } from 'lucide-react'
 import { formatCurrency } from '../data/mockData'
-import { getProject, getSubcontractors, addSubcontractor, addPaymentToSub } from '../data/store'
+import { getProject, getSubcontractors, addSubcontractor, addPaymentToSub, deleteSubcontractor } from '../data/store'
 
 export default function Subcontractors() {
   const { id } = useParams()
@@ -37,9 +37,15 @@ export default function Subcontractors() {
     setForm({ name: '', phone: '', specialty: '', workPercentage: '', contractAmount: '' })
   }
 
+  const handleDelete = (subId, name) => {
+    if (!confirm(`למחוק את הקבלן "${name}"?`)) return
+    deleteSubcontractor(subId)
+    setSubs(getSubcontractors().filter(s => s.projectId === pid))
+  }
+
   const handlePayment = (subId) => {
-    const amount = Number(paymentAmount)
-    if (!amount || amount <= 0) return
+    const amount = Math.abs(Number(paymentAmount))
+    if (!amount) return
     addPaymentToSub(subId, amount)
     setSubs(getSubcontractors().filter(s => s.projectId === pid))
     setShowPayment(null)
@@ -87,7 +93,7 @@ export default function Subcontractors() {
         </div>
       )}
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '16px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(340px, 100%), 1fr))', gap: '16px' }}>
         {subs.map(sub => {
           const paidPercent = sub.contractAmount > 0 ? Math.round((sub.paid / sub.contractAmount) * 100) : 0
           return (
@@ -99,9 +105,16 @@ export default function Subcontractors() {
                     {sub.specialty} {sub.phone && `| ${sub.phone}`}
                   </div>
                 </div>
-                <span className={`badge ${sub.hasContract ? 'badge-success' : 'badge-warning'}`}>
-                  {sub.hasContract ? <><FileText size={12} /> הסכם חתום</> : <><AlertTriangle size={12} /> חסר הסכם</>}
-                </span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span className={`badge ${sub.hasContract ? 'badge-success' : 'badge-warning'}`}>
+                    {sub.hasContract ? <><FileText size={12} /> הסכם חתום</> : <><AlertTriangle size={12} /> חסר הסכם</>}
+                  </span>
+                  <button onClick={() => handleDelete(sub.id, sub.name)}
+                    style={{ background: 'none', border: 'none', color: 'var(--danger)', cursor: 'pointer', padding: '4px', borderRadius: '4px' }}
+                    title="מחק קבלן">
+                    <Trash2 size={16} />
+                  </button>
+                </div>
               </div>
 
               <div style={{
@@ -196,11 +209,11 @@ export default function Subcontractors() {
               <div className="form-row">
                 <div className="form-group">
                   <label>אחוז מהעבודה</label>
-                  <input type="number" value={form.workPercentage} onChange={e => setForm(prev => ({ ...prev, workPercentage: e.target.value }))} placeholder="100" />
+                  <input type="number" min="0" max="100" value={form.workPercentage} onChange={e => setForm(prev => ({ ...prev, workPercentage: e.target.value }))} placeholder="100" />
                 </div>
                 <div className="form-group">
                   <label>סכום הסכם (ש"ח)</label>
-                  <input type="number" required value={form.contractAmount} onChange={e => setForm(prev => ({ ...prev, contractAmount: e.target.value }))} placeholder="0" />
+                  <input type="number" min="0" required value={form.contractAmount} onChange={e => setForm(prev => ({ ...prev, contractAmount: e.target.value }))} placeholder="0" />
                 </div>
               </div>
               <div className="form-actions">

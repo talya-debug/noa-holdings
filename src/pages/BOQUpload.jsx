@@ -6,7 +6,7 @@ import { addBOQQuote } from '../data/store'
 
 // עמודות חובה בכתב כמויות
 const REQUIRED_COLUMNS = ['סעיף', 'קטגוריה', 'מהות', 'יחידה', 'כמות', 'סוג']
-const VALID_TYPES = { 'רכש': 'procurement', 'כוח אדם': 'labor', 'קבלן משנה': 'subcontractor' }
+const VALID_TYPES = { 'רכש': 'procurement', 'כוח אדם': 'labor', 'קבלן משנה': 'subcontractor', 'כולל': 'combined' }
 
 export default function BOQUpload() {
   const navigate = useNavigate()
@@ -99,6 +99,7 @@ export default function BOQUpload() {
       { 'סעיף': '04.01', 'קטגוריה': 'ריצוף', 'מהות': 'ריצוף פנים', 'יחידה': 'מ"ר', 'כמות': 180, 'סוג': 'רכש' },
       { 'סעיף': '04.02', 'קטגוריה': 'ריצוף', 'מהות': 'עבודת ריצוף', 'יחידה': 'מ"ר', 'כמות': 180, 'סוג': 'כוח אדם' },
       { 'סעיף': '05.01', 'קטגוריה': 'איטום', 'מהות': 'איטום גג', 'יחידה': 'מ"ר', 'כמות': 180, 'סוג': 'קבלן משנה' },
+      { 'סעיף': '06.01', 'קטגוריה': 'צבע וגבס', 'מהות': 'עבודות גבס כולל חומר', 'יחידה': 'מ"ר', 'כמות': 500, 'סוג': 'כולל' },
     ]
     const ws = XLSX.utils.json_to_sheet(data)
     ws['!cols'] = [{ wch: 8 }, { wch: 15 }, { wch: 25 }, { wch: 8 }, { wch: 8 }, { wch: 12 }]

@@ -3,7 +3,7 @@ import { useState } from 'react'
 import {
   LayoutDashboard, FolderKanban, FileText, ListChecks,
   ShoppingCart, Users, ClipboardList, BarChart3, CreditCard,
-  Menu, X, ExternalLink, BookOpen, Zap, FileArchive, AlertTriangle, CalendarDays
+  Menu, X, ExternalLink, BookOpen, Zap, FileArchive, AlertTriangle, CalendarDays, FilePlus
 } from 'lucide-react'
 import { getProjects, getProject } from '../data/store'
 
@@ -18,10 +18,10 @@ function Logo() {
         background: 'linear-gradient(135deg, var(--gold), var(--gold-dark))',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         fontSize: '22px', fontWeight: 800, color: 'var(--dark)', fontFamily: 'Arial',
-      }}>PB</div>
+      }}>נעה</div>
       <div>
-        <div style={{ fontSize: '16px', fontWeight: 700, color: 'var(--gold)' }}>ProBuild</div>
-        <div style={{ fontSize: '11px', color: 'var(--text-muted)', letterSpacing: '1px' }}>ניהול פרויקטים</div>
+        <div style={{ fontSize: '16px', fontWeight: 700, color: 'var(--gold)' }}>נעה אחזקות</div>
+        <div style={{ fontSize: '11px', color: 'var(--text-muted)', letterSpacing: '1px' }}>NOA HOLDINGS</div>
       </div>
     </div>
   )
@@ -35,7 +35,6 @@ export default function Layout() {
     { to: '/', icon: LayoutDashboard, label: 'דשבורד', end: true },
     { to: '/price-list', icon: ListChecks, label: 'מחירון' },
     { to: '/quotes', icon: FileText, label: 'הצעות מחיר' },
-    { to: '/plan-analyzer', icon: Zap, label: 'ניתוח תוכניות' },
     { to: '/projects', icon: FolderKanban, label: 'פרויקטים' },
     { to: '/tutorial', icon: BookOpen, label: 'הדרכה' },
   ]
@@ -52,6 +51,7 @@ export default function Layout() {
     isBOQProject
       ? { to: `/project/${id}/boq-billing`, icon: CreditCard, label: 'חשבון חלקי' }
       : { to: `/project/${id}/billing`, icon: CreditCard, label: 'אבני דרך וגבייה' },
+    { to: `/project/${id}/changes`, icon: FilePlus, label: 'תוספות ושינויים' },
     { to: `/project/${id}/documents`, icon: FileArchive, label: 'מסמכים' },
     { to: `/project/${id}/timeline`, icon: CalendarDays, label: 'לוח זמנים' },
     { to: `/project/${id}/alerts`, icon: AlertTriangle, label: 'התראות' },
@@ -111,7 +111,7 @@ export default function Layout() {
         )}
       </nav>
       <div style={{ padding: '16px 24px', borderTop: '1px solid var(--dark-border)', fontSize: '11px', color: 'var(--text-muted)' }}>
-        ProBuild © 2026
+        נעה אחזקות © 2026
       </div>
     </>
   )

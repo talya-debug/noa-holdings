@@ -54,6 +54,22 @@ export function addQuote(quote) {
 export function deleteQuote(id) {
   saveQuotes(getQuotes().filter(q => q.id !== id))
 }
+export function duplicateQuote(id) {
+  const original = getQuote(id)
+  if (!original) return null
+  const quotes = getQuotes()
+  const dup = {
+    ...original,
+    id: Date.now(),
+    number: `Q-2026-${String(quotes.length + 1).padStart(3, '0')}`,
+    date: new Date().toISOString().split('T')[0],
+    status: 'draft',
+    clientName: `${original.clientName} (עותק)`,
+  }
+  quotes.push(dup)
+  saveQuotes(quotes)
+  return dup
+}
 export function updateQuote(id, updates) {
   const quotes = getQuotes()
   const idx = quotes.findIndex(q => q.id === id)
@@ -305,7 +321,7 @@ export function approveBOQQuote(boqId) {
       projectId: project.id,
       name: item.name,
       category: item.category,
-      type: item.itemType === 'procurement' ? 'material' : item.itemType === 'subcontractor' ? 'subcontractor' : 'labor',
+      type: item.itemType === 'procurement' ? 'material' : item.itemType === 'combined' ? 'combined' : item.itemType === 'subcontractor' ? 'subcontractor' : 'labor',
       unit: item.unit,
       budgetQty: item.quantity,
       budgetCost: item.costPrice,
@@ -315,8 +331,8 @@ export function approveBOQQuote(boqId) {
     }
     tasks.push(task)
 
-    // רכש
-    if (item.itemType === 'procurement') {
+    // רכש (גם combined נכנס לרכש)
+    if (item.itemType === 'procurement' || item.itemType === 'combined') {
       purchases.push({
         id: Date.now() + 200 + i,
         projectId: project.id,
@@ -406,6 +422,146 @@ export function deleteDocument(id) {
   saveDocuments(load('documents', []).filter(d => d.id !== id))
 }
 
+// ===== תוספות ושינויים =====
+export function getChangeOrders(projectId) {
+  const all = load('changeOrders', [])
+  return projectId ? all.filter(co => co.projectId === projectId) : all
+}
+export function saveChangeOrders(cos) { save('changeOrders', cos) }
+export function getChangeOrder(id) { return load('changeOrders', []).find(co => co.id === id) }
+export function addChangeOrder(data) {
+  const all = load('changeOrders', [])
+  const projectOrders = all.filter(co => co.projectId === data.projectId)
+  const co = {
+    id: Date.now(),
+    number: `CO-${String(projectOrders.length + 1).padStart(3, '0')}`,
+    date: new Date().toISOString().split('T')[0],
+    status: 'draft',
+    approvedBy: '',
+    approvedDate: null,
+    ...data,
+  }
+  all.push(co)
+  saveChangeOrders(all)
+  return co
+}
+export function updateChangeOrder(id, updates) {
+  const all = load('changeOrders', [])
+  const idx = all.findIndex(co => co.id === id)
+  if (idx !== -1) { all[idx] = { ...all[idx], ...updates }; saveChangeOrders(all) }
+  return all[idx]
+}
+export function deleteChangeOrder(id) {
+  saveChangeOrders(load('changeOrders', []).filter(co => co.id !== id))
+}
+
+// אישור תוספת → הכנסה לפרויקט
+export function approveChangeOrder(changeId, approvedBy) {
+  const co = getChangeOrder(changeId)
+  if (!co) return null
+
+  updateChangeOrder(changeId, { status: 'approved', approvedBy, approvedDate: new Date().toISOString().split('T')[0] })
+
+  const project = getProject(co.projectId)
+  if (!project) return null
+
+  const tasks = getProjectTasks()
+  const purchases = getPurchases()
+  const subsList = getSubcontractors()
+
+  // הוספת משימות + רכש + קב"מ
+  ;(co.items || []).forEach((item, i) => {
+    const task = {
+      id: Date.now() + 500 + i,
+      projectId: co.projectId,
+      name: `${item.name} (תוספת)`,
+      category: item.category,
+      type: item.type === 'procurement' ? 'material' : item.type,
+      unit: item.unit,
+      budgetQty: item.quantity,
+      budgetCost: item.costPrice,
+      clientPrice: item.clientPrice,
+      status: 'pending',
+      changeOrderId: changeId,
+    }
+    tasks.push(task)
+
+    if (item.type === 'material' || item.type === 'procurement' || item.type === 'combined') {
+      purchases.push({
+        id: Date.now() + 600 + i,
+        projectId: co.projectId,
+        taskId: task.id,
+        name: item.name,
+        category: item.category,
+        supplier: '',
+        budgetQty: item.quantity,
+        budgetUnitCost: item.costPrice,
+        budgetTotal: item.costPrice * item.quantity,
+        orderedQty: 0, actualUnitCost: 0, actualTotal: 0,
+        orderStatus: 'not_ordered',
+        orders: [], date: null,
+      })
+    }
+
+    if (item.type === 'subcontractor') {
+      subsList.push({
+        id: Date.now() + 700 + i,
+        name: item.name,
+        phone: '',
+        specialty: item.category,
+        projectId: co.projectId,
+        contractAmount: item.clientPrice * item.quantity,
+        paid: 0, pending: 0, hasContract: false,
+      })
+    }
+  })
+
+  saveProjectTasks(tasks)
+  savePurchases(purchases)
+  saveSubcontractors(subsList)
+
+  // חיבור לגבייה
+  const totalSell = (co.items || []).reduce((s, i) => s + (i.clientPrice * i.quantity), 0)
+
+  if (project.billingType === 'boq' && project.boqQuoteId) {
+    // BOQ — הוספת סעיפים לכתב הכמויות
+    const boq = getBOQQuote(project.boqQuoteId)
+    if (boq) {
+      const newItems = [...(boq.items || [])]
+      co.items.forEach(item => {
+        newItems.push({
+          clause: `CO-${co.number}`,
+          category: item.category,
+          name: `${item.name} (תוספת)`,
+          unit: item.unit,
+          quantity: item.quantity,
+          itemType: item.type === 'material' ? 'procurement' : item.type,
+          costPrice: item.costPrice,
+          clientPrice: item.clientPrice,
+        })
+      })
+      updateBOQQuote(project.boqQuoteId, { items: newItems })
+    }
+  } else {
+    // רגיל — אבן דרך חדשה
+    const milestones = getMilestones()
+    milestones.push({
+      id: Date.now() + 800,
+      projectId: co.projectId,
+      name: `תוספות ושינויים ${co.number}`,
+      percentage: 0,
+      amount: totalSell,
+      status: 'pending',
+      billingStatus: 'ממתין לאישור',
+      completionCriteria: co.description || '',
+      paidAmount: 0, paidDate: null,
+    })
+    saveMilestones(milestones)
+  }
+
+  return co
+}
+
 // ===== הגדרות =====
 export function getProjectSettings(projectId) {
   const p = getProject(projectId)
@@ -427,10 +583,11 @@ export function resetAllData() {
   save('documents', demoDocuments)
   save('boqQuotes', demoBOQQuotes)
   save('partialInvoices', demoPartialInvoices)
+  save('changeOrders', [])
 }
 
 // טעינה אוטומטית — כל פעם שהגרסה משתנה הדמו נטען מחדש
-const DEMO_VERSION = '12'
+const DEMO_VERSION = '15'
 if (localStorage.getItem('pb_version') !== DEMO_VERSION) {
   Object.keys(localStorage).forEach(k => localStorage.removeItem(k))
   resetAllData()

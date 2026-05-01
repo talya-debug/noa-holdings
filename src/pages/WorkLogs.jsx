@@ -1,14 +1,20 @@
 import { useParams } from 'react-router-dom'
 import { useState } from 'react'
-import { ExternalLink, Camera, Users as UsersIcon, AlertCircle, Check } from 'lucide-react'
+import { ExternalLink, Camera, Users as UsersIcon, AlertCircle, Check, Trash2 } from 'lucide-react'
 import { formatCurrency, formatDate, categoryIcons } from '../data/mockData'
-import { getProject, getWorkLogs, getProjectSettings, getProjectTasks } from '../data/store'
+import { getProject, getWorkLogs, getProjectSettings, getProjectTasks, deleteWorkLog } from '../data/store'
 
 export default function WorkLogs() {
   const { id } = useParams()
   const pid = Number(id)
   const project = getProject(pid)
-  const [logs] = useState(() => getWorkLogs().filter(l => l.projectId === pid).sort((a, b) => b.date.localeCompare(a.date)))
+  const [logs, setLogs] = useState(() => getWorkLogs().filter(l => l.projectId === pid).sort((a, b) => b.date.localeCompare(a.date)))
+
+  const handleDeleteLog = (logId) => {
+    if (!confirm('למחוק את היומן הזה?')) return
+    deleteWorkLog(logId)
+    setLogs(getWorkLogs().filter(l => l.projectId === pid).sort((a, b) => b.date.localeCompare(a.date)))
+  }
   const settings = getProjectSettings(pid)
 
   const totalLabor = logs.reduce((s, l) => s + (l.laborCost || 0), 0)
@@ -120,15 +126,22 @@ export default function WorkLogs() {
                 )}
               </div>
             </div>
-            <div style={{ textAlign: 'left' }}>
-              <div style={{ fontSize: '16px', fontWeight: 700, color: 'var(--gold)' }}>
-                {formatCurrency(log.laborCost || 0)}
-              </div>
-              {log.actualLaborCost && log.actualLaborCost !== log.laborCost && (
-                <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
-                  עלות: {formatCurrency(log.actualLaborCost)}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <div style={{ textAlign: 'left' }}>
+                <div style={{ fontSize: '16px', fontWeight: 700, color: 'var(--gold)' }}>
+                  {formatCurrency(log.laborCost || 0)}
                 </div>
-              )}
+                {log.actualLaborCost && log.actualLaborCost !== log.laborCost && (
+                  <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
+                    עלות: {formatCurrency(log.actualLaborCost)}
+                  </div>
+                )}
+              </div>
+              <button onClick={() => handleDeleteLog(log.id)}
+                style={{ background: 'none', border: 'none', color: 'var(--danger)', cursor: 'pointer', padding: '4px', opacity: 0.6 }}
+                title="מחק יומן">
+                <Trash2 size={16} />
+              </button>
             </div>
           </div>
 
