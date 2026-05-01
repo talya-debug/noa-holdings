@@ -18,7 +18,7 @@ function Logo() {
         background: 'linear-gradient(135deg, var(--gold), var(--gold-dark))',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         fontSize: '22px', fontWeight: 800, color: 'var(--dark)', fontFamily: 'Arial',
-      }}>נעה</div>
+      }}>NH
       <div>
         <div style={{ fontSize: '16px', fontWeight: 700, color: 'var(--gold)' }}>נעה אחזקות</div>
         <div style={{ fontSize: '11px', color: 'var(--text-muted)', letterSpacing: '1px' }}>NOA HOLDINGS</div>

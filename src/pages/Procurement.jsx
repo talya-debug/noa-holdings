@@ -95,7 +95,7 @@ td{padding:8px 10px;border-bottom:1px solid #eee}
 .ft{text-align:center;color:#ccc;font-size:8px;margin-top:20px;border-top:1px solid #eee;padding-top:8px}
 </style></head><body>
 <div class="hdr">
-  <div><div class="logo">נעה<span>NOA HOLDINGS</span></div></div>
+  <div><div class="logo">NH<span>NOA HOLDINGS</span></div></div>
   <div style="text-align:left"><div class="title">הזמנת רכש</div>${formatDate(order.date)}</div>
 </div>
 <div class="info">

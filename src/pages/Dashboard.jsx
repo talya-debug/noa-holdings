@@ -162,11 +162,6 @@ export default function Dashboard() {
           </p>
         </div>
         <div style={{ display: 'flex', gap: '8px' }}>
-          <button className="btn btn-secondary btn-sm" onClick={() => {
-            if (confirm('לאפס הכל לנתוני דמו?')) { localStorage.clear(); resetAllData(); window.location.reload() }
-          }}>
-            <RotateCcw size={14} />איפוס דמו
-          </button>
           <Link to="/quotes" className="btn btn-primary">
             <Plus size={18} />הצעה חדשה
           </Link>

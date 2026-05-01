@@ -175,7 +175,7 @@ export default function Tutorial() {
           איך עובדים עם המערכת?
         </h1>
         <p style={{ color: 'var(--text-muted)', fontSize: '14px', maxWidth: '500px', margin: '0 auto' }}>
-          יש שני מסלולים — בחר את זה שמתאים לאופן העבודה שלך
+          תמיד מתחילים מהצעת מחיר — יש שתי דרכים ליצור אותה
         </p>
       </div>
 
@@ -197,10 +197,10 @@ export default function Tutorial() {
             </div>
             <div style={{ flex: 1 }}>
               <h2 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--gold)', marginBottom: '4px' }}>
-                מסלול א׳ — הצעת מחיר
+                הצעה מהמחירון
               </h2>
               <p style={{ fontSize: '13px', color: 'var(--text-muted)', margin: 0 }}>
-                בונים הצעה מהמחירון ← הלקוח מאשר ← פרויקט עם אבני דרך
+                בוחרים פריטים מהמחירון שלך ← קובעים כמות ומחיר ← גבייה לפי אבני דרך
               </p>
             </div>
             {openTrack === 'quote' ? <ChevronDown size={20} color="var(--gold)" /> : <ChevronLeft size={20} color="var(--text-muted)" />}
@@ -228,10 +228,10 @@ export default function Tutorial() {
             </div>
             <div style={{ flex: 1 }}>
               <h2 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--info)', marginBottom: '4px' }}>
-                מסלול ב׳ — כתב כמויות
+                הצעה מכתב כמויות
               </h2>
               <p style={{ fontSize: '13px', color: 'var(--text-muted)', margin: 0 }}>
-                מעלים אקסל ← מסווגים ומתמחרים ← פרויקט עם חשבון חלקי
+                מעלים כתב כמויות מאקסל ← מסווגים ומתמחרים ← גבייה בחשבון חלקי
               </p>
             </div>
             {openTrack === 'boq' ? <ChevronDown size={20} color="var(--info)" /> : <ChevronLeft size={20} color="var(--text-muted)" />}

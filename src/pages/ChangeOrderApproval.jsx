@@ -87,7 +87,7 @@ export default function ChangeOrderApproval() {
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             margin: '0 auto 12px', fontSize: '22px', fontWeight: 800,
             color: 'var(--dark)', fontFamily: 'Arial',
-          }}>נעה</div>
+          }}>NH
           <h1 style={{ fontSize: '20px', fontWeight: 700, color: 'var(--gold)', marginBottom: '4px' }}>
             תוספת לאישור
           </h1>

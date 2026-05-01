@@ -248,7 +248,7 @@ table.t .tot td{background:#fdf8ec;font-weight:700;color:#D4A843;border-top:2px 
 </style></head><body>
 
 <div class="hdr">
-  <div><div class="logo">נעה<span>NOA HOLDINGS</span></div></div>
+  <div><div class="logo">NH<span>NOA HOLDINGS</span></div></div>
   <div class="hdr-l"><div class="dn">הצעת מחיר ${quote.number}</div>${formatDate(quote.date)}<br>תוקף: 30 יום</div>
 </div>
 
