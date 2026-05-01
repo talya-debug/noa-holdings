@@ -162,6 +162,11 @@ export default function Dashboard() {
           </p>
         </div>
         <div style={{ display: 'flex', gap: '8px' }}>
+          <button className="btn btn-secondary btn-sm" onClick={() => {
+            if (confirm('לאפס את כל הנתונים ולחזור למצב התחלתי?')) { localStorage.clear(); resetAllData(); window.location.reload() }
+          }}>
+            <RotateCcw size={14} />אפס נתונים
+          </button>
           <Link to="/quotes" className="btn btn-primary">
             <Plus size={18} />הצעה חדשה
           </Link>
