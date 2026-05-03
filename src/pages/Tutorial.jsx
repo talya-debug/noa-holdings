@@ -252,7 +252,6 @@ export default function Tutorial() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))', gap: '12px' }}>
           {[
             { title: 'יומן עבודה', desc: 'שלח לינק למנהל העבודה דרך וואטסאפ — הוא ממלא מהטלפון, והנתונים נכנסים אוטומטית', color: 'var(--warning)' },
-            { title: 'איפוס דמו', desc: 'כפתור "איפוס דמו" בדשבורד מחזיר את כל הנתונים להתחלה — אפשר לשחק בלי חשש', color: 'var(--info)' },
             { title: 'PDF להצעה', desc: 'בעורך ההצעה יש כפתור "PDF ללקוח" — מפיק מסמך מקצועי עם סיכום, תנאים ומקום לחתימה', color: 'var(--success)' },
             { title: 'התראות', desc: 'המערכת מתריעה אוטומטית: חריגות תקציב, קבלנים בלי חוזה, פרויקטים באיחור', color: 'var(--danger)' },
           ].map((tip, i) => (

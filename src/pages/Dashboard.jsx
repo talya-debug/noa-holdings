@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { FolderKanban, DollarSign, AlertTriangle, RotateCcw, Plus, FileText, ChevronLeft, Users, Clock, Package } from 'lucide-react'
-import { getProjects, getQuotes, getMilestones, resetAllData, getBOQQuotes, getPartialInvoices, getSubcontractors, getPurchases, getWorkLogs, getChangeOrders } from '../data/store'
+import { getProjects, getQuotes, getMilestones, getBOQQuotes, getPartialInvoices, getSubcontractors, getPurchases, getWorkLogs, getChangeOrders } from '../data/store'
 import { calcQuoteTotals, formatCurrency, formatDate, getStatusLabel, getStatusBadgeClass } from '../data/mockData'
 
 // חישוב סכום מכירה לפרויקט
