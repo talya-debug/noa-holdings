@@ -1,13 +1,27 @@
 import { useState } from 'react'
-import { Plus, Package, Wrench, Users, X, Edit3, Trash2, Save, Download } from 'lucide-react'
+import { Plus, Package, Wrench, Users, Layers, X, Edit3, Trash2, Save, Download, Upload } from 'lucide-react'
 import { categoryIcons, formatCurrency, getTypeLabel, getTypeBadgeClass } from '../data/mockData'
-import { getPriceList, addPriceItem, updatePriceItem, deletePriceItem } from '../data/store'
+import { getPriceList, savePriceList, addPriceItem, updatePriceItem, deletePriceItem } from '../data/store'
 import * as XLSX from 'xlsx'
+
+// יחידות מידה סטנדרטיות
+const STANDARD_UNITS = [
+  'מ"ר', 'מ"ק', 'מ"א', 'טון', 'ק"ג', 'יח׳', 'נק׳', 'יום', 'שעה', 'פאושלי', 'קומפלט', 'חודש',
+]
+
+// סוגי פריטים
+const TYPE_OPTIONS = [
+  { value: 'material', icon: <Package size={14} />, label: 'חומר' },
+  { value: 'labor', icon: <Wrench size={14} />, label: 'עבודה' },
+  { value: 'subcontractor', icon: <Users size={14} />, label: 'קבלן משנה' },
+  { value: 'combined', icon: <Layers size={14} />, label: 'כולל (חומר+עבודה)' },
+]
 
 export default function PriceList() {
   const [priceList, setPriceList] = useState(getPriceList())
   const [showModal, setShowModal] = useState(false)
   const [newCategory, setNewCategory] = useState('')
+  const [customUnit, setCustomUnit] = useState('')
   const [editingId, setEditingId] = useState(null)
   const [editForm, setEditForm] = useState({})
   const [form, setForm] = useState({ category: '', name: '', unit: '', type: 'material', costPrice: '' })
@@ -16,17 +30,29 @@ export default function PriceList() {
   const categories = [...new Set(priceList.map(i => i.category))]
   const grouped = categories.reduce((acc, cat) => { acc[cat] = priceList.filter(i => i.category === cat); return acc }, {})
 
-  const typeIcon = (type) => type === 'material' ? <Package size={12} /> : type === 'labor' ? <Wrench size={12} /> : <Users size={12} />
+  const typeIcon = (type) => {
+    switch (type) {
+      case 'material': return <Package size={12} />
+      case 'labor': return <Wrench size={12} />
+      case 'subcontractor': return <Users size={12} />
+      case 'combined': return <Layers size={12} />
+      default: return <Package size={12} />
+    }
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
     const category = newCategory || form.category
-    if (!category) return
-    addPriceItem({ category, name: form.name, unit: form.unit, type: form.type, costPrice: Number(form.costPrice) })
+    if (!category) { alert('בחר או הקלד קטגוריה'); return }
+    if (!form.name) { alert('הקלד שם פריט'); return }
+    const unit = customUnit || form.unit
+    if (!unit) { alert('בחר או הקלד יחידת מידה'); return }
+    addPriceItem({ category, name: form.name, unit, type: form.type, costPrice: Number(form.costPrice) || 0 })
     refresh()
     setShowModal(false)
     setForm({ category: '', name: '', unit: '', type: 'material', costPrice: '' })
     setNewCategory('')
+    setCustomUnit('')
   }
 
   const startEdit = (item) => {
@@ -62,6 +88,40 @@ export default function PriceList() {
     XLSX.writeFile(wb, 'מחירון.xlsx')
   }
 
+  // ייבוא מחירון מאקסל
+  const handleImportExcel = (e) => {
+    const file = e.target.files[0]
+    if (!file) return
+    const reader = new FileReader()
+    reader.onload = (evt) => {
+      try {
+        const wb = XLSX.read(evt.target.result, { type: 'array' })
+        const ws = wb.Sheets[wb.SheetNames[0]]
+        const rows = XLSX.utils.sheet_to_json(ws)
+        if (rows.length === 0) { alert('הקובץ ריק'); return }
+
+        const typeMap = { 'חומר': 'material', 'עבודה': 'labor', 'קבלן משנה': 'subcontractor', 'כולל': 'combined' }
+        let added = 0
+        rows.forEach(row => {
+          const name = row['שם'] || row['מהות'] || row['תיאור']
+          if (!name) return
+          addPriceItem({
+            category: row['קטגוריה'] || 'כללי',
+            name: String(name),
+            unit: String(row['יחידה'] || row['יח\''] || 'יח׳'),
+            type: typeMap[row['סוג']] || 'material',
+            costPrice: Number(row['מחיר עלות'] || row['מחיר'] || 0),
+          })
+          added++
+        })
+        refresh()
+        alert(`יובאו ${added} פריטים למחירון`)
+      } catch { alert('שגיאה בקריאת הקובץ') }
+    }
+    reader.readAsArrayBuffer(file)
+    e.target.value = ''
+  }
+
   return (
     <div className="animate-in">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px', flexWrap: 'wrap', gap: '8px' }}>
@@ -69,7 +129,11 @@ export default function PriceList() {
           <h1 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '4px' }}>מחירון מאסטר</h1>
           <p style={{ color: 'var(--text-muted)', fontSize: '14px' }}>{priceList.length} פריטים ב-{categories.length} קטגוריות</p>
         </div>
-        <div style={{ display: 'flex', gap: '8px' }}>
+        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+          <label className="btn btn-secondary" style={{ cursor: 'pointer' }}>
+            <Upload size={16} />ייבוא מאקסל
+            <input type="file" accept=".xlsx,.xls,.csv" onChange={handleImportExcel} style={{ display: 'none' }} />
+          </label>
           <button className="btn btn-secondary" onClick={handleExportExcel}>
             <Download size={16} />ייצוא לאקסל
           </button>
@@ -104,12 +168,15 @@ export default function PriceList() {
                     {editingId === item.id ? (
                       <>
                         <td><input value={editForm.name} onChange={e => setEditForm(p => ({ ...p, name: e.target.value }))} style={{ width: '100%', padding: '4px 8px', fontSize: '13px' }} /></td>
-                        <td><input value={editForm.unit} onChange={e => setEditForm(p => ({ ...p, unit: e.target.value }))} style={{ width: '60px', padding: '4px 8px', fontSize: '13px' }} /></td>
+                        <td>
+                          <select value={STANDARD_UNITS.includes(editForm.unit) ? editForm.unit : '__custom'} onChange={e => setEditForm(p => ({ ...p, unit: e.target.value === '__custom' ? p.unit : e.target.value }))} style={{ padding: '4px', fontSize: '12px', width: '80px' }}>
+                            {STANDARD_UNITS.map(u => <option key={u} value={u}>{u}</option>)}
+                            {!STANDARD_UNITS.includes(editForm.unit) && <option value={editForm.unit}>{editForm.unit}</option>}
+                          </select>
+                        </td>
                         <td>
                           <select value={editForm.type} onChange={e => setEditForm(p => ({ ...p, type: e.target.value }))} style={{ padding: '4px', fontSize: '12px' }}>
-                            <option value="material">חומר</option>
-                            <option value="labor">עבודה</option>
-                            <option value="subcontractor">קבלן משנה</option>
+                            {TYPE_OPTIONS.map(t => <option key={t.value} value={t.value}>{t.label}</option>)}
                           </select>
                         </td>
                         <td><input type="number" value={editForm.costPrice} onChange={e => setEditForm(p => ({ ...p, costPrice: e.target.value }))} style={{ width: '80px', padding: '4px 8px', fontSize: '13px', textAlign: 'center' }} /></td>
@@ -146,6 +213,12 @@ export default function PriceList() {
         </div>
       ))}
 
+      {priceList.length === 0 && (
+        <div className="card" style={{ textAlign: 'center', padding: '60px', color: 'var(--text-muted)' }}>
+          המחירון ריק. הוסף פריטים ידנית או ייבא מאקסל.
+        </div>
+      )}
+
       {/* מודל הוספת פריט */}
       {showModal && (
         <div className="modal-overlay" onClick={() => setShowModal(false)}>
@@ -173,23 +246,36 @@ export default function PriceList() {
               <div className="form-row">
                 <div className="form-group">
                   <label>יחידת מידה</label>
-                  <input required value={form.unit} onChange={e => setForm(prev => ({ ...prev, unit: e.target.value }))} placeholder='מ"ר, יח׳, יום, פאושלי...' />
+                  <select value={STANDARD_UNITS.includes(form.unit) ? form.unit : (form.unit ? '__custom' : '')} onChange={e => {
+                    if (e.target.value === '__custom') { setForm(prev => ({ ...prev, unit: '' })); setCustomUnit('') }
+                    else { setForm(prev => ({ ...prev, unit: e.target.value })); setCustomUnit('') }
+                  }}>
+                    <option value="">— בחר —</option>
+                    {STANDARD_UNITS.map(u => <option key={u} value={u}>{u}</option>)}
+                    <option value="__custom">אחר...</option>
+                  </select>
+                  {(form.unit === '' && customUnit !== undefined) && (
+                    <input value={customUnit} onChange={e => { setCustomUnit(e.target.value); setForm(prev => ({ ...prev, unit: '' })) }}
+                      placeholder="הקלד יחידה" style={{ marginTop: '6px' }} />
+                  )}
                 </div>
                 <div className="form-group">
                   <label>מחיר עלות (₪)</label>
-                  <input required type="number" min="0" value={form.costPrice} onChange={e => setForm(prev => ({ ...prev, costPrice: e.target.value }))} placeholder="0" />
+                  <input type="number" min="0" value={form.costPrice} onChange={e => setForm(prev => ({ ...prev, costPrice: e.target.value }))} placeholder="0" />
                 </div>
               </div>
               <div className="form-group">
                 <label>סוג</label>
-                <div style={{ display: 'flex', gap: '16px', marginTop: '8px' }}>
-                  {[
-                    { value: 'material', icon: <Package size={14} />, label: 'חומר' },
-                    { value: 'labor', icon: <Wrench size={14} />, label: 'עבודה' },
-                    { value: 'subcontractor', icon: <Users size={14} />, label: 'קבלן משנה' },
-                  ].map(opt => (
-                    <label key={opt.value} style={{ display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer' }}>
-                      <input type="radio" name="type" value={opt.value} checked={form.type === opt.value} onChange={e => setForm(prev => ({ ...prev, type: e.target.value }))} />
+                <div style={{ display: 'flex', gap: '12px', marginTop: '8px', flexWrap: 'wrap' }}>
+                  {TYPE_OPTIONS.map(opt => (
+                    <label key={opt.value} style={{
+                      display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer',
+                      padding: '8px 12px', borderRadius: '8px',
+                      background: form.type === opt.value ? 'var(--gold-bg)' : 'var(--dark)',
+                      border: form.type === opt.value ? '1px solid var(--gold-border)' : '1px solid transparent',
+                    }}>
+                      <input type="radio" name="type" value={opt.value} checked={form.type === opt.value}
+                        onChange={e => setForm(prev => ({ ...prev, type: e.target.value }))} style={{ display: 'none' }} />
                       {opt.icon} {opt.label}
                     </label>
                   ))}

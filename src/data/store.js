@@ -1,44 +1,54 @@
 // מנהל נתונים — Firestore עם cache מקומי
 // כל הקריאות סינכרוניות (מהזיכרון), כל הכתיבות מסנכרנות ל-Firestore
+// Multi-tenancy: כל משתמש שומר תחת users/{uid}/
 
-import { db } from './firebase'
+import { db, auth } from './firebase'
 import { doc, getDoc, setDoc } from 'firebase/firestore'
-import { masterPriceList, demoQuotes, demoProjects, demoMilestones, demoProjectTasks, demoPurchases, demoWorkLogs, demoSubcontractors, demoDocuments, demoBOQQuotes, demoPartialInvoices, findPriceItem, defaultMilestones } from './mockData'
+import { masterPriceList, findPriceItem, defaultMilestones } from './mockData'
 
 // ===== Cache מקומי =====
 const cache = {}
 
-// כל הטבלאות והדמו שלהן
+// כל הטבלאות — משתמש חדש מתחיל עם מחירון בלבד, בלי דמו
 const TABLES = {
   priceList: masterPriceList,
-  quotes: demoQuotes,
-  projects: demoProjects,
-  milestones: demoMilestones,
-  projectTasks: demoProjectTasks,
-  purchases: demoPurchases,
-  workLogs: demoWorkLogs,
-  subcontractors: demoSubcontractors,
-  documents: demoDocuments,
-  boqQuotes: demoBOQQuotes,
-  partialInvoices: demoPartialInvoices,
+  quotes: [],
+  projects: [],
+  milestones: [],
+  projectTasks: [],
+  purchases: [],
+  workLogs: [],
+  subcontractors: [],
+  documents: [],
+  boqQuotes: [],
+  partialInvoices: [],
   changeOrders: [],
 }
 
-// טעינה ראשונית מ-Firestore — קורה פעם אחת כשהאפליקציה נטענת
+// נתיב Firestore של המשתמש הנוכחי
+function userDoc(key) {
+  const uid = auth.currentUser?.uid
+  if (!uid) throw new Error('משתמש לא מחובר')
+  return doc(db, 'users', uid, 'data', key)
+}
+
+// טעינה ראשונית מ-Firestore — קורה פעם אחת אחרי התחברות
 export async function loadAllData() {
   const promises = Object.keys(TABLES).map(async (key) => {
     try {
-      const snap = await getDoc(doc(db, 'appData', key))
+      const snap = await getDoc(userDoc(key))
       if (snap.exists() && snap.data().items && snap.data().items.length > 0) {
         cache[key] = snap.data().items
       } else {
-        // אין נתונים — טוען דמו ושומר ל-Firestore
-        cache[key] = TABLES[key]
-        await setDoc(doc(db, 'appData', key), { items: TABLES[key] })
+        // משתמש חדש — מאתחל עם ברירת מחדל
+        cache[key] = [...TABLES[key]]
+        if (TABLES[key].length > 0) {
+          await setDoc(userDoc(key), { items: TABLES[key] })
+        }
       }
     } catch (err) {
       console.error(`שגיאה בטעינת ${key}:`, err)
-      cache[key] = TABLES[key]
+      cache[key] = [...TABLES[key]]
     }
   })
   await Promise.all(promises)
@@ -46,15 +56,19 @@ export async function loadAllData() {
 
 // קריאה מה-cache (סינכרוני)
 function load(key) {
-  return cache[key] || TABLES[key] || []
+  return cache[key] || []
 }
 
 // שמירה ל-cache + סנכרון ל-Firestore
 function save(key, data) {
   cache[key] = data
-  setDoc(doc(db, 'appData', key), { items: data }).catch(err =>
+  try {
+    setDoc(userDoc(key), { items: data }).catch(err =>
+      console.error(`שגיאה בשמירת ${key}:`, err)
+    )
+  } catch (err) {
     console.error(`שגיאה בשמירת ${key}:`, err)
-  )
+  }
 }
 
 // ===== מחירון =====
@@ -184,7 +198,8 @@ export function approveQuote(quoteId) {
     }
     tasks.push(task)
 
-    if (pi.type === 'material') {
+    // חומר או כולל — הולך לרכש
+    if (pi.type === 'material' || pi.type === 'combined') {
       purchases.push({
         id: Date.now() + 200 + i,
         projectId: project.id,
@@ -598,7 +613,7 @@ export function getProjectSettings(projectId) {
 // ===== איפוס =====
 export async function resetAllData() {
   for (const key of Object.keys(TABLES)) {
-    cache[key] = TABLES[key]
-    await setDoc(doc(db, 'appData', key), { items: TABLES[key] })
+    cache[key] = [...TABLES[key]]
+    await setDoc(userDoc(key), { items: TABLES[key] })
   }
 }
