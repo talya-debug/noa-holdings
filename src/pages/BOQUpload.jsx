@@ -72,6 +72,7 @@ export default function BOQUpload() {
   const [headers, setHeaders] = useState([]) // שורות כותרת
   const [problems, setProblems] = useState([]) // שורות בעייתיות
   const [showProblems, setShowProblems] = useState(false)
+  const [typesConfirmed, setTypesConfirmed] = useState(false)
   const [error, setError] = useState('')
 
   // שלב 1: העלאת קובץ
@@ -162,6 +163,7 @@ export default function BOQUpload() {
   // שלב 3: אישור → יצירת BOQ
   const handleConfirm = () => {
     if (!form.clientName || !form.address) { setError('מלא שם לקוח וכתובת'); return }
+    if (!typesConfirmed) { setError('חובה לאשר שבדקת את סיווג הפריטים לפני המשך'); return }
     const selectedItems = preview.filter(r => r.selected)
     if (selectedItems.length === 0) { setError('בחר לפחות פריט אחד'); return }
 
@@ -432,6 +434,27 @@ export default function BOQUpload() {
               ))}
             </div>
           )}
+
+          {/* אישור סיווג */}
+          <div className="card" style={{
+            marginBottom: '16px',
+            background: typesConfirmed ? 'var(--success-bg)' : 'var(--warning-bg)',
+            border: typesConfirmed ? '1px solid rgba(74,222,128,0.3)' : '1px solid rgba(251,191,36,0.3)',
+          }}>
+            <label style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', cursor: 'pointer' }}>
+              <input type="checkbox" checked={typesConfirmed} onChange={e => setTypesConfirmed(e.target.checked)}
+                style={{ marginTop: '3px', width: '18px', height: '18px' }} />
+              <div>
+                <div style={{ fontWeight: 600, fontSize: '14px', color: 'var(--text-primary)' }}>
+                  {typesConfirmed ? 'אישרתי — הסיווגים נבדקו' : 'חובה: בדוק את סיווג הפריטים (רכש / עבודה / קב"מ / כולל)'}
+                </div>
+                <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '4px' }}>
+                  סיווג שגוי ישפיע על מעקב רכש, יומני עבודה, ניהול קב"מ והסקירה הכספית של הפרויקט.
+                  עבור על העמודה האחרונה בטבלה ושנה אם צריך.
+                </div>
+              </div>
+            </label>
+          </div>
 
           {/* טבלת פריטים */}
           <div className="card" style={{ padding: 0 }}>

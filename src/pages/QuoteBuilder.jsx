@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { Plus, Trash2, Save, CheckCircle, X, FileDown, Upload, FileSpreadsheet, Download } from 'lucide-react'
+import { Plus, Trash2, Save, CheckCircle, X, FileDown, Upload, FileSpreadsheet, Download, Edit3 } from 'lucide-react'
 import { findPriceItem, calcQuoteTotals, formatCurrency, formatDate, getStatusLabel, getStatusBadgeClass, categoryIcons, getCategories, getTypeLabel, getTypeBadgeClass, masterPriceList } from '../data/mockData'
 import { getQuote, updateQuote, approveQuote, getPriceList, addPriceItem } from '../data/store'
 import * as XLSX from 'xlsx'
@@ -78,6 +78,26 @@ export default function QuoteBuilder() {
     const newItems = [...(quote.items || []), { priceItemId: pi.id, quantity: 1, clientPrice: Math.round(pi.costPrice * 1.3) }]
     saveItemsWithMilestones(newItems)
     setSelectedItemId('')
+  }
+
+  // פריט חופשי — הוספה ישירה בלי מחירון
+  const [freeItem, setFreeItem] = useState({ name: '', category: '', unit: 'יח׳', type: 'material', costPrice: '', clientPrice: '', quantity: 1 })
+  const handleAddFreeItem = () => {
+    if (!freeItem.name) return
+    const newPriceItem = addPriceItem({
+      category: freeItem.category || 'כללי',
+      name: freeItem.name,
+      unit: freeItem.unit,
+      type: freeItem.type,
+      costPrice: Number(freeItem.costPrice) || 0,
+    })
+    const newItems = [...(quote.items || []), {
+      priceItemId: newPriceItem.id,
+      quantity: Number(freeItem.quantity) || 1,
+      clientPrice: Number(freeItem.clientPrice) || Math.round((Number(freeItem.costPrice) || 0) * 1.3),
+    }]
+    saveItemsWithMilestones(newItems)
+    setFreeItem({ name: '', category: '', unit: 'יח׳', type: 'material', costPrice: '', clientPrice: '', quantity: 1 })
   }
 
   const handleRemoveItem = (priceItemId) => {
@@ -354,7 +374,8 @@ ${milestones.map((ms, i) => `<tr><td>${i + 1}</td><td>${ms.name}</td><td>${ms.pe
       <div className="card" style={{ marginBottom: '24px' }}>
         <div style={{ display: 'flex', gap: '0', marginBottom: '16px', borderBottom: '2px solid var(--dark-border)' }}>
           {[
-            { key: 'manual', label: 'בחירה מהמחירון', icon: Plus },
+            { key: 'manual', label: 'מהמחירון', icon: Plus },
+            { key: 'free', label: 'פריט חופשי', icon: Edit3 },
             { key: 'excel', label: 'ייבוא מאקסל', icon: Upload },
           ].map(tab => (
             <button key={tab.key} onClick={() => { setAddMode(tab.key); setImportPreview(null) }}
@@ -392,6 +413,51 @@ ${milestones.map((ms, i) => `<tr><td>${i + 1}</td><td>${ms.name}</td><td>${ms.pe
             <button className="btn btn-primary" onClick={handleAddItem} disabled={!selectedItemId} style={{ height: '40px' }}>
               <Plus size={16} />הוסף
             </button>
+          </div>
+        )}
+
+        {addMode === 'free' && (
+          <div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(150px, 100%), 1fr))', gap: '10px', marginBottom: '12px' }}>
+              <div className="form-group" style={{ margin: 0 }}>
+                <label style={{ fontSize: '12px' }}>שם הפריט *</label>
+                <input value={freeItem.name} onChange={e => setFreeItem(p => ({ ...p, name: e.target.value }))} placeholder="תיאור העבודה/חומר" />
+              </div>
+              <div className="form-group" style={{ margin: 0 }}>
+                <label style={{ fontSize: '12px' }}>קטגוריה</label>
+                <input value={freeItem.category} onChange={e => setFreeItem(p => ({ ...p, category: e.target.value }))} placeholder="כללי" />
+              </div>
+              <div className="form-group" style={{ margin: 0 }}>
+                <label style={{ fontSize: '12px' }}>סוג</label>
+                <select value={freeItem.type} onChange={e => setFreeItem(p => ({ ...p, type: e.target.value }))}>
+                  <option value="material">חומר</option>
+                  <option value="labor">עבודה</option>
+                  <option value="subcontractor">קב"מ</option>
+                  <option value="combined">כולל</option>
+                </select>
+              </div>
+            </div>
+            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', alignItems: 'flex-end' }}>
+              <div className="form-group" style={{ margin: 0, flex: '0 0 80px' }}>
+                <label style={{ fontSize: '12px' }}>יחידה</label>
+                <input value={freeItem.unit} onChange={e => setFreeItem(p => ({ ...p, unit: e.target.value }))} style={{ textAlign: 'center' }} />
+              </div>
+              <div className="form-group" style={{ margin: 0, flex: '0 0 80px' }}>
+                <label style={{ fontSize: '12px' }}>כמות</label>
+                <input type="number" min="1" value={freeItem.quantity} onChange={e => setFreeItem(p => ({ ...p, quantity: e.target.value }))} style={{ textAlign: 'center' }} />
+              </div>
+              <div className="form-group" style={{ margin: 0, flex: '0 0 100px' }}>
+                <label style={{ fontSize: '12px' }}>עלות ליח׳</label>
+                <input type="number" min="0" value={freeItem.costPrice} onChange={e => setFreeItem(p => ({ ...p, costPrice: e.target.value }))} placeholder="0" style={{ textAlign: 'center' }} />
+              </div>
+              <div className="form-group" style={{ margin: 0, flex: '0 0 100px' }}>
+                <label style={{ fontSize: '12px' }}>מחיר ללקוח</label>
+                <input type="number" min="0" value={freeItem.clientPrice} onChange={e => setFreeItem(p => ({ ...p, clientPrice: e.target.value }))} placeholder="0" style={{ textAlign: 'center' }} />
+              </div>
+              <button className="btn btn-primary" onClick={handleAddFreeItem} disabled={!freeItem.name} style={{ height: '40px' }}>
+                <Plus size={16} />הוסף
+              </button>
+            </div>
           </div>
         )}
 

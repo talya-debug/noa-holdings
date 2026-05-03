@@ -1,6 +1,6 @@
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { useState } from 'react'
-import { ExternalLink, Camera, Users as UsersIcon, AlertCircle, Check, Trash2 } from 'lucide-react'
+import { ExternalLink, Camera, Users as UsersIcon, AlertCircle, Check, Trash2, Plus } from 'lucide-react'
 import { formatCurrency, formatDate, categoryIcons } from '../data/mockData'
 import { getProject, getWorkLogs, getProjectSettings, getProjectTasks, deleteWorkLog } from '../data/store'
 
@@ -33,13 +33,19 @@ export default function WorkLogs() {
           <h1 style={{ fontSize: '24px', fontWeight: 700, marginBottom: '4px' }}>יומני עבודה</h1>
           <p style={{ fontSize: '14px', color: 'var(--text-muted)' }}>{project?.name}</p>
         </div>
-        <button className="btn btn-primary" onClick={() => {
-          navigator.clipboard.writeText(logLink)
-          alert('הלינק הועתק! שלח אותו למנהל העבודה בוואטסאפ')
-        }}>
-          <ExternalLink size={18} />
-          העתק לינק למנהל עבודה
-        </button>
+        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+          <Link to={`/log/${id}`} target="_blank" className="btn btn-primary" style={{ textDecoration: 'none' }}>
+            <Plus size={18} />
+            הוסף יומן
+          </Link>
+          <button className="btn btn-secondary" onClick={() => {
+            navigator.clipboard.writeText(logLink)
+            alert('הלינק הועתק! שלח אותו למנהל העבודה בוואטסאפ')
+          }}>
+            <ExternalLink size={16} />
+            העתק לינק למנהל עבודה
+          </button>
+        </div>
       </div>
 
       {/* סטטיסטיקות */}
