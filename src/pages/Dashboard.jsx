@@ -104,6 +104,7 @@ export default function Dashboard() {
   const workLogs = getWorkLogs()
 
   const activeProjects = projects.filter(p => p.status === 'active')
+  const planningProjects = projects.filter(p => p.status === 'planning')
   const allProjects = projects.filter(p => p.status !== 'completed')
 
   // חישוב סה"כ ערך חוזי כל הפרויקטים הפעילים
@@ -252,47 +253,76 @@ export default function Dashboard() {
           ))}
         </div>
 
-        {/* כל הפרויקטים */}
-        <div className="card">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-            <h2 style={{ fontSize: '16px', fontWeight: 600, color: 'var(--gold)' }}>פרויקטים ({allProjects.length})</h2>
-            <Link to="/projects" className="btn btn-secondary btn-sm">הכל</Link>
-          </div>
-          {allProjects.map(p => {
-            const totalSell = getProjectSellTotal(p, quotes, boqQuotes)
-            const projMilestones = milestones.filter(m => m.projectId === p.id)
-            const paidCount = projMilestones.filter(m => m.billingStatus === 'שולם').length
-            return (
-              <Link key={p.id} to={`/project/${p.id}`} style={{
-                display: 'block', padding: '14px', background: 'var(--dark)',
-                borderRadius: '10px', marginBottom: '10px', textDecoration: 'none', color: 'inherit',
-                border: '1px solid transparent', transition: 'border-color 0.15s',
-              }}
-                onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--gold-border)'}
-                onMouseLeave={e => e.currentTarget.style.borderColor = 'transparent'}
-              >
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span style={{ fontWeight: 600 }}>{p.name}</span>
-                    {p.billingType === 'boq' && <span className="badge badge-gold" style={{ fontSize: '10px' }}>חשבון חלקי</span>}
+        {/* פרויקטים */}
+        <div>
+          {/* בביצוע */}
+          <div className="card" style={{ marginBottom: '16px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+              <h2 style={{ fontSize: '16px', fontWeight: 600, color: 'var(--gold)' }}>פרויקטים בביצוע ({activeProjects.length})</h2>
+              <Link to="/projects" className="btn btn-secondary btn-sm">הכל</Link>
+            </div>
+            {activeProjects.map(p => {
+              const totalSell = getProjectSellTotal(p, quotes, boqQuotes)
+              const projMilestones = milestones.filter(m => m.projectId === p.id)
+              const paidCount = projMilestones.filter(m => m.billingStatus === 'שולם').length
+              return (
+                <Link key={p.id} to={`/project/${p.id}`} style={{
+                  display: 'block', padding: '14px', background: 'var(--dark)',
+                  borderRadius: '10px', marginBottom: '10px', textDecoration: 'none', color: 'inherit',
+                  border: '1px solid transparent', transition: 'border-color 0.15s',
+                }}
+                  onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--gold-border)'}
+                  onMouseLeave={e => e.currentTarget.style.borderColor = 'transparent'}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span style={{ fontWeight: 600 }}>{p.name}</span>
+                      {p.billingType === 'boq' && <span className="badge badge-gold" style={{ fontSize: '10px' }}>חשבון חלקי</span>}
+                    </div>
                   </div>
-                  <span className={`badge ${getStatusBadgeClass(p.status)}`}>{getStatusLabel(p.status)}</span>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: 'var(--text-muted)' }}>
-                  <span>{p.clientName}</span>
-                  {projMilestones.length > 0 && <span>אבני דרך: {paidCount}/{projMilestones.length}</span>}
-                  {p.billingType === 'boq' && <span>חשבון חלקי</span>}
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', marginTop: '6px' }}>
-                  <span style={{ color: 'var(--text-muted)' }}>{p.startDate ? formatDate(p.startDate) : 'טרם התחיל'}</span>
-                  <span style={{ color: 'var(--gold)', fontWeight: 600 }}>{totalSell > 0 ? formatCurrency(totalSell) : '-'}</span>
-                </div>
-              </Link>
-            )
-          })}
-          {allProjects.length === 0 && (
-            <div style={{ textAlign: 'center', padding: '30px', color: 'var(--text-muted)' }}>
-              אין פרויקטים. אשר הצעת מחיר כדי ליצור פרויקט.
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: 'var(--text-muted)' }}>
+                    <span>{p.clientName}</span>
+                    {projMilestones.length > 0 && <span>אבני דרך: {paidCount}/{projMilestones.length}</span>}
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', marginTop: '6px' }}>
+                    <span style={{ color: 'var(--text-muted)' }}>{p.startDate ? formatDate(p.startDate) : ''}</span>
+                    <span style={{ color: 'var(--gold)', fontWeight: 600 }}>{totalSell > 0 ? formatCurrency(totalSell) : '-'}</span>
+                  </div>
+                </Link>
+              )
+            })}
+            {activeProjects.length === 0 && (
+              <div style={{ textAlign: 'center', padding: '20px', color: 'var(--text-muted)', fontSize: '13px' }}>
+                אין פרויקטים בביצוע
+              </div>
+            )}
+          </div>
+
+          {/* בתכנון */}
+          {planningProjects.length > 0 && (
+            <div className="card">
+              <h2 style={{ fontSize: '16px', fontWeight: 600, color: 'var(--text-muted)', marginBottom: '16px' }}>בתכנון ({planningProjects.length})</h2>
+              {planningProjects.map(p => {
+                const totalSell = getProjectSellTotal(p, quotes, boqQuotes)
+                return (
+                  <Link key={p.id} to={`/project/${p.id}`} style={{
+                    display: 'block', padding: '12px', background: 'var(--dark)',
+                    borderRadius: '10px', marginBottom: '8px', textDecoration: 'none', color: 'inherit',
+                    border: '1px solid transparent', opacity: 0.7,
+                  }}
+                    onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--gold-border)'; e.currentTarget.style.opacity = '1' }}
+                    onMouseLeave={e => { e.currentTarget.style.borderColor = 'transparent'; e.currentTarget.style.opacity = '0.7' }}
+                  >
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <span style={{ fontWeight: 600 }}>{p.name}</span>
+                      <span className="badge badge-info">בתכנון</span>
+                    </div>
+                    <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '4px' }}>
+                      {p.clientName} {totalSell > 0 ? `• ${formatCurrency(totalSell)}` : ''}
+                    </div>
+                  </Link>
+                )
+              })}
             </div>
           )}
         </div>

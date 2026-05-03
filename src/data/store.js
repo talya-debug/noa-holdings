@@ -178,7 +178,10 @@ export function approveQuote(quoteId) {
   const currentPriceList = getPriceList()
 
   quote.items.forEach((qi, i) => {
-    const pi = currentPriceList.find(p => p.id === qi.priceItemId) || findPriceItem(qi.priceItemId)
+    // פריט חופשי או פריט מהמחירון
+    const pi = qi._free
+      ? { name: qi._name, category: qi._category, type: qi._type, unit: qi._unit, costPrice: qi._costPrice }
+      : (currentPriceList.find(p => p.id === qi.priceItemId) || findPriceItem(qi.priceItemId))
     if (!pi) return
 
     const task = {

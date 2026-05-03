@@ -199,11 +199,11 @@ export default function Quotes() {
               </div>
               <div className="form-group">
                 <label>טלפון</label>
-                <input value={form.clientPhone} onChange={e => setForm(prev => ({ ...prev, clientPhone: e.target.value }))} placeholder="054-1234567" />
+                <input required value={form.clientPhone} onChange={e => setForm(prev => ({ ...prev, clientPhone: e.target.value }))} placeholder="054-1234567" />
               </div>
               <div className="form-group">
                 <label>כתובת</label>
-                <input value={form.address} onChange={e => setForm(prev => ({ ...prev, address: e.target.value }))} placeholder="עיר, רחוב ומספר" />
+                <input required value={form.address} onChange={e => setForm(prev => ({ ...prev, address: e.target.value }))} placeholder="עיר, רחוב ומספר" />
               </div>
               <div className="form-actions">
                 <button type="submit" className="btn btn-primary">צור הצעה</button>

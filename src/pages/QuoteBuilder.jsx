@@ -25,6 +25,11 @@ export default function QuoteBuilder() {
 
   // פריטים מורחבים
   const enrichedItems = (quote.items || []).map(qi => {
+    if (qi._free) {
+      const totalCost = qi._costPrice * qi.quantity
+      const totalSell = qi.clientPrice * qi.quantity
+      return { ...qi, id: qi.priceItemId, name: qi._name, category: qi._category, unit: qi._unit, type: qi._type, costPrice: qi._costPrice, totalCost, totalSell, profit: totalSell - totalCost }
+    }
     const pi = priceList.find(p => p.id === qi.priceItemId) || findPriceItem(qi.priceItemId)
     if (!pi) return null
     const totalCost = pi.costPrice * qi.quantity
@@ -80,21 +85,22 @@ export default function QuoteBuilder() {
     setSelectedItemId('')
   }
 
-  // פריט חופשי — הוספה ישירה בלי מחירון
+  // פריט חופשי — הוספה ישירה, לא נכנס למחירון
   const [freeItem, setFreeItem] = useState({ name: '', category: '', unit: 'יח׳', type: 'material', costPrice: '', clientPrice: '', quantity: 1 })
   const handleAddFreeItem = () => {
     if (!freeItem.name) return
-    const newPriceItem = addPriceItem({
-      category: freeItem.category || 'כללי',
-      name: freeItem.name,
-      unit: freeItem.unit,
-      type: freeItem.type,
-      costPrice: Number(freeItem.costPrice) || 0,
-    })
+    const freeId = -(Date.now()) // ID שלילי = פריט חופשי, לא במחירון
     const newItems = [...(quote.items || []), {
-      priceItemId: newPriceItem.id,
+      priceItemId: freeId,
       quantity: Number(freeItem.quantity) || 1,
       clientPrice: Number(freeItem.clientPrice) || Math.round((Number(freeItem.costPrice) || 0) * 1.3),
+      // שדות נוספים ישירות על הפריט (כי אין במחירון)
+      _free: true,
+      _name: freeItem.name,
+      _category: freeItem.category || 'כללי',
+      _unit: freeItem.unit,
+      _type: freeItem.type,
+      _costPrice: Number(freeItem.costPrice) || 0,
     }]
     saveItemsWithMilestones(newItems)
     setFreeItem({ name: '', category: '', unit: 'יח׳', type: 'material', costPrice: '', clientPrice: '', quantity: 1 })
