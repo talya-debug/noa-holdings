@@ -156,7 +156,7 @@ export default function Dashboard() {
       {/* כותרת + כפתורים */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '28px', flexWrap: 'wrap', gap: '12px' }}>
         <div>
-          <h1 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '4px' }}>שלום יעקב</h1>
+          <h1 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '4px' }}>נעה אחזקות</h1>
           <p style={{ color: 'var(--text-muted)', fontSize: '14px' }}>
             {new Date().toLocaleDateString('he-IL', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
           </p>

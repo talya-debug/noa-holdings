@@ -125,9 +125,10 @@ export function approveQuote(quoteId) {
   })
   saveMilestones(milestones)
 
-  // יצירת משימות + רכישות
+  // יצירת מש��מות + רכישות + קבלני משנה
   const tasks = getProjectTasks()
   const purchases = getPurchases()
+  const subsList = getSubcontractors()
 
   const currentPriceList = getPriceList()
   quote.items.forEach((qi, i) => {
@@ -150,8 +151,8 @@ export function approveQuote(quoteId) {
     }
     tasks.push(task)
 
-    // רכישה (חומר או קבלן משנה - הוצאות שצריך לעקוב)
-    if (pi.type === 'material' || pi.type === 'subcontractor') {
+    // רכישה (חומר בלבד)
+    if (pi.type === 'material') {
       purchases.push({
         id: Date.now() + 200 + i,
         projectId: project.id,
@@ -166,13 +167,29 @@ export function approveQuote(quoteId) {
         actualUnitCost: 0,
         actualTotal: 0,
         orderStatus: 'not_ordered',
-        orders: [], // מערך הזמנות - כל הזמנה נפרדת
+        orders: [],
         date: null,
+      })
+    }
+
+    // קבלן משנה — נוצר בדף קבלני משנה
+    if (pi.type === 'subcontractor') {
+      subsList.push({
+        id: Date.now() + 300 + i,
+        name: pi.name,
+        phone: '',
+        specialty: pi.category,
+        projectId: project.id,
+        contractAmount: qi.clientPrice * qi.quantity,
+        paid: 0,
+        pending: 0,
+        hasContract: false,
       })
     }
   })
   saveProjectTasks(tasks)
   savePurchases(purchases)
+  saveSubcontractors(subsList)
 
   return project
 }

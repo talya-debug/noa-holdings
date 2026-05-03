@@ -276,12 +276,20 @@ export default function ProjectTasks() {
                           </select>
                         </td>
                         <td>
-                          {(task.type === 'material' || task.type === 'subcontractor' || task.type === 'combined') && (
+                          {(task.type === 'material' || task.type === 'combined') && (
                             <Link to={`/project/${projectId}/procurement`} style={{
                               display: 'inline-flex', alignItems: 'center', gap: '4px',
                               fontSize: '12px', color: 'var(--info)', textDecoration: 'none',
                             }}>
-                              <ShoppingCart size={12} />{task.type === 'subcontractor' ? 'תשלומים' : 'רכש'}
+                              <ShoppingCart size={12} />רכש
+                            </Link>
+                          )}
+                          {task.type === 'subcontractor' && (
+                            <Link to={`/project/${projectId}/subcontractors`} style={{
+                              display: 'inline-flex', alignItems: 'center', gap: '4px',
+                              fontSize: '12px', color: 'var(--success)', textDecoration: 'none',
+                            }}>
+                              <Users size={12} />קב"מ
                             </Link>
                           )}
                           {(task.type === 'labor' || task.type === 'combined') && (

@@ -175,7 +175,7 @@ export default function ProjectDocuments() {
                     <td>{doc.uploadedBy}</td>
                     <td>
                       <div style={{ display: 'flex', gap: '6px' }}>
-                        <button className="btn btn-sm btn-secondary" title="הורדה" onClick={() => alert('במערכת מלאה — הקובץ יוריד מהשרת')}>
+                        <button className="btn btn-sm btn-secondary" title="הורדה לא זמינה — מטא-דאטה בלבד" disabled style={{ opacity: 0.4 }}>
                           <Download size={14} />
                         </button>
                         <button className="btn btn-sm btn-danger" title="מחיקה" onClick={() => handleDelete(doc.id)}>

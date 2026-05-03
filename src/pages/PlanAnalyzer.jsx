@@ -202,11 +202,11 @@ export default function PlanAnalyzer() {
       {/* כותרת */}
       <div style={{ marginBottom: '28px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
-          <h1 style={{ fontSize: '24px', fontWeight: 700 }}>ניתוח תוכניות יועצים</h1>
-          <span className="badge badge-gold" style={{ fontSize: '11px' }}>AI</span>
+          <h1 style={{ fontSize: '24px', fontWeight: 700 }}>ניתוח תו��ניות יועצים</h1>
+          <span className="badge badge-warning" style={{ fontSize: '11px' }}>דמו</span>
         </div>
         <p style={{ color: 'var(--text-muted)', fontSize: '14px' }}>
-          העלה תוכניות יועצים (PDF / תמונה) → המערכת מנתחת ומפיקה כתב כמויות אוטומטי
+          גרסת הדגמה — בחר תחומים וצפה בכתב כמויות לדוגמה. ניתוח AI אמיתי בקרוב
         </p>
       </div>
 

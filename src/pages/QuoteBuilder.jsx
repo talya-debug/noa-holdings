@@ -316,7 +316,10 @@ ${milestones.map((ms, i) => `<tr><td>${i + 1}</td><td>${ms.name}</td><td>${ms.pe
           <button className="btn btn-secondary btn-sm" onClick={handleExportPDF}>
             <FileDown size={16} />PDF ללקוח
           </button>
-          <button className="btn btn-secondary btn-sm" onClick={() => alert('נשמר!')}>
+          <button className="btn btn-secondary btn-sm" onClick={() => {
+            updateQuote(quote.id, { ...quote })
+            alert('ההצעה נשמרה בהצלחה')
+          }}>
             <Save size={16} />שמור
           </button>
           {quote.status !== 'approved' && (
