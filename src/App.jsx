@@ -1,4 +1,9 @@
+import { useState, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
+import { onAuthStateChanged } from 'firebase/auth'
+import { auth } from './data/firebase'
+import { loadAllData } from './data/store'
+import Login from './pages/Login'
 import Layout from './components/Layout'
 import Dashboard from './pages/Dashboard'
 import PriceList from './pages/PriceList'
@@ -26,6 +31,54 @@ import ChangeOrderForm from './pages/ChangeOrderForm'
 import ChangeOrderApproval from './pages/ChangeOrderApproval'
 
 function App() {
+  const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [dataReady, setDataReady] = useState(false)
+
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, async (u) => {
+      setUser(u)
+      if (u) {
+        await loadAllData()
+        setDataReady(true)
+      } else {
+        setDataReady(false)
+      }
+      setLoading(false)
+    })
+    return () => unsub()
+  }, [])
+
+  // מסך טעינה
+  if (loading) {
+    return (
+      <div style={{
+        minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center',
+        background: 'var(--dark)', color: 'var(--gold)', fontSize: '18px', fontWeight: 600,
+      }}>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ fontSize: '42px', fontWeight: 900, marginBottom: '12px', letterSpacing: '2px' }}>NH</div>
+          <div>טוען...</div>
+        </div>
+      </div>
+    )
+  }
+
+  // לא מחובר — מסך לוגין
+  if (!user) return <Login />
+
+  // מחובר אבל הדאטה עוד לא נטען
+  if (!dataReady) {
+    return (
+      <div style={{
+        minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center',
+        background: 'var(--dark)', color: 'var(--gold)', fontSize: '16px',
+      }}>
+        טוען נתונים...
+      </div>
+    )
+  }
+
   return (
     <Routes>
       {/* דפים חיצוניים — בלי סיידבר */}

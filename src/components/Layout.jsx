@@ -3,9 +3,11 @@ import { useState } from 'react'
 import {
   LayoutDashboard, FolderKanban, FileText, ListChecks,
   ShoppingCart, Users, ClipboardList, BarChart3, CreditCard,
-  Menu, X, ExternalLink, BookOpen, Zap, FileArchive, AlertTriangle, CalendarDays, FilePlus
+  Menu, X, ExternalLink, BookOpen, Zap, FileArchive, AlertTriangle, CalendarDays, FilePlus, LogOut
 } from 'lucide-react'
 import { getProjects, getProject } from '../data/store'
+import { signOut } from 'firebase/auth'
+import { auth } from '../data/firebase'
 
 function Logo() {
   return (
@@ -110,8 +112,18 @@ export default function Layout() {
           </>
         )}
       </nav>
-      <div style={{ padding: '16px 24px', borderTop: '1px solid var(--dark-border)', fontSize: '11px', color: 'var(--text-muted)' }}>
-        נעה אחזקות © 2026
+      <div style={{ padding: '12px 16px', borderTop: '1px solid var(--dark-border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>נעה אחזקות © 2026</span>
+        <button onClick={() => signOut(auth)} style={{
+          background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer',
+          display: 'flex', alignItems: 'center', gap: '4px', fontSize: '11px', padding: '4px 8px',
+          borderRadius: '6px',
+        }}
+          onMouseEnter={e => e.currentTarget.style.color = 'var(--danger)'}
+          onMouseLeave={e => e.currentTarget.style.color = 'var(--text-muted)'}
+        >
+          <LogOut size={13} />התנתק
+        </button>
       </div>
     </>
   )

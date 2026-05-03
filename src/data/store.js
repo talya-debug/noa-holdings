@@ -1,22 +1,64 @@
-// מנהל נתונים - localStorage (יוחלף ב-Supabase)
+// מנהל נתונים — Firestore עם cache מקומי
+// כל הקריאות סינכרוניות (מהזיכרון), כל הכתיבות מסנכרנות ל-Firestore
 
+import { db } from './firebase'
+import { doc, getDoc, setDoc } from 'firebase/firestore'
 import { masterPriceList, demoQuotes, demoProjects, demoMilestones, demoProjectTasks, demoPurchases, demoWorkLogs, demoSubcontractors, demoDocuments, demoBOQQuotes, demoPartialInvoices, findPriceItem, defaultMilestones } from './mockData'
 
-function load(key, fallback) {
-  try {
-    const d = localStorage.getItem(`pb_${key}`)
-    if (d) return JSON.parse(d)
-    // אם אין נתונים — שמור את הדמו ל-localStorage מיד
-    if (fallback && (Array.isArray(fallback) ? fallback.length > 0 : true)) {
-      localStorage.setItem(`pb_${key}`, JSON.stringify(fallback))
-    }
-    return fallback
-  } catch { return fallback }
+// ===== Cache מקומי =====
+const cache = {}
+
+// כל הטבלאות והדמו שלהן
+const TABLES = {
+  priceList: masterPriceList,
+  quotes: demoQuotes,
+  projects: demoProjects,
+  milestones: demoMilestones,
+  projectTasks: demoProjectTasks,
+  purchases: demoPurchases,
+  workLogs: demoWorkLogs,
+  subcontractors: demoSubcontractors,
+  documents: demoDocuments,
+  boqQuotes: demoBOQQuotes,
+  partialInvoices: demoPartialInvoices,
+  changeOrders: [],
 }
-function save(key, data) { localStorage.setItem(`pb_${key}`, JSON.stringify(data)) }
+
+// טעינה ראשונית מ-Firestore — קורה פעם אחת כשהאפליקציה נטענת
+export async function loadAllData() {
+  const promises = Object.keys(TABLES).map(async (key) => {
+    try {
+      const snap = await getDoc(doc(db, 'appData', key))
+      if (snap.exists() && snap.data().items && snap.data().items.length > 0) {
+        cache[key] = snap.data().items
+      } else {
+        // אין נתונים — טוען דמו ושומר ל-Firestore
+        cache[key] = TABLES[key]
+        await setDoc(doc(db, 'appData', key), { items: TABLES[key] })
+      }
+    } catch (err) {
+      console.error(`שגיאה בטעינת ${key}:`, err)
+      cache[key] = TABLES[key]
+    }
+  })
+  await Promise.all(promises)
+}
+
+// קריאה מה-cache (סינכרוני)
+function load(key) {
+  return cache[key] || TABLES[key] || []
+}
+
+// שמירה ל-cache + סנכרון ל-Firestore
+function save(key, data) {
+  cache[key] = data
+  setDoc(doc(db, 'appData', key), { items: data }).catch(err =>
+    console.error(`שגיאה בשמירת ${key}:`, err)
+  )
+}
 
 // ===== מחירון =====
-export function getPriceList() { return load('priceList', masterPriceList) }
+export function getPriceList() { return load('priceList') }
 export function savePriceList(list) { save('priceList', list) }
 export function addPriceItem(item) {
   const list = getPriceList()
@@ -25,7 +67,6 @@ export function addPriceItem(item) {
   savePriceList(list)
   return item
 }
-
 export function updatePriceItem(id, updates) {
   const list = getPriceList()
   const idx = list.findIndex(i => i.id === id)
@@ -36,7 +77,7 @@ export function deletePriceItem(id) {
 }
 
 // ===== הצעות מחיר =====
-export function getQuotes() { return load('quotes', demoQuotes) }
+export function getQuotes() { return load('quotes') }
 export function saveQuotes(q) { save('quotes', q) }
 export function getQuote(id) { return getQuotes().find(q => q.id === id) }
 export function addQuote(quote) {
@@ -82,16 +123,11 @@ export function approveQuote(quoteId) {
   const quote = getQuote(quoteId)
   if (!quote) return null
 
-  // עדכון סטטוס הצעה
   updateQuote(quoteId, { status: 'approved' })
 
-  // חישוב סה"כ מכירה
   let totalSell = 0
-  quote.items.forEach(qi => {
-    totalSell += qi.clientPrice * qi.quantity
-  })
+  quote.items.forEach(qi => { totalSell += qi.clientPrice * qi.quantity })
 
-  // יצירת פרויקט
   const project = {
     id: Date.now(),
     quoteId,
@@ -107,7 +143,6 @@ export function approveQuote(quoteId) {
   projects.push(project)
   saveProjects(projects)
 
-  // יצירת אבני דרך
   const milestones = getMilestones()
   quote.milestones.forEach((ms, i) => {
     milestones.push({
@@ -116,7 +151,7 @@ export function approveQuote(quoteId) {
       name: ms.name,
       percentage: ms.percentage,
       amount: Math.round(totalSell * ms.percentage / 100),
-      status: i === 0 ? 'pending' : 'pending',
+      status: 'pending',
       billingStatus: 'גבייה עתידית',
       completionCriteria: ms.completionCriteria || '',
       paidAmount: 0,
@@ -125,17 +160,15 @@ export function approveQuote(quoteId) {
   })
   saveMilestones(milestones)
 
-  // יצירת מש��מות + רכישות + קבלני משנה
   const tasks = getProjectTasks()
   const purchases = getPurchases()
   const subsList = getSubcontractors()
-
   const currentPriceList = getPriceList()
+
   quote.items.forEach((qi, i) => {
     const pi = currentPriceList.find(p => p.id === qi.priceItemId) || findPriceItem(qi.priceItemId)
     if (!pi) return
 
-    // משימה
     const task = {
       id: Date.now() + 100 + i,
       projectId: project.id,
@@ -151,7 +184,6 @@ export function approveQuote(quoteId) {
     }
     tasks.push(task)
 
-    // רכישה (חומר בלבד)
     if (pi.type === 'material') {
       purchases.push({
         id: Date.now() + 200 + i,
@@ -163,16 +195,12 @@ export function approveQuote(quoteId) {
         budgetQty: qi.quantity,
         budgetUnitCost: pi.costPrice,
         budgetTotal: pi.costPrice * qi.quantity,
-        orderedQty: 0,
-        actualUnitCost: 0,
-        actualTotal: 0,
+        orderedQty: 0, actualUnitCost: 0, actualTotal: 0,
         orderStatus: 'not_ordered',
-        orders: [],
-        date: null,
+        orders: [], date: null,
       })
     }
 
-    // קבלן משנה — נוצר בדף קבלני משנה
     if (pi.type === 'subcontractor') {
       subsList.push({
         id: Date.now() + 300 + i,
@@ -181,9 +209,7 @@ export function approveQuote(quoteId) {
         specialty: pi.category,
         projectId: project.id,
         contractAmount: qi.clientPrice * qi.quantity,
-        paid: 0,
-        pending: 0,
-        hasContract: false,
+        paid: 0, pending: 0, hasContract: false,
       })
     }
   })
@@ -195,12 +221,11 @@ export function approveQuote(quoteId) {
 }
 
 // ===== פרויקטים =====
-export function getProjects() { return load('projects', demoProjects) }
+export function getProjects() { return load('projects') }
 export function saveProjects(p) { save('projects', p) }
 export function getProject(id) { return getProjects().find(p => p.id === id) }
 export function deleteProject(id) {
   saveProjects(getProjects().filter(p => p.id !== id))
-  // מחיקת כל הנתונים המקושרים
   saveMilestones(getMilestones().filter(m => m.projectId !== id))
   saveProjectTasks(getProjectTasks().filter(t => t.projectId !== id))
   savePurchases(getPurchases().filter(p => p.projectId !== id))
@@ -214,7 +239,7 @@ export function updateProject(id, updates) {
 }
 
 // ===== אבני דרך =====
-export function getMilestones() { return load('milestones', demoMilestones) }
+export function getMilestones() { return load('milestones') }
 export function saveMilestones(ms) { save('milestones', ms) }
 export function updateMilestone(id, updates) {
   const ms = getMilestones()
@@ -224,7 +249,7 @@ export function updateMilestone(id, updates) {
 }
 
 // ===== משימות פרויקט =====
-export function getProjectTasks() { return load('projectTasks', demoProjectTasks) }
+export function getProjectTasks() { return load('projectTasks') }
 export function saveProjectTasks(t) { save('projectTasks', t) }
 export function updateProjectTask(id, updates) {
   const tasks = getProjectTasks()
@@ -233,7 +258,7 @@ export function updateProjectTask(id, updates) {
 }
 
 // ===== רכישות =====
-export function getPurchases() { return load('purchases', demoPurchases) }
+export function getPurchases() { return load('purchases') }
 export function savePurchases(p) { save('purchases', p) }
 export function updatePurchase(id, updates) {
   const ps = getPurchases()
@@ -242,7 +267,7 @@ export function updatePurchase(id, updates) {
 }
 
 // ===== יומני עבודה =====
-export function getWorkLogs() { return load('workLogs', demoWorkLogs) }
+export function getWorkLogs() { return load('workLogs') }
 export function saveWorkLogs(l) { save('workLogs', l) }
 export function deleteWorkLog(id) {
   saveWorkLogs(getWorkLogs().filter(l => l.id !== id))
@@ -256,7 +281,7 @@ export function addWorkLog(log) {
 }
 
 // ===== קבלני משנה =====
-export function getSubcontractors() { return load('subcontractors', demoSubcontractors) }
+export function getSubcontractors() { return load('subcontractors') }
 export function saveSubcontractors(s) { save('subcontractors', s) }
 export function deleteSubcontractor(id) {
   saveSubcontractors(getSubcontractors().filter(s => s.id !== id))
@@ -275,7 +300,7 @@ export function addPaymentToSub(subId, amount) {
 }
 
 // ===== כתב כמויות (BOQ) =====
-export function getBOQQuotes() { return load('boqQuotes', demoBOQQuotes) }
+export function getBOQQuotes() { return load('boqQuotes') }
 export function saveBOQQuotes(q) { save('boqQuotes', q) }
 export function getBOQQuote(id) { return getBOQQuotes().find(q => q.id === id) }
 export function addBOQQuote(data) {
@@ -309,11 +334,10 @@ export function approveBOQQuote(boqId) {
 
   updateBOQQuote(boqId, { status: 'approved' })
 
-  // יצירת פרויקט
   const project = {
     id: Date.now(),
     boqQuoteId: boqId,
-    billingType: 'boq', // גבייה בחשבון חלקי
+    billingType: 'boq',
     name: boq.projectName || `${boq.clientName} - ${boq.address}`,
     clientName: boq.clientName,
     address: boq.address,
@@ -326,13 +350,11 @@ export function approveBOQQuote(boqId) {
   projects.push(project)
   saveProjects(projects)
 
-  // יצירת משימות + רכש/קבלני משנה לפי סיווג
   const tasks = getProjectTasks()
   const purchases = getPurchases()
   const subsList = getSubcontractors()
 
   boq.items.forEach((item, i) => {
-    // משימה לכל סעיף
     const task = {
       id: Date.now() + 100 + i,
       projectId: project.id,
@@ -348,7 +370,6 @@ export function approveBOQQuote(boqId) {
     }
     tasks.push(task)
 
-    // רכש (גם combined נכנס לרכש)
     if (item.itemType === 'procurement' || item.itemType === 'combined') {
       purchases.push({
         id: Date.now() + 200 + i,
@@ -360,16 +381,12 @@ export function approveBOQQuote(boqId) {
         budgetQty: item.quantity,
         budgetUnitCost: item.costPrice,
         budgetTotal: item.costPrice * item.quantity,
-        orderedQty: 0,
-        actualUnitCost: 0,
-        actualTotal: 0,
+        orderedQty: 0, actualUnitCost: 0, actualTotal: 0,
         orderStatus: 'not_ordered',
-        orders: [],
-        date: null,
+        orders: [], date: null,
       })
     }
 
-    // קבלן משנה
     if (item.itemType === 'subcontractor') {
       subsList.push({
         id: Date.now() + 300 + i,
@@ -378,9 +395,7 @@ export function approveBOQQuote(boqId) {
         specialty: item.category,
         projectId: project.id,
         contractAmount: item.clientPrice * item.quantity,
-        paid: 0,
-        pending: 0,
-        hasContract: false,
+        paid: 0, pending: 0, hasContract: false,
       })
     }
   })
@@ -388,18 +403,17 @@ export function approveBOQQuote(boqId) {
   saveProjectTasks(tasks)
   savePurchases(purchases)
   saveSubcontractors(subsList)
-
   return project
 }
 
 // ===== חשבונות חלקיים =====
 export function getPartialInvoices(projectId) {
-  const all = load('partialInvoices', demoPartialInvoices)
+  const all = load('partialInvoices')
   return projectId ? all.filter(i => i.projectId === projectId) : all
 }
 export function savePartialInvoices(invoices) { save('partialInvoices', invoices) }
 export function addPartialInvoice(projectId, boqItems) {
-  const all = load('partialInvoices', [])
+  const all = load('partialInvoices')
   const projectInvoices = all.filter(i => i.projectId === projectId)
   const invoice = {
     id: Date.now(),
@@ -417,37 +431,37 @@ export function addPartialInvoice(projectId, boqItems) {
   return invoice
 }
 export function updatePartialInvoice(id, updates) {
-  const all = load('partialInvoices', [])
+  const all = load('partialInvoices')
   const idx = all.findIndex(i => i.id === id)
   if (idx !== -1) { all[idx] = { ...all[idx], ...updates }; savePartialInvoices(all) }
 }
 
 // ===== מסמכים =====
 export function getDocuments(projectId) {
-  const all = load('documents', demoDocuments)
+  const all = load('documents')
   return projectId ? all.filter(d => d.projectId === projectId) : all
 }
 export function saveDocuments(docs) { save('documents', docs) }
-export function addDocument(doc) {
-  const all = load('documents', [])
-  doc.id = Date.now()
-  all.push(doc)
+export function addDocument(doc2) {
+  const all = load('documents')
+  doc2.id = Date.now()
+  all.push(doc2)
   saveDocuments(all)
-  return doc
+  return doc2
 }
 export function deleteDocument(id) {
-  saveDocuments(load('documents', []).filter(d => d.id !== id))
+  saveDocuments(load('documents').filter(d => d.id !== id))
 }
 
 // ===== תוספות ושינויים =====
 export function getChangeOrders(projectId) {
-  const all = load('changeOrders', [])
+  const all = load('changeOrders')
   return projectId ? all.filter(co => co.projectId === projectId) : all
 }
 export function saveChangeOrders(cos) { save('changeOrders', cos) }
-export function getChangeOrder(id) { return load('changeOrders', []).find(co => co.id === id) }
+export function getChangeOrder(id) { return load('changeOrders').find(co => co.id === id) }
 export function addChangeOrder(data) {
-  const all = load('changeOrders', [])
+  const all = load('changeOrders')
   const projectOrders = all.filter(co => co.projectId === data.projectId)
   const co = {
     id: Date.now(),
@@ -463,13 +477,13 @@ export function addChangeOrder(data) {
   return co
 }
 export function updateChangeOrder(id, updates) {
-  const all = load('changeOrders', [])
+  const all = load('changeOrders')
   const idx = all.findIndex(co => co.id === id)
   if (idx !== -1) { all[idx] = { ...all[idx], ...updates }; saveChangeOrders(all) }
   return all[idx]
 }
 export function deleteChangeOrder(id) {
-  saveChangeOrders(load('changeOrders', []).filter(co => co.id !== id))
+  saveChangeOrders(load('changeOrders').filter(co => co.id !== id))
 }
 
 // אישור תוספת → הכנסה לפרויקט
@@ -486,7 +500,6 @@ export function approveChangeOrder(changeId, approvedBy) {
   const purchases = getPurchases()
   const subsList = getSubcontractors()
 
-  // הוספת משימות + רכש + קב"מ
   ;(co.items || []).forEach((item, i) => {
     const task = {
       id: Date.now() + 500 + i,
@@ -537,11 +550,9 @@ export function approveChangeOrder(changeId, approvedBy) {
   savePurchases(purchases)
   saveSubcontractors(subsList)
 
-  // חיבור לגבייה
   const totalSell = (co.items || []).reduce((s, i) => s + (i.clientPrice * i.quantity), 0)
 
   if (project.billingType === 'boq' && project.boqQuoteId) {
-    // BOQ — הוספת סעיפים לכתב הכמויות
     const boq = getBOQQuote(project.boqQuoteId)
     if (boq) {
       const newItems = [...(boq.items || [])]
@@ -560,7 +571,6 @@ export function approveChangeOrder(changeId, approvedBy) {
       updateBOQQuote(project.boqQuoteId, { items: newItems })
     }
   } else {
-    // רגיל — אבן דרך חדשה
     const milestones = getMilestones()
     milestones.push({
       id: Date.now() + 800,
@@ -585,28 +595,10 @@ export function getProjectSettings(projectId) {
   return { laborCostPerWorker: p?.laborCostPerWorker || 600 }
 }
 
-// ===== איפוס — שומר את כל נתוני הדמו ל-localStorage =====
-export function resetAllData() {
-  Object.keys(localStorage).filter(k => k.startsWith('pb_')).forEach(k => localStorage.removeItem(k))
-  // שמירה מפורשת של כל נתוני הדמו
-  save('priceList', masterPriceList)
-  save('quotes', demoQuotes)
-  save('projects', demoProjects)
-  save('milestones', demoMilestones)
-  save('projectTasks', demoProjectTasks)
-  save('purchases', demoPurchases)
-  save('workLogs', demoWorkLogs)
-  save('subcontractors', demoSubcontractors)
-  save('documents', demoDocuments)
-  save('boqQuotes', demoBOQQuotes)
-  save('partialInvoices', demoPartialInvoices)
-  save('changeOrders', [])
-}
-
-// טעינה אוטומטית — כל פעם שהגרסה משתנה הדמו נטען מחדש
-const DEMO_VERSION = '15'
-if (localStorage.getItem('pb_version') !== DEMO_VERSION) {
-  Object.keys(localStorage).forEach(k => localStorage.removeItem(k))
-  resetAllData()
-  localStorage.setItem('pb_version', DEMO_VERSION)
+// ===== איפוס =====
+export async function resetAllData() {
+  for (const key of Object.keys(TABLES)) {
+    cache[key] = TABLES[key]
+    await setDoc(doc(db, 'appData', key), { items: TABLES[key] })
+  }
 }
