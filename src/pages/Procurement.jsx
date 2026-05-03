@@ -14,7 +14,7 @@ export default function Procurement() {
   const [purchases, setPurchases] = useState(() => getPurchases().filter(p => p.projectId === pid))
   const [expanded, setExpanded] = useState({})
   const [addingOrder, setAddingOrder] = useState(null) // id של purchase שמוסיפים לו הזמנה
-  const [orderForm, setOrderForm] = useState({ supplier: '', quantity: '', unitCost: '', date: new Date().toISOString().split('T')[0] })
+  const [orderForm, setOrderForm] = useState({ supplier: '', quantity: '', unitCost: '', date: new Date().toISOString().split('T')[0], expectedDelivery: '', deliveryDays: '' })
 
   const refresh = () => setPurchases(getPurchases().filter(p => p.projectId === pid))
 
@@ -35,6 +35,14 @@ export default function Procurement() {
     const cost = Number(orderForm.unitCost) || purchase.budgetUnitCost
     if (qty <= 0) return
 
+    // חישוב תאריך אספקה צפוי
+    let expectedDelivery = orderForm.expectedDelivery
+    if (!expectedDelivery && orderForm.deliveryDays) {
+      const d = new Date(orderForm.date)
+      d.setDate(d.getDate() + Number(orderForm.deliveryDays))
+      expectedDelivery = d.toISOString().split('T')[0]
+    }
+
     const orders = [...(purchase.orders || []), {
       id: Date.now(),
       date: orderForm.date,
@@ -43,6 +51,7 @@ export default function Procurement() {
       unitCost: cost,
       total: qty * cost,
       status: 'ordered',
+      expectedDelivery: expectedDelivery || '',
     }]
 
     // עדכון סכומים
@@ -59,7 +68,7 @@ export default function Procurement() {
     })
     refresh()
     setAddingOrder(null)
-    setOrderForm({ supplier: '', quantity: '', unitCost: '', date: new Date().toISOString().split('T')[0] })
+    setOrderForm({ supplier: '', quantity: '', unitCost: '', date: new Date().toISOString().split('T')[0], expectedDelivery: '', deliveryDays: '' })
   }
 
   // הפקת הזמנת רכש PDF
@@ -239,6 +248,7 @@ td{padding:8px 10px;border-bottom:1px solid #eee}
                         <th>כמות</th>
                         <th>מחיר ליח׳</th>
                         <th>סה"כ</th>
+                        <th>אספקה צפויה</th>
                         <th>סטטוס</th>
                         <th style={{ width: '40px' }}></th>
                       </tr>
@@ -251,6 +261,19 @@ td{padding:8px 10px;border-bottom:1px solid #eee}
                           <td>{o.quantity}</td>
                           <td>{formatCurrency(o.unitCost)}</td>
                           <td style={{ fontWeight: 600, color: 'var(--gold)' }}>{formatCurrency(o.total)}</td>
+                          <td>
+                            {o.expectedDelivery ? (() => {
+                              const days = Math.ceil((new Date(o.expectedDelivery) - new Date()) / (1000*60*60*24))
+                              return (
+                                <span style={{
+                                  fontSize: '12px', fontWeight: 600,
+                                  color: o.status === 'delivered' ? 'var(--success)' : days <= 0 ? 'var(--danger)' : days <= 2 ? 'var(--warning)' : 'var(--text-muted)',
+                                }}>
+                                  {o.status === 'delivered' ? 'סופק' : days <= 0 ? `באיחור ${Math.abs(days)} ימים!` : days <= 2 ? `בעוד ${days} ימים — לאשר מול ספק` : formatDate(o.expectedDelivery)}
+                                </span>
+                              )
+                            })() : <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>-</span>}
+                          </td>
                           <td>
                             <select value={o.status} onChange={e => handleOrderStatus(p.id, o.id, e.target.value)}
                               style={{ padding: '4px 8px', fontSize: '12px', background: 'var(--dark)', border: '1px solid var(--dark-border)', borderRadius: '4px', color: o.status === 'delivered' ? 'var(--success)' : 'var(--warning)' }}>
@@ -295,8 +318,16 @@ td{padding:8px 10px;border-bottom:1px solid #eee}
                         <input type="number" value={orderForm.unitCost} onChange={e => setOrderForm(prev => ({ ...prev, unitCost: e.target.value }))} placeholder={String(p.budgetUnitCost)} style={{ padding: '6px 10px', fontSize: '13px', textAlign: 'center' }} />
                       </div>
                       <div className="form-group" style={{ margin: 0, flex: '0 0 110px' }}>
-                        <label style={{ fontSize: '11px' }}>תאריך</label>
+                        <label style={{ fontSize: '11px' }}>תאריך הזמנה</label>
                         <input type="date" value={orderForm.date} onChange={e => setOrderForm(prev => ({ ...prev, date: e.target.value }))} style={{ padding: '6px 10px', fontSize: '13px' }} />
+                      </div>
+                      <div className="form-group" style={{ margin: 0, flex: '0 0 80px' }}>
+                        <label style={{ fontSize: '11px' }}>ימי אספקה</label>
+                        <input type="number" min="0" value={orderForm.deliveryDays} onChange={e => setOrderForm(prev => ({ ...prev, deliveryDays: e.target.value, expectedDelivery: '' }))} placeholder="ימים" style={{ padding: '6px 10px', fontSize: '13px', textAlign: 'center' }} />
+                      </div>
+                      <div className="form-group" style={{ margin: 0, flex: '0 0 110px' }}>
+                        <label style={{ fontSize: '11px' }}>אספקה צפויה</label>
+                        <input type="date" value={orderForm.expectedDelivery || (orderForm.deliveryDays ? (() => { const d = new Date(orderForm.date); d.setDate(d.getDate() + Number(orderForm.deliveryDays)); return d.toISOString().split('T')[0] })() : '')} onChange={e => setOrderForm(prev => ({ ...prev, expectedDelivery: e.target.value, deliveryDays: '' }))} style={{ padding: '6px 10px', fontSize: '13px' }} />
                       </div>
                       <button className="btn btn-primary btn-sm" onClick={() => handleAddOrder(p.id)}>אשר</button>
                       <button className="btn btn-secondary btn-sm" onClick={() => setAddingOrder(null)}>ביטול</button>
@@ -306,7 +337,7 @@ td{padding:8px 10px;border-bottom:1px solid #eee}
                   <div style={{ padding: '12px 20px', borderTop: '1px solid var(--dark-border)' }}>
                     <button className="btn btn-primary btn-sm" onClick={() => {
                       setAddingOrder(p.id)
-                      setOrderForm({ supplier: p.supplier || '', quantity: String(remaining > 0 ? remaining : ''), unitCost: String(p.budgetUnitCost), date: new Date().toISOString().split('T')[0] })
+                      setOrderForm({ supplier: p.supplier || '', quantity: String(remaining > 0 ? remaining : ''), unitCost: String(p.budgetUnitCost), date: new Date().toISOString().split('T')[0], expectedDelivery: '', deliveryDays: '' })
                     }}>
                       <Plus size={14} />הוסף הזמנה
                     </button>

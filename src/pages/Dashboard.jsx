@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
-import { FolderKanban, DollarSign, AlertTriangle, RotateCcw, Plus, FileText, ChevronLeft, Users, Clock, Package } from 'lucide-react'
+import { FolderKanban, DollarSign, AlertTriangle, Plus, FileText, ChevronLeft, Users, Clock, Package } from 'lucide-react'
 import { getProjects, getQuotes, getMilestones, getBOQQuotes, getPartialInvoices, getSubcontractors, getPurchases, getWorkLogs, getChangeOrders } from '../data/store'
 import { calcQuoteTotals, formatCurrency, formatDate, getStatusLabel, getStatusBadgeClass } from '../data/mockData'
 
@@ -24,10 +24,12 @@ function getAllAlerts(projects, subcontractors, purchases, workLogs, milestones)
   // קבלני משנה בלי חוזה
   const noContract = subcontractors.filter(s => !s.hasContract)
   if (noContract.length > 0) {
+    const proj = noContract[0].projectId ? projects.find(pr => pr.id === noContract[0].projectId) : null
     alerts.push({
       type: 'warning', icon: AlertTriangle,
       text: `${noContract.length} קבלני משנה בלי חוזה חתום`,
       detail: noContract.map(s => s.name).join(', '),
+      link: proj ? `/project/${proj.id}/subcontractors` : null,
     })
   }
 
@@ -35,40 +37,46 @@ function getAllAlerts(projects, subcontractors, purchases, workLogs, milestones)
   const bigDebts = subcontractors.filter(s => (s.contractAmount - s.paid) > s.contractAmount * 0.5 && s.paid > 0)
   if (bigDebts.length > 0) {
     const totalDebt = bigDebts.reduce((s, sub) => s + (sub.contractAmount - sub.paid), 0)
+    const proj = bigDebts[0].projectId ? projects.find(pr => pr.id === bigDebts[0].projectId) : null
     alerts.push({
       type: 'warning', icon: Users,
       text: `חובות פתוחים לקבלני משנה: ${formatCurrency(totalDebt)}`,
       detail: bigDebts.map(s => `${s.name}: ${formatCurrency(s.contractAmount - s.paid)}`).join(' | '),
+      link: proj ? `/project/${proj.id}/subcontractors` : null,
     })
   }
 
   // פריטי רכש גדולים לא הוזמנו
   const notOrdered = purchases.filter(p => p.orderStatus === 'not_ordered' && p.budgetTotal > 5000)
   if (notOrdered.length > 0) {
+    const proj = notOrdered[0].projectId ? projects.find(pr => pr.id === notOrdered[0].projectId) : null
     alerts.push({
       type: 'info', icon: Package,
       text: `${notOrdered.length} פריטי רכש טרם הוזמנו`,
       detail: notOrdered.slice(0, 3).map(p => p.name).join(', ') + (notOrdered.length > 3 ? '...' : ''),
+      link: proj ? `/project/${proj.id}/procurement` : null,
     })
   }
 
   // חריגות תקציב
   const overBudget = purchases.filter(p => p.actualTotal > 0 && p.budgetTotal > 0 && ((p.actualTotal - p.budgetTotal) / p.budgetTotal) > 0.1)
   if (overBudget.length > 0) {
+    const proj = overBudget[0].projectId ? projects.find(pr => pr.id === overBudget[0].projectId) : null
     alerts.push({
       type: 'danger', icon: DollarSign,
       text: `${overBudget.length} חריגות תקציב ברכש`,
       detail: overBudget.map(p => `${p.name}: +${Math.round(((p.actualTotal - p.budgetTotal) / p.budgetTotal) * 100)}%`).join(' | '),
+      link: proj ? `/project/${proj.id}/procurement` : null,
     })
   }
 
-  // פרויקטים באיחור
+  // פרויקטים באיחור — נשארים על הדשבורד (לא מנווטים)
   projects.filter(p => p.status === 'active' && p.expectedEnd).forEach(p => {
     const daysLeft = Math.ceil((new Date(p.expectedEnd) - new Date()) / (1000 * 60 * 60 * 24))
     if (daysLeft < 0) {
-      alerts.push({ type: 'danger', icon: Clock, text: `${p.name} — באיחור של ${Math.abs(daysLeft)} ימים!`, detail: '' })
+      alerts.push({ type: 'danger', icon: Clock, text: `${p.name} — באיחור של ${Math.abs(daysLeft)} ימים!`, detail: '', link: null })
     } else if (daysLeft <= 30) {
-      alerts.push({ type: 'warning', icon: Clock, text: `${p.name} — ${daysLeft} ימים לסיום`, detail: '' })
+      alerts.push({ type: 'warning', icon: Clock, text: `${p.name} — ${daysLeft} ימים לסיום`, detail: '', link: null })
     }
   })
 
@@ -80,8 +88,50 @@ function getAllAlerts(projects, subcontractors, purchases, workLogs, milestones)
       type: 'warning', icon: DollarSign,
       text: `${pendingMs.length} אבני דרך מחכות לגבייה — ${formatCurrency(total)}`,
       detail: '',
+      link: null,
     })
   }
+
+  // אבני דרך לא מגיעות ל-100%
+  projects.forEach(p => {
+    const projMs = milestones.filter(m => m.projectId === p.id)
+    if (projMs.length > 0) {
+      const totalPct = projMs.reduce((s, m) => s + (m.percentage || 0), 0)
+      if (totalPct > 0 && totalPct < 100) {
+        alerts.push({
+          type: 'warning', icon: AlertTriangle,
+          text: `${p.name} — אבני דרך ${totalPct}% (חסרים ${100 - totalPct}%)`,
+          detail: '',
+          link: `/project/${p.id}/billing`,
+        })
+      }
+    }
+  })
+
+  // התראות אספקה — חומר מגיע בעוד יומיים
+  purchases.forEach(p => {
+    (p.orders || []).forEach(o => {
+      if (o.status === 'delivered' || !o.expectedDelivery) return
+      const days = Math.ceil((new Date(o.expectedDelivery) - new Date()) / (1000*60*60*24))
+      const proj = projects.find(pr => pr.id === p.projectId)
+      const projName = proj?.name || ''
+      if (days <= 0) {
+        alerts.push({
+          type: 'danger', icon: Package,
+          text: `${p.name} — באיחור אספקה ${Math.abs(days)} ימים! (${projName})`,
+          detail: `ספק: ${o.supplier}`,
+          link: proj ? `/project/${proj.id}/procurement` : null,
+        })
+      } else if (days <= 2) {
+        alerts.push({
+          type: 'warning', icon: Package,
+          text: `${p.name} — אספקה בעוד ${days} ימים, יש לאשר מול הספק (${projName})`,
+          detail: `ספק: ${o.supplier} | תאריך: ${o.expectedDelivery}`,
+          link: proj ? `/project/${proj.id}/procurement` : null,
+        })
+      }
+    })
+  })
 
   return alerts
 }
@@ -200,18 +250,28 @@ export default function Dashboard() {
             {alerts.map((alert, i) => {
               const style = alertStyles[alert.type] || alertStyles.info
               const Icon = alert.icon
+              const Wrapper = alert.link ? Link : 'div'
+              const wrapperProps = alert.link ? { to: alert.link, style: { textDecoration: 'none', color: 'inherit' } } : {}
               return (
-                <div key={i} style={{
-                  display: 'flex', alignItems: 'center', gap: '12px',
-                  padding: '10px 14px', borderRadius: '8px',
-                  background: style.bg, border: `1px solid ${style.border}`,
-                }}>
-                  <Icon size={16} style={{ color: style.color, flexShrink: 0 }} />
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-primary)' }}>{alert.text}</div>
-                    {alert.detail && <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '2px' }}>{alert.detail}</div>}
+                <Wrapper key={i} {...wrapperProps}>
+                  <div style={{
+                    display: 'flex', alignItems: 'center', gap: '12px',
+                    padding: '10px 14px', borderRadius: '8px',
+                    background: style.bg, border: `1px solid ${style.border}`,
+                    cursor: alert.link ? 'pointer' : 'default',
+                    transition: 'opacity 0.15s',
+                  }}
+                    onMouseEnter={e => { if (alert.link) e.currentTarget.style.opacity = '0.8' }}
+                    onMouseLeave={e => { if (alert.link) e.currentTarget.style.opacity = '1' }}
+                  >
+                    <Icon size={16} style={{ color: style.color, flexShrink: 0 }} />
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-primary)' }}>{alert.text}</div>
+                      {alert.detail && <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '2px' }}>{alert.detail}</div>}
+                    </div>
+                    {alert.link && <ChevronLeft size={16} style={{ color: 'var(--text-muted)' }} />}
                   </div>
-                </div>
+                </Wrapper>
               )
             })}
           </div>
