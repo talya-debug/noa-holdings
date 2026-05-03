@@ -1,8 +1,8 @@
 import { useParams } from 'react-router-dom'
 import { useState } from 'react'
-import { Users, FileText, AlertTriangle, Plus, CreditCard, Trash2, ChevronDown, ChevronUp } from 'lucide-react'
+import { Users, FileText, AlertTriangle, Plus, CreditCard, Trash2, ChevronDown, ChevronUp, Upload } from 'lucide-react'
 import { formatCurrency, formatDate } from '../data/mockData'
-import { getProject, getSubcontractors, saveSubcontractors, addSubcontractor, deleteSubcontractor } from '../data/store'
+import { getProject, getSubcontractors, saveSubcontractors, addSubcontractor, deleteSubcontractor, addDocument } from '../data/store'
 
 export default function Subcontractors() {
   const { id } = useParams()
@@ -65,6 +65,31 @@ export default function Subcontractors() {
     setPaymentNote('')
   }
 
+  // סימון הסכם חתום + יצירת מסמך
+  const handleToggleContract = (subId) => {
+    const allSubs = getSubcontractors()
+    const idx = allSubs.findIndex(s => s.id === subId)
+    if (idx === -1) return
+    const sub = allSubs[idx]
+    const newStatus = !sub.hasContract
+    allSubs[idx].hasContract = newStatus
+    saveSubcontractors(allSubs)
+    // אם מסמנים שיש הסכם — יוצרים רשומת מסמך
+    if (newStatus) {
+      addDocument({
+        projectId: pid,
+        name: `הסכם — ${sub.name}`,
+        category: 'contracts',
+        size: 0,
+        type: '',
+        note: `הסכם חתום עם ${sub.name} (${sub.specialty})`,
+        uploadedBy: 'מהדף קב"מ',
+        date: new Date().toISOString().split('T')[0],
+      })
+    }
+    setSubs(allSubs.filter(s => s.projectId === pid))
+  }
+
   return (
     <div className="animate-in">
       <div style={{
@@ -121,9 +146,12 @@ export default function Subcontractors() {
                   </div>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <span className={`badge ${sub.hasContract ? 'badge-success' : 'badge-warning'}`}>
-                    {sub.hasContract ? <><FileText size={12} /> הסכם חתום</> : <><AlertTriangle size={12} /> חסר הסכם</>}
-                  </span>
+                  <button onClick={() => handleToggleContract(sub.id)}
+                    className={`badge ${sub.hasContract ? 'badge-success' : 'badge-warning'}`}
+                    style={{ cursor: 'pointer', border: 'none' }}
+                    title={sub.hasContract ? 'לחץ לביטול הסכם' : 'לחץ לסמן הסכם חתום'}>
+                    {sub.hasContract ? <><FileText size={12} /> הסכם חתום</> : <><Upload size={12} /> סמן הסכם חתום</>}
+                  </button>
                   <button onClick={() => handleDelete(sub.id, sub.name)}
                     style={{ background: 'none', border: 'none', color: 'var(--danger)', cursor: 'pointer', padding: '4px' }}
                     title="מחק קבלן">
