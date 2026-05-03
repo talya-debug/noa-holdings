@@ -25,11 +25,9 @@ const TABLES = {
   changeOrders: [],
 }
 
-// נתיב Firestore של המשתמש הנוכחי
+// נתיב Firestore — נתונים משותפים לכל משתמשי המערכת
 function userDoc(key) {
-  const uid = auth.currentUser?.uid
-  if (!uid) throw new Error('משתמש לא מחובר')
-  return doc(db, 'users', uid, 'data', key)
+  return doc(db, 'appData', key)
 }
 
 // טעינה ראשונית מ-Firestore — קורה פעם אחת אחרי התחברות
