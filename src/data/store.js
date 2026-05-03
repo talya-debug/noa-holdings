@@ -198,8 +198,7 @@ export function approveQuote(quoteId) {
     }
     tasks.push(task)
 
-    // חומר או כולל — הולך לרכש
-    if (pi.type === 'material' || pi.type === 'combined') {
+    if (pi.type === 'material') {
       purchases.push({
         id: Date.now() + 200 + i,
         projectId: project.id,

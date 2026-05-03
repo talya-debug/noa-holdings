@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Plus, Package, Wrench, Users, Layers, X, Edit3, Trash2, Save, Download, Upload } from 'lucide-react'
+import { Plus, Package, Wrench, Users, X, Edit3, Trash2, Save, Download, Upload } from 'lucide-react'
 import { categoryIcons, formatCurrency, getTypeLabel, getTypeBadgeClass } from '../data/mockData'
 import { getPriceList, savePriceList, addPriceItem, updatePriceItem, deletePriceItem } from '../data/store'
 import * as XLSX from 'xlsx'
@@ -14,7 +14,6 @@ const TYPE_OPTIONS = [
   { value: 'material', icon: <Package size={14} />, label: 'חומר' },
   { value: 'labor', icon: <Wrench size={14} />, label: 'עבודה' },
   { value: 'subcontractor', icon: <Users size={14} />, label: 'קבלן משנה' },
-  { value: 'combined', icon: <Layers size={14} />, label: 'כולל (חומר+עבודה)' },
 ]
 
 export default function PriceList() {

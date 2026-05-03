@@ -6,10 +6,9 @@ import { addBOQQuote } from '../data/store'
 
 // סוגי סיווג
 const TYPE_OPTIONS = [
-  { value: 'procurement', label: 'רכש' },
-  { value: 'labor', label: 'כוח אדם' },
+  { value: 'procurement', label: 'רכש (חומר)' },
+  { value: 'labor', label: 'כוח אדם (עבודה)' },
   { value: 'subcontractor', label: 'קבלן משנה' },
-  { value: 'combined', label: 'כולל' },
 ]
 
 // ניחוש סוג לפי מילות מפתח בתיאור
@@ -19,8 +18,8 @@ function guessType(name) {
   if (/קבלן|קב"מ|פאושלי|ביצוע מלא/.test(n)) return 'subcontractor'
   // עבודה
   if (/עבוד|צוות|יום עבודה|כוח אדם|התקנה|פירוק|הרכבה/.test(n)) return 'labor'
-  // כולל
-  if (/כולל עבודה|כולל התקנה|אספקה והתקנה|כולל חומר/.test(n)) return 'combined'
+  // כולל = בד"כ קבלן משנה שעושה הכל
+  if (/כולל עבודה|כולל התקנה|אספקה והתקנה|כולל חומר/.test(n)) return 'subcontractor'
   // רכש (ברירת מחדל)
   return 'procurement'
 }

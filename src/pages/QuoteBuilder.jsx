@@ -433,7 +433,6 @@ ${milestones.map((ms, i) => `<tr><td>${i + 1}</td><td>${ms.name}</td><td>${ms.pe
                   <option value="material">חומר</option>
                   <option value="labor">עבודה</option>
                   <option value="subcontractor">קב"מ</option>
-                  <option value="combined">כולל</option>
                 </select>
               </div>
             </div>
