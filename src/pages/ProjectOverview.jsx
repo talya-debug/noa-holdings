@@ -36,6 +36,7 @@ export default function ProjectOverview() {
       if (pi.type === 'material') plannedMaterials += cost
       else if (pi.type === 'subcontractor') plannedSubs += cost
       else if (pi.type === 'labor') plannedLabor += cost
+      else if (pi.type === 'combined') { plannedMaterials += cost * 0.6; plannedLabor += cost * 0.4 }
     })
   }
   if (boqQuote) {
@@ -44,6 +45,7 @@ export default function ProjectOverview() {
       if (i.itemType === 'procurement') plannedMaterials += cost
       else if (i.itemType === 'subcontractor') plannedSubs += cost
       else if (i.itemType === 'labor') plannedLabor += cost
+      else if (i.itemType === 'combined') { plannedMaterials += cost * 0.6; plannedLabor += cost * 0.4 }
     })
   }
   const plannedCost = plannedMaterials + plannedSubs + plannedLabor
@@ -106,9 +108,10 @@ export default function ProjectOverview() {
     const cats = [...new Set(tasks.map(t => t.category))].sort()
     return cats.map(cat => {
       const catTasks = tasks.filter(t => t.category === cat)
-      const plannedMat = catTasks.filter(t => t.type === 'material').reduce((s, t) => s + (t.budgetCost * t.budgetQty), 0)
+      const combinedCost = catTasks.filter(t => t.type === 'combined').reduce((s, t) => s + (t.budgetCost * t.budgetQty), 0)
+      const plannedMat = catTasks.filter(t => t.type === 'material').reduce((s, t) => s + (t.budgetCost * t.budgetQty), 0) + combinedCost * 0.6
       const plannedSub = catTasks.filter(t => t.type === 'subcontractor').reduce((s, t) => s + (t.budgetCost * t.budgetQty), 0)
-      const plannedLab = catTasks.filter(t => t.type === 'labor').reduce((s, t) => s + (t.budgetCost * t.budgetQty), 0)
+      const plannedLab = catTasks.filter(t => t.type === 'labor').reduce((s, t) => s + (t.budgetCost * t.budgetQty), 0) + combinedCost * 0.4
       const plannedTotal = plannedMat + plannedSub + plannedLab
       const plannedSell = catTasks.reduce((s, t) => s + (t.clientPrice * t.budgetQty), 0)
       const catPurchases = purchases.filter(p => p.category === cat)
