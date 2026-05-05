@@ -598,7 +598,7 @@ export function calcQuoteTotals(quoteItems) {
   return {
     totalCost, totalSell, materialCost, laborCost,
     profit: totalSell - totalCost,
-    profitMargin: totalSell > 0 ? Math.round(((totalSell - totalCost) / totalSell) * 100) : 0,
+    profitMargin: totalCost > 0 ? Math.round(((totalSell - totalCost) / totalCost) * 100) : 0,
   }
 }
 
