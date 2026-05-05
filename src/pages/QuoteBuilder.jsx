@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import React, { useState, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { Plus, Trash2, Save, CheckCircle, X, FileDown, Upload, FileSpreadsheet, Download, Edit3 } from 'lucide-react'
 import { findPriceItem, calcQuoteTotals, formatCurrency, formatDate, getStatusLabel, getStatusBadgeClass, categoryIcons, getCategories, getTypeLabel, getTypeBadgeClass, masterPriceList } from '../data/mockData'
@@ -86,7 +86,7 @@ export default function QuoteBuilder() {
   }
 
   // פריט חופשי — הוספה ישירה, לא נכנס למחירון
-  const [freeItem, setFreeItem] = useState({ name: '', category: '', unit: 'יח׳', type: 'material', costPrice: '', clientPrice: '', quantity: 1 })
+  const [freeItem, setFreeItem] = useState({ name: '', category: '', unit: 'יח׳', type: 'material', costPrice: '', clientPrice: '', profitPercent: '', quantity: 1 })
   const handleAddFreeItem = () => {
     if (!freeItem.name) return
     const freeId = -(Date.now()) // ID שלילי = פריט חופשי, לא במחירון
@@ -103,7 +103,7 @@ export default function QuoteBuilder() {
       _costPrice: Number(freeItem.costPrice) || 0,
     }]
     saveItemsWithMilestones(newItems)
-    setFreeItem({ name: '', category: '', unit: 'יח׳', type: 'material', costPrice: '', clientPrice: '', quantity: 1 })
+    setFreeItem({ name: '', category: '', unit: 'יח׳', type: 'material', costPrice: '', clientPrice: '', profitPercent: '', quantity: 1 })
   }
 
   const handleRemoveItem = (priceItemId) => {
@@ -112,9 +112,19 @@ export default function QuoteBuilder() {
   }
 
   const handleItemChange = (priceItemId, field, value) => {
-    const newItems = (quote.items || []).map(qi =>
-      qi.priceItemId === priceItemId ? { ...qi, [field]: Number(value) || 0 } : qi
-    )
+    const newItems = (quote.items || []).map(qi => {
+      if (qi.priceItemId !== priceItemId) return qi
+      const updated = { ...qi, [field]: Number(value) || 0 }
+
+      // חישוב דו-כיווני: אחוז רווח ↔ מחיר ללקוח
+      const costPrice = qi._free ? qi._costPrice : (priceList.find(p => p.id === qi.priceItemId) || findPriceItem(qi.priceItemId))?.costPrice || 0
+      if (field === 'profitPercent' && costPrice > 0) {
+        updated.clientPrice = Math.round(costPrice * (1 + (Number(value) || 0) / 100))
+      } else if (field === 'clientPrice' && costPrice > 0) {
+        updated.profitPercent = Math.round(((Number(value) || 0) - costPrice) / costPrice * 100)
+      }
+      return updated
+    })
     saveQuote({ items: newItems })
   }
 
@@ -453,11 +463,40 @@ ${milestones.map((ms, i) => `<tr><td>${i + 1}</td><td>${ms.name}</td><td>${ms.pe
               </div>
               <div className="form-group" style={{ margin: 0, flex: '0 0 100px' }}>
                 <label style={{ fontSize: '12px' }}>עלות ליח׳</label>
-                <input type="number" min="0" value={freeItem.costPrice} onChange={e => setFreeItem(p => ({ ...p, costPrice: e.target.value }))} placeholder="0" style={{ textAlign: 'center' }} />
+                <input type="number" min="0" value={freeItem.costPrice} onChange={e => {
+                  const cost = Number(e.target.value) || 0
+                  setFreeItem(p => {
+                    const newState = { ...p, costPrice: e.target.value }
+                    if (p.profitPercent && cost > 0) {
+                      newState.clientPrice = String(Math.round(cost * (1 + Number(p.profitPercent) / 100)))
+                    }
+                    return newState
+                  })
+                }} placeholder="0" style={{ textAlign: 'center' }} />
+              </div>
+              <div className="form-group" style={{ margin: 0, flex: '0 0 80px' }}>
+                <label style={{ fontSize: '12px' }}>% רווח</label>
+                <input type="number" value={freeItem.profitPercent || ''} onChange={e => {
+                  const pct = Number(e.target.value) || 0
+                  const cost = Number(freeItem.costPrice) || 0
+                  setFreeItem(p => ({
+                    ...p,
+                    profitPercent: e.target.value,
+                    clientPrice: cost > 0 ? String(Math.round(cost * (1 + pct / 100))) : p.clientPrice,
+                  }))
+                }} placeholder="30" style={{ textAlign: 'center' }} />
               </div>
               <div className="form-group" style={{ margin: 0, flex: '0 0 100px' }}>
                 <label style={{ fontSize: '12px' }}>מחיר ללקוח</label>
-                <input type="number" min="0" value={freeItem.clientPrice} onChange={e => setFreeItem(p => ({ ...p, clientPrice: e.target.value }))} placeholder="0" style={{ textAlign: 'center' }} />
+                <input type="number" min="0" value={freeItem.clientPrice} onChange={e => {
+                  const price = Number(e.target.value) || 0
+                  const cost = Number(freeItem.costPrice) || 0
+                  setFreeItem(p => ({
+                    ...p,
+                    clientPrice: e.target.value,
+                    profitPercent: cost > 0 ? String(Math.round((price - cost) / cost * 100)) : p.profitPercent,
+                  }))
+                }} placeholder="0" style={{ textAlign: 'center' }} />
               </div>
               <button className="btn btn-primary" onClick={handleAddFreeItem} disabled={!freeItem.name} style={{ height: '40px' }}>
                 <Plus size={16} />הוסף
@@ -591,6 +630,7 @@ ${milestones.map((ms, i) => `<tr><td>${i + 1}</td><td>${ms.name}</td><td>${ms.pe
                   <th>יחידה</th>
                   <th>עלות ליח׳</th>
                   <th style={{ width: '80px' }}>כמות</th>
+                  <th style={{ width: '80px' }}>% רווח</th>
                   <th style={{ width: '100px' }}>מחיר ללקוח</th>
                   <th>סה"כ עלות</th>
                   <th>סה"כ מכירה</th>
@@ -600,16 +640,18 @@ ${milestones.map((ms, i) => `<tr><td>${i + 1}</td><td>${ms.name}</td><td>${ms.pe
               </thead>
               <tbody>
                 {Object.entries(groupedItems).map(([cat, items]) => (
-                  <>
-                    <tr key={`cat-${cat}`}>
-                      <td colSpan="10" style={{
+                  <React.Fragment key={`cat-${cat}`}>
+                    <tr>
+                      <td colSpan="11" style={{
                         background: 'rgba(212,168,67,0.06)', fontWeight: 600,
                         fontSize: '13px', color: 'var(--gold)', padding: '10px 16px',
                       }}>
                         {categoryIcons[cat] || '📦'} {cat}
                       </td>
                     </tr>
-                    {items.map(item => (
+                    {items.map(item => {
+                      const profitPct = item.costPrice > 0 ? Math.round((item.clientPrice - item.costPrice) / item.costPrice * 100) : 0
+                      return (
                       <tr key={item.priceItemId}>
                         <td style={{ fontWeight: 500 }}>{item.name}</td>
                         <td>
@@ -623,6 +665,12 @@ ${milestones.map((ms, i) => `<tr><td>${i + 1}</td><td>${ms.name}</td><td>${ms.pe
                           <input type="number" min="0" value={item.quantity}
                             onChange={e => handleItemChange(item.priceItemId, 'quantity', e.target.value)}
                             style={{ width: '70px', textAlign: 'center', padding: '5px 8px', fontSize: '13px' }}
+                          />
+                        </td>
+                        <td>
+                          <input type="number" value={profitPct}
+                            onChange={e => handleItemChange(item.priceItemId, 'profitPercent', e.target.value)}
+                            style={{ width: '70px', textAlign: 'center', padding: '5px 8px', fontSize: '13px', color: profitPct >= 20 ? 'var(--success)' : profitPct >= 10 ? 'var(--warning)' : 'var(--danger)' }}
                           />
                         </td>
                         <td>
@@ -643,8 +691,8 @@ ${milestones.map((ms, i) => `<tr><td>${i + 1}</td><td>${ms.name}</td><td>${ms.pe
                           </button>
                         </td>
                       </tr>
-                    ))}
-                  </>
+                    )})}
+                  </React.Fragment>
                 ))}
               </tbody>
             </table>
