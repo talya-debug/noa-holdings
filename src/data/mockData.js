@@ -576,6 +576,16 @@ export function findPriceItem(id) {
 export function calcQuoteTotals(quoteItems) {
   let totalCost = 0, totalSell = 0, materialCost = 0, laborCost = 0
   quoteItems.forEach(qi => {
+    // פריט חופשי — נתונים ישירות על הפריט
+    if (qi._free) {
+      const cost = (qi._costPrice || 0) * qi.quantity
+      const sell = qi.clientPrice * qi.quantity
+      totalCost += cost
+      totalSell += sell
+      if (qi._type === 'material') materialCost += cost
+      else laborCost += cost
+      return
+    }
     const pi = findPriceItem(qi.priceItemId)
     if (!pi) return
     const cost = pi.costPrice * qi.quantity
